@@ -1,0 +1,6 @@
+# Ignorer les caches Angular
+.angular/cache
+
+# Ignorer le dossier node_modules
+node_modules/
+

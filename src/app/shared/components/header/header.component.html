@@ -1,0 +1,92 @@
+<div class="main-header">
+    <div class="main-header-logo">
+      <!-- Logo Header -->
+      <div class="logo-header" data-background-color="dark">
+        <a routerLink="/dashboard" class="logo">
+          <img
+            src="assets/img/logo.png"
+            alt="navbar brand"
+            class="navbar-brand"
+            height="20"
+          />
+        </a>
+        <div class="nav-toggle">
+          <button class="btn btn-toggle toggle-sidebar">
+            <i class="gg-menu-right"></i>
+          </button>
+          <button class="btn btn-toggle sidenav-toggler">
+            <i class="gg-menu-left"></i>
+          </button>
+        </div>
+        <button class="topbar-toggler more">
+          <i class="gg-more-vertical-alt"></i>
+        </button>
+      </div>
+      <!-- End Logo Header -->
+    </div>
+    <!-- Navbar Header -->
+    <nav
+      class="navbar navbar-header navbar-header-transparent navbar-expand-lg border-bottom"
+    >
+      <div class="container-fluid">
+        <div class="navbar-right d-flex align-items-center ms-auto">
+          <!-- Search Input -->
+          <div class="input-group search-bar">
+            <input type="text" placeholder="Recherche" class="form-control" />
+            
+            <div class="input-group-append">
+              <span class="input-group-text">
+                  <span class="input-group-bar"></span>
+                <i class="fa fa-search search-icon"></i>
+              </span>
+            </div>
+          </div>
+  
+          <!-- Other Items (Notifications, Profile, etc.) -->
+          <ul class="navbar-nav topbar-nav align-items-center ms-3">
+            <li class="nav-item topbar-icon dropdown hidden-caret">
+              <a
+                class="nav-link dropdown-toggle"
+                href="#"
+                id="notifDropdown"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                <img
+                  src="assets/img/noty.png"
+                  style="width: 28px; height: 28px"
+                  alt="..."
+                  class="avatar-img "
+                />
+                <span class="notification bg-danger">4</span>
+              </a>
+            </li>
+  
+            <li class="nav-item topbar-user dropdown hidden-caret">
+              <a
+                class="dropdown-toggle profile-pic"
+                data-bs-toggle="dropdown"
+                href="#"
+                aria-expanded="false"
+              >
+                <div class="avatar-sm">
+                  <img
+                    src="assets/img/message-2-fill.png"
+                    alt="..."
+                    height="40"
+                    
+                  />
+                </div>
+                <span class="notification bg-danger">4</span>
+              </a>
+              
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <!-- End Navbar -->
+  </div>
+  

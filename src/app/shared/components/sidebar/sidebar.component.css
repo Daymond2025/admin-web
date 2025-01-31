@@ -1,0 +1,64 @@
+div::-webkit-scrollbar {
+ 
+    display: none!important;
+ 
+}
+p,span,a{
+    color: black!important;
+}
+.logo-name {
+    font-size: 1.5rem;
+
+    color: #000;
+    margin-left: 6px;
+    text-transform: uppercase;
+    line-height: 150%;
+}
+
+.color-primary {
+    color: #FF9500;
+}
+
+.sidebar {
+    width:350px !important;
+    
+
+}
+.sidebar-wrapper {
+    width: 50px;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    box-shadow: inset 0 0 8px #aaa8a897;
+    transition: box-shadow 0.3s ease-in-out;
+    margin-left: 5px;
+    margin-right: 5px !important;
+}
+
+.nav-item {
+    margin-right: 10px;
+    margin-left: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px !important;
+    
+}
+
+.nav-item:hover,
+.nav-item.active {
+    background-color: #FCF5F5 !important; /* Changez cette couleur si vous souhaitez un autre fond */
+    border: none !important;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.nav-item:hover p,
+.nav-item.active p {
+    color: #FF9500 !important; /* Couleur orange pour le texte */
+}
+
+.activated{
+    width: 30px;height: 30px;border-radius: 8px!important;display: flex;align-items: center;justify-content: center;background-color: white;border: 1px solid #FFA11E;padding: 20px
+}
+
+
+.men-st{
+    width: 30px;height: 30px;border-radius: 3px;display: flex;align-items: center;justify-content: center;border-radius: 3px
+}

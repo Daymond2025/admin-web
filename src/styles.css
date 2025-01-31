@@ -1,0 +1,19 @@
+/* You can add global styles to this file, and also import other style files */
+/* You can add global styles to this file, and also import other style files */
+body {
+    background-color: #f8f8fb;
+}
+.button_style {
+   
+    max-height: 50px!important;
+    display: flex!important;
+    align-items: center!important;
+    justify-content: center!important; 
+}
+
+.heigth_style{
+    max-height: 40px!important;
+}
+.box-st{
+    height: 120px;width: 120px;background-color: white;margin: 0 auto;border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);display: flex;align-items: center;justify-content: center;flex-direction: column;margin-bottom: 30px;
+}

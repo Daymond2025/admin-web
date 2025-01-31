@@ -1,0 +1,583 @@
+<!-- 
+ <ul class="nav nav-tabs" id="myTab" role="tablist">
+    <li class="nav-item" role="presentation">
+        <button class="nav-link active" id="premmier-tab" data-bs-toggle="tab" data-bs-target="#premmier" type="button" role="tab" aria-controls="premmier" aria-selected="true">Premmier</button>
+    </li>
+    <li class="nav-item" role="presentation">
+        <button class="nav-link" id="deuxieme-tab" data-bs-toggle="tab" data-bs-target="#deuxieme" type="button" role="tab" aria-controls="deuxieme" aria-selected="false">Deuxieme</button>
+    </li>
+    <li class="nav-item" role="presentation">
+        <button class="nav-link" id="troisieme-tab" data-bs-toggle="tab" data-bs-target="#troisieme" type="button" role="tab" aria-controls="troisieme" aria-selected="true">troisieme</button>
+    </li>
+    <li class="nav-item" role="presentation">
+        <button class="nav-link" id="quatre-tab" data-bs-toggle="tab" data-bs-target="#quatre" type="button" role="tab" aria-controls="quatre" aria-selected="false">quatre</button>
+    </li>
+    <li class="nav-item" role="presentation">
+        <button class="nav-link" id="cinq-tab" data-bs-toggle="tab" data-bs-target="#cinq" type="button" role="tab" aria-controls="cinq" aria-selected="true">cinq</button>
+    </li>
+    <li class="nav-item" role="presentation">
+        <button class="nav-link" id="six-tab" data-bs-toggle="tab" data-bs-target="#six" type="button" role="tab" aria-controls="six" aria-selected="false">six</button>
+    </li>
+</ul>
+ -->
+
+
+
+
+
+
+
+
+
+<div style="display: flex;gap: 20px;background-color: none;">
+    <div class="container-fluid p-0" style="min-width: 200px;height: 100vh;background-color: #8B9AD5;" id="effacesq">
+        <div
+            style="height: 40px;width: 100%;border-bottom: 1px solid gainsboro;margin-bottom: 20px;background-color: white;">
+            <p style="text-align: center;padding-top: 10px;">Annonces</p>
+        </div>
+        <ul class="p-3" id="myTab" role="tablist">
+
+
+
+            <li class="nav-item"
+                style="height: 100px;width: 100px;background-color: white;margin: 0 auto;border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);display: flex;align-items: center;justify-content: center;flex-direction: column;margin-bottom: 30px;"
+                role="presentation">
+
+                <button
+                    style="height: 100%;width: 100%;display: flex;align-items: center;justify-content: center;flex-direction: column;border: none;background-color: white;border-radius: 5PX;"
+                    class="nav-link active" id="premmier-tab" data-bs-toggle="tab" data-bs-target="#premmier"
+                    type="button" role="tab" aria-controls="premmier" aria-selected="true">
+                    <img src="assets/img/iconz1.png" style="width: 50px;height: 50px;" />
+                    <span style="text-align: center;font-size: 0.7rem;">Notification et diffusion</span>
+                </button>
+
+            </li>
+
+            <li class="nav-item"
+                style="height: 100px;width: 100px;background-color: white;margin: 0 auto;border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);display: flex;align-items: center;justify-content: center;flex-direction: column;margin-bottom: 30px;"
+                role="presentation">
+                <button
+                    style="height: 100%;width: 100%;display: flex;align-items: center;justify-content: center;flex-direction: column;border: none;background-color: white;border-radius: 5PX;"
+                    class="nav-link" id="deuxieme-tab" data-bs-toggle="tab" data-bs-target="#deuxieme" type="button"
+                    role="tab" aria-controls="deuxieme" aria-selected="false">
+                    <img src="assets/img/iconz4.png" style="width: 50px;height: 50px;" />
+                    <span style="text-align: center;font-size: 0.7rem;">Actualité
+                        daymond</span>
+                </button>
+
+            </li>
+            <li class="nav-item"
+                style="height: 100px;width: 100px;background-color: white;margin: 0 auto;border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);display: flex;align-items: center;justify-content: center;flex-direction: column;margin-bottom: 30px;"
+                role="presentation">
+                <button
+                    style="height: 100%;width: 100%;display: flex;align-items: center;justify-content: center;flex-direction: column;border: none;background-color: white;border-radius: 5PX;"
+                    class="nav-link" id="troisieme-tab" data-bs-toggle="tab" data-bs-target="#troisieme" type="button"
+                    role="tab" aria-controls="troisieme" aria-selected="false">
+                    <img src="assets/img/iconz2.png" style="width: 50px;height: 50px;" />
+                    <span style="text-align: center;font-size: 0.7rem;">Les heureux
+                        gagnants</span>
+                </button>
+
+            </li>
+
+            <li class="nav-item"
+                style="height: 100px;width: 100px;background-color: white;margin: 0 auto;border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);display: flex;align-items: center;justify-content: center;flex-direction: column;margin-bottom: 30px;"
+                role="presentation">
+                <button
+                    style="height: 100%;width: 100%;display: flex;align-items: center;justify-content: center;flex-direction: column;border: none;background-color: white;border-radius: 5PX;"
+                    class="nav-link" id="quatre-tab" data-bs-toggle="tab" data-bs-target="#quatre" type="button"
+                    role="tab" aria-controls="quatre" aria-selected="false">
+                    <img src="assets/img/iconz3.png" style="width: 50px;height: 50px;" />
+                    <span style="text-align: center;font-size: 0.7rem;">promotion
+                        speciale</span>
+                </button>
+
+            </li>
+
+            <li class="nav-item"
+                style="height: 100px;width: 100px;background-color: white;margin: 0 auto;border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);display: flex;align-items: center;justify-content: center;flex-direction: column;margin-bottom: 30px;"
+                role="presentation">
+                <button
+                    style="height: 100%;width: 100%;display: flex;align-items: center;justify-content: center;flex-direction: column;border: none;background-color: white;border-radius: 5PX;"
+                    class="nav-link" id="cinq-tab" data-bs-toggle="tab" data-bs-target="#cinq" type="button" role="tab"
+                    aria-controls="cinq" aria-selected="false">
+                    <img src="assets/img/iconz6.png" style="width: 50px;height: 50px;" />
+                    <span style="text-align: center;font-size: 0.7rem;">Annonces
+                        flottante</span>
+                </button>
+
+            </li>
+
+            <li class="nav-item"
+                style="height: 100px;width: 100px;background-color: white;margin: 0 auto;border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);display: flex;align-items: center;justify-content: center;flex-direction: column;margin-bottom: 30px;"
+                role="presentation">
+                <button
+                    style="height: 100%;width: 100%;display: flex;align-items: center;justify-content: center;flex-direction: column;border: none;background-color: white;border-radius: 5PX;"
+                    class="nav-link" d="six-tab" data-bs-toggle="tab" data-bs-target="#six" type="button" role="tab"
+                    aria-controls="six" aria-selected="false">
+                    <img src="assets/img/iconz5.webp.png" style="width: 50px;height: 50px;" />
+                    <span style="text-align: center;font-size: 0.7rem;">Nouvelle
+                        Mise a jour</span>
+                </button>
+
+            </li>
+
+
+
+
+        </ul>
+
+    </div>
+
+
+    <div id="myTabContent" style="width: 100%;background-color: white;border: 1px solid gainsboro">
+
+
+        <!-- create -->
+
+
+        <!-- actualite -->
+
+
+
+
+
+        <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade show active" id="premmier" role="tabpanel" aria-labelledby="premmier-tab">
+                <div style="width: 100%">
+
+
+                    <div class="d-flex justify-content-between align-items-center w-full"
+                        style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2)">
+
+                        <div class="d-flex gap-3 align-items-start justify-content-between w-100"
+                            style="padding-top: 10px;padding-left: 20px;">
+
+                            <p class="text-dark">Créer une annonce flottante</p>
+
+
+                        </div>
+
+
+                    </div>
+
+                    <div class="mt-2 p-3" style="display: flex;flex-direction: column;align-items: center;">
+                        <input type="text" name="" id="" placeholder="Ajouter une image  "
+                            style="width: 100%;height: 50px;border-radius: 5px;border: 1px solid rgb(176, 176, 176);margin-bottom: 20px;padding-left: 30px;">
+                        <input type="text" name="" id="" placeholder="Entrer le nom DU SUJET"
+                            style="width: 100%;height: 50px;border-radius: 5px;border: 1px solid rgb(176, 176, 176);margin-bottom: 20px;padding-left: 30px;">
+                        <input type="text" name="" id="" placeholder="Coller un lient externe"
+                            style="width: 100%;height: 50px;border-radius: 5px;border: 1px solid rgb(176, 176, 176);margin-bottom: 20px;padding-left: 30px;">
+                        <div style="display: flex;align-items: center;justify-content: start;width: 100%;">
+                            <span style="padding-bottom: 20px;text-align: start " class="text-dark">Fréquence
+                                d’affichage</span>
+                        </div>
+
+                        <input type="text" name="" id="" placeholder="NOMBRE DE FOIS"
+                            style="width: 100%;height: 50px;border-radius: 5px;border: 1px solid rgb(176, 176, 176);margin-bottom: 20px;padding-left: 30px;">
+
+                        <button class="btn text-light"
+                            style="padding-left: 100px;padding-right: 100px;background-color: #FC9702;margin: 0 auto;margin-top: 300px;">PUBLIER</button>
+
+                    </div>
+
+
+
+
+
+                </div>
+            </div>
+            <div class="tab-pane fade " id="deuxieme" role="tabpanel" aria-labelledby="deuxieme-tab">
+                <div style="width: 100%" class="prem-1-day">
+
+
+                    <div class="d-flex justify-content-between align-items-center w-full"
+                        style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2)">
+
+                        <div class="d-flex gap-3 align-items-start justify-content-between w-100"
+                            style="padding-top: 10px;padding-left: 20px;">
+
+                            <p class="text-dark">Créer une Actualité </p>
+
+
+
+
+
+                            <ul class="nav nav-tabs " id="myTab" role="tablist">
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link active border-0 clap-1-los" id="pre-1-box-tab" data-bs-toggle="tab"
+                                        data-bs-target="#pre-1-box" type="button" role="tab" aria-controls="pre-1-box"
+                                        aria-selected="true" ></button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link border-0 clap-1-los" id="pre-2-box-tab" data-bs-toggle="tab"
+                                    data-bs-target="#pre-2-box" type="button" role="tab" aria-controls="pre-2-box"
+                                        aria-selected="false">
+
+
+                                        <img src="assets/img/adfgh.png" style="width: 25px;height: 25px;" />
+
+                                    </button>
+                                </li>
+
+                            </ul>
+
+
+                        </div>
+
+
+                    </div>
+                    <div id="myTabContent" class="tab-content mt-0" style="background-color: #DDEBF7;height: 100vh;margin-top: 0;">
+
+
+                        <div class="tab-pane fade show active" id="pre-1-box" role="tabpanel"
+                            aria-labelledby="pre-1-box-tab">
+                            <div class="mt-4" style="max-width: 500px;margin: 0 auto;padding-top: 30px;">
+                                <!-- Bonus Card -->
+                                <div class="card shadow-sm mb-4 p-3" style="border-radius: 10px; background-color: white;">
+                                  <div class="d-flex justify-content-between align-items-start">
+                                    <h6 class="fw-bold text-uppercase" style="color: #555;">Bonus de Noël</h6>
+                                    <small class="text-muted">Il y'a 3 min</small>
+                                    <div class="dropdown">
+                                      <button
+                                        class="btn btn-link text-muted"
+                                        type="button"
+                                        data-bs-toggle="dropdown"
+                                        aria-expanded="false"
+                                      >
+                                        <i class="bi bi-three-dots"></i>
+                                      </button>
+                                      <ul class="dropdown-menu">
+                                        <li><a class="dropdown-item" href="#">Action</a></li>
+                                        <li><a class="dropdown-item" href="#">Autre</a></li>
+                                      </ul>
+                                    </div>
+                                  </div>
+                                  <p class="mt-3" style="font-size: 0.9rem;">
+                                    FÉLICITATION à M. <strong>FREDERIC ASSE</strong> qui bénéficie gratuitement d'un Bonus total
+                                    reçu = <strong>20 000</strong>
+                                  </p>
+                                  <img
+                                    src="assets/img/nooel.png"
+                                    alt="Bonus Noël"
+                                    class="img-fluid rounded"
+                                    style="max-height: 300px; object-fit: cover;"
+                                  />
+                                  <div class="d-flex justify-content-around align-items-center mt-3">
+                                    <div class="d-flex align-items-center">
+                                      <i class="bi bi-hand-thumbs-up-fill text-primary me-1"></i>
+                                      <span>57</span>
+                                    </div>
+                                    <div class="d-flex align-items-center">
+                                      <i class="bi bi-chat-left-text-fill text-primary me-1"></i>
+                                      <span>574</span>
+                                    </div>
+                                    <div class="d-flex align-items-center">
+                                      <i class="bi bi-eye-fill text-primary me-1"></i>
+                                      <span>874</span>
+                                    </div>
+                                  </div>
+                                </div>
+                              
+                                <!-- Audio Card -->
+                                <div class="card shadow-sm p-3" style="border-radius: 10px;">
+                                  <div class="d-flex">
+                                    <div
+                                      class="rounded d-flex justify-content-center align-items-center me-3"
+                                      style="width: 60px; height: 60px; background-color: #F3F8FF;"
+                                    >
+                                      <span style="font-size: 0.8rem; color: #555;">Icône<br />du sujet</span>
+                                    </div>
+                                    <div class="flex-grow-1">
+                                      <h6 class="fw-bold" style="font-size: 0.9rem; color: #555;">Le titre du sujet</h6>
+                                      <div class="d-flex align-items-center">
+                                        <button class="btn btn-primary btn-sm me-2">
+                                          <i class="bi bi-play-fill"></i>
+                                        </button>
+                                        <div class="progress flex-grow-1 me-2" style="height: 5px;">
+                                          <div
+                                            class="progress-bar bg-primary"
+                                            role="progressbar"
+                                            style="width: 50%;"
+                                            aria-valuenow="50"
+                                            aria-valuemin="0"
+                                            aria-valuemax="100"
+                                          ></div>
+                                        </div>
+                                        <span style="font-size: 0.8rem;">0:34</span>
+                                      </div>
+                                      <small class="text-muted d-block mt-1" style="font-size: 0.8rem;">14:014</small>
+                                    </div>
+                                    <div class="dropdown">
+                                      <button
+                                        class="btn btn-link text-muted"
+                                        type="button"
+                                        data-bs-toggle="dropdown"
+                                        aria-expanded="false"
+                                      >
+                                        <i class="bi bi-three-dots"></i>
+                                      </button>
+                                      <ul class="dropdown-menu">
+                                        <li><a class="dropdown-item" href="#">Action</a></li>
+                                        <li><a class="dropdown-item" href="#">Autre</a></li>
+                                      </ul>
+                                    </div>
+                                  </div>
+                                  <div class="d-flex justify-content-around align-items-center mt-3">
+                                    <div class="d-flex align-items-center">
+                                      <i class="bi bi-hand-thumbs-up-fill text-primary me-1"></i>
+                                      <span>57</span>
+                                    </div>
+                                    <div class="d-flex align-items-center">
+                                      <i class="bi bi-chat-left-text-fill text-primary me-1"></i>
+                                      <span>574</span>
+                                    </div>
+                                    <div class="d-flex align-items-center">
+                                      <i class="bi bi-eye-fill text-primary me-1"></i>
+                                      <span>874</span>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              
+
+                        </div>
+                        <div class="tab-pane fade " id="pre-2-box" role="tabpanel"
+                            aria-labelledby="pre-2-box-tab" style="background-color: white;height: 100vh;">
+                           
+
+
+                            <div class="mt-2 p-3 " style="display: flex;flex-direction: column;align-items: center;">
+                                <input type="text" name="" id="" placeholder="Ajouter une image  "
+                                    style="width: 100%;height: 50px;border-radius: 5px;border: 1px solid rgb(176, 176, 176);margin-bottom: 20px;padding-left: 30px;">
+                                <input type="text" name="" id="" placeholder="Entrer le nom DU SUJET"
+                                    style="width: 100%;height: 50px;border-radius: 5px;border: 1px solid rgb(176, 176, 176);margin-bottom: 20px;padding-left: 30px;">
+
+                                <textarea name="" id="" placeholder="Entrer la description"
+                                    style="width: 100%;height: 50px;border-radius: 5px;border: 1px solid rgb(176, 176, 176);margin-bottom: 20px;min-height: 300px;">
+
+                            </textarea>
+
+
+                                <input type="text" name="" id="" placeholder="Nombre de like"
+                                    style="width: 100%;height: 50px;border-radius: 5px;border: 1px solid rgb(176, 176, 176);margin-bottom: 20px;padding-left: 30px;">
+
+                                <button class="btn text-light"
+                                    style="padding-left: 100px;padding-right: 100px;background-color: #FC9702;margin: 0 auto;margin-top: 100px;">posté</button>
+
+                            </div>
+                        </div>
+
+
+                    </div>
+
+
+
+                </div>
+
+
+            </div>
+            <div class="tab-pane fade" id="troisieme" role="tabpanel" aria-labelledby="troisieme-tab">
+                <div class="p-3 bg-primary text-white">
+                    Contenu de la section troisieme
+                </div>
+            </div>
+            <div class="tab-pane fade" id="quatre" role="tabpanel" aria-labelledby="quatre-tab">
+                <div class="p-3 bg-secondary text-white">
+                    Contenu de la section quatre
+                </div>
+            </div>
+
+            <div class="tab-pane fade" id="cinq" role="tabpanel" aria-labelledby="cinq-tab">
+                <div style="width: 100%;background-color: white">
+                    <!-- Button Group -->
+
+                    <div class=" ms-auto d-flex justify-content-between align-items-center w-full">
+                        <div class="d-flex gap-3 align-items-start justify-content-between w-100 p-2"
+                            style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);">
+
+                            <p class="text-dark" style="padding-top: 10px;"> Annonces flottante</p>
+
+                            <a href="/annonces" aria-selected="true" style="padding-top: 10px;">
+                                <img src="assets/img/adfgh.png" style="width: 25px;height: 25px;" />
+                            </a>
+                        </div>
+
+
+
+                    </div>
+
+                    <div class="row box-2 p-1" style="padding-bottom: 0;background-color: #F2F3F7;">
+                        <div class="col-12 d-flex flex-wrap order-row align-items-center mb-2">
+                            <div class="order-item d-flex align-items-center order-item-large"><img
+                                    src="assets/img/lp1.png" alt="Product Image" class="product-image">
+                                <div class="product-info"><span class="product-name">Spécial Ordinateur</span>
+                                    <small style="text-transform: lowercase;font-size: 0.8rem;padding-top: 10px;">Jeudi
+                                        14. JANvier 2022 <br></small><small
+                                        style="text-transform: lowercase;font-size: 0.8rem;">vENDR 15. JANvier 2022
+                                    </small>
+                                </div>
+                            </div>
+                            <div class="order-item">
+                                <p class="label">LIEN INTEGRÉ</p>
+                                <p class="value" style="color: #0055ff;"> 23 </p>
+                            </div>
+                            <div class="order-item">
+                                <p class="label">STATUT</p>
+                                <p class="value" style="color: #0055ff;"> kdld </p>
+                            </div>
+                            <div class="order-item">
+                                <p class="label">NOMBRE DE VUES</p>
+                                <p class="value" style="color: #0055ff;"> kdld </p>
+                            </div>
+
+                            <div class="order-item order-item-large" style="background-color: white;">
+                                <div data-bs-toggle="modal" data-bs-target="#infoModal"
+                                    style=" width: 100%;display: flex;flex-direction: column;align-items: end;gap: 0;justify-content: center;">
+                                    <small style="background-color: #F7F6FE;padding: 10px;border-radius: 100%;"><img
+                                            src="assets/img/mm1mo.png" height="20px" alt="Product Image"></small>
+                                    <small>il y'a 16 min</small>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+
+                </div>
+            </div>
+            <div class="tab-pane fade" id="six" role="tabpanel" aria-labelledby="six-tab">
+                <div class="p-3 bg-secondary text-white">
+                    Contenu de la section six
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+
+
+
+
+
+<!-- Modal d'Information -->
+<div class="modal fade" id="infoModal" tabindex="-1" aria-labelledby="infoModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="background-color: transparent;">
+        <div class="modal-content" style="background-color: transparent;">
+            <div class="container mt-5" style="background-color: transparent;">
+                <!-- Card Wrapper -->
+                <div class="card shadow-lg" style="border-radius: 10px;padding: 10px;">
+                    <!-- Image Section -->
+                    <img src="assets/img/aaa.png" alt="Spécial Ordinateur" class="card-img-top"
+                        style="border-top-left-radius: 10px; border-top-right-radius: 10px;" />
+                    <!-- Card Body -->
+                    <div class="card-body">
+                        <!-- Title -->
+                        <h5 class="card-title text-center fw-bold">Spécial Ordinateur</h5>
+
+                        <!-- Frequency -->
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <span class="fw-bold">Fréquence d’affichage</span>
+                            <span class="text-primary fw-semibold">2 x</span>
+                        </div>
+
+                        <!-- Publication Date -->
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <span class="fw-bold">Date de publication</span>
+                            <span class="text-muted">Jeudi 14. Janvier 2024</span>
+                        </div>
+
+                        <!-- Deactivation Date -->
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <span class="fw-bold text-danger">Date de désactivation</span>
+                            <span class="text-danger fw-semibold">Vendr 20. Janvier 2024</span>
+                        </div>
+
+                        <!-- Statistics -->
+                        <table class="table table-borderless">
+                            <thead>
+                                <tr>
+                                    <th>Statistique</th>
+                                    <th class="text-end">Valeur</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Nombre de vue</td>
+                                    <td class="text-end">1012</td>
+                                </tr>
+                                <tr>
+                                    <td>Consultation du lien</td>
+                                    <td class="text-end">107</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <!-- Buttons -->
+                        <div class="d-flex justify-content-center gap-3">
+                            <button class="btn btn-danger px-4">Désactivé</button>
+                            <button class="btn btn-outline-danger px-4">Modifier</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+<!-- create -->
+<div class="modal fade" id="createoModal" tabindex="-1" aria-labelledby="createoModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="createoModalLabel">Détails de la commande</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Informations à afficher dans le modal -->
+                <p><strong>Nom:</strong> Remail Kouadio</p>
+                <p><strong>Numéro de commande:</strong> #45DT57788839</p>
+                <p><strong>Moyen de paiement:</strong> Carte bancaire</p>
+                <!-- Modifié pour rendre l'exemple plus réaliste -->
+                <p><strong>Montant à payer:</strong> 11 861 000 CFA</p>
+                <p><strong>Détails supplémentaires:</strong> Ceci est un exemple de commande et de paiement.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal actualite -->
+<div class="modal fade" id="actualiteModal" tabindex="-1" aria-labelledby="actualiteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="actualiteModalLabel">Détails de la commande</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Informations à afficher dans le modal -->
+                <p><strong>Nom:</strong> Remail Kouadio</p>
+                <p><strong>Numéro de commande:</strong> #45DT57788839</p>
+                <p><strong>Moyen de paiement:</strong> Carte bancaire</p>
+                <!-- Modifié pour rendre l'exemple plus réaliste -->
+                <p><strong>Montant à payer:</strong> 11 861 000 CFA</p>
+                <p><strong>Détails supplémentaires:</strong> Ceci est un exemple de commande et de paiement.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+            </div>
+        </div>
+    </div>
+</div>

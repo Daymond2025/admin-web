@@ -1,0 +1,10 @@
+{
+    "HOST:API": "https://v2.daymondboutique.com/api/v2/",
+    "API_ENDPOINTS": {
+        "comment ": "------------ OPERATIONS USER---------------",
+        "GETALL_USER":"admin/users",
+
+        "comment ": "------------ OPERATIONS ADMIN---------------",
+        "LOGIN_ADMIN":"auth/admin/login"
+    }
+}

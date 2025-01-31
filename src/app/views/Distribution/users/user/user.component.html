@@ -1,0 +1,164 @@
+<div class="container-fluid p-3">
+    <!-- Button Group -->
+    <div class="row d-flex p-3 box-1">
+        <div class="col-md-9 d-flex justify-content-between mb-3 mb-md-0">
+            <div class="w-100">
+                <div class="d-flex" style="height: 130px;gap: 10px;">
+                    
+                  
+                    <div class="col-4" style="height: 100%!important;">
+                        <div class="card card-stats card-round card-2" style="height: 100%;">
+                            <div class="card-body border-0" style="background-color: #F1EEFF;">
+                                <div class="row align-items-center">
+
+
+                                    <div class="numbers">
+                                        <div style="display: flex;justify-content: space-between;">
+                                            <h4 class="card-category">
+                                                <b style="color: #6f6f6f">DemandeS</b>
+                                            </h4>
+                                            <p class="card-title">12 0</p>
+
+                                        </div>
+
+                                        
+                                        <h3>11 861 000 CFA</h3>
+                                        <h3 class="card-category">Aujourd'hui</h3>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-4" style="height: 100%!important;">
+                        <div class="card card-stats card-round card-3" style="height: 100%;">
+                            <div class="card-body border-0" style="background-color: #D3F0FF;">
+                                <div class="row align-items-center">
+
+
+                                    <div class="numbers">
+                                        <div style="display: flex;justify-content: space-between;">
+                                            <h4 class="card-category">
+                                                <b style="color: #6f6f6f">DemandeS</b>
+                                            </h4>
+                                            <p class="card-title">12 0</p>
+
+                                        </div>
+
+                                        <h3>11 861 000 CFA</h3>
+                                        <h3 class="card-category">Aujourd'hui</h3>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+        <div class="col-md-3 ms-auto d-flex justify-content-end">
+            <img src="assets/img/ored.png" alt="Product Image" height="20">
+        </div>
+    </div>
+
+    <div class="tab-content" id="nav-tabContent">
+        <div class="active" id="nav-home">
+            <div class="pt-2 px-3">
+                <!-- Search and Filter -->
+                <div class="row mt-1 p-2" style="background-color: white;">
+                    <div class="col-12 d-flex justify-content-between align-items-center pt-2 pb-2"
+                        style="background-color: white; border-bottom: 1px solid #c4c4c4">
+                        <div class="col-6 d-flex gap-2">
+                            <button style="background-color: #FFA11E!important;color: white;"
+                                class="btn btn-border btn-round btn-add button_style" routerLink="/products/add">
+                                demandes de payement
+                            </button>
+                            <button style="border:1px solid black!important;background-color: white!important;"
+                                class="btn btn-round btn-add button_style" routerLink="/products/add">
+                                Paiement effectués
+                            </button>
+                        </div>
+                        <div class="col-8 d-flex justify-content-center align-items-center">
+                            <div class="input-group me-2" style="width: 50%">
+                                <div class="input-group search-bar">
+                                    <input type="text" placeholder="Recherche" class="form-control" />
+
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">
+                                            <span class="input-group-bar"></span>
+                                            <i class="fa fa-search search-icon"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                                <!-- <span class="input-group-text rounded-end" style="border-top-right-radius: 50px; border-bottom-right-radius: 50px;">
+                      <i class="fa fa-search"></i>
+                    </span> -->
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row box-2" style="padding-bottom: 0;background-color: white;box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);border-radius: 10px;">
+                    <div class="col-12 d-flex flex-wrap order-row align-items-center mb-0 p-3">
+                        <div
+                        
+                        class="order-item d-flex align-items-center order-item-large border-end"><img
+                                src="assets/img/usee.png" alt="Product Image" class="product-image" routerLink="/users/detail">
+                            <div class="product-info"><span class="product-name" style="color: black;">Remail Kouadio</span>
+                                <p><small>Abidjan, yopougon</small></p>
+                            </div>
+                        </div>
+                        <div class="px-5 border-end">
+                            <p class="label text-center">DATE D'INSCRIPTION</p>
+                            <p class="value text-center" style="color: #0055ff;"> 23 </p>
+                        </div>
+                        <div class="px-5 border-end">
+                            <p class="label text-center">PRODUITS VENDUS</p>
+                            <p class="value text-center" style="color: #0055ff;"> kdld </p>
+                        </div>
+                        
+                        <div class="px-5 border-end">
+                            <p class="label text-center">ETOILES </p>
+                            <p class="value text-center" style="color: #0055ff;"> kdld </p>
+                        </div>
+                        
+                        
+                        <div class="px-5">
+                            <p class="label text-center">SOLDE ACTUEL </p>
+                            <p class="value text-center" style="color: #0055ff;"> 15.ooo cfa </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Modal d'Information -->
+<div class="modal fade" id="infoModal" tabindex="-1" aria-labelledby="infoModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="infoModalLabel">Détails de la commande</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <!-- Informations à afficher dans le modal -->
+          <p><strong>Nom:</strong> Remail Kouadio</p>
+          <p><strong>Numéro de commande:</strong> #45DT57788839</p>
+          <p><strong>Moyen de paiement:</strong> Carte bancaire</p> <!-- Modifié pour rendre l'exemple plus réaliste -->
+          <p><strong>Montant à payer:</strong> 11 861 000 CFA</p>
+          <p><strong>Détails supplémentaires:</strong> Ceci est un exemple de commande et de paiement.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+</div>
