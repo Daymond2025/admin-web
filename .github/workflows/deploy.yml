@@ -31,5 +31,5 @@ jobs:
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: "dist/daymond_dash/"  # Remplace par le bon dossier
-          server-dir: "/sites/distribution.daymondboutique.com/"  # Remplace par ton dossier de production sur le serveur
+          server-dir: "/sites/test.daymondboutique.com/"  # Remplace par ton dossier de production sur le serveur
           
