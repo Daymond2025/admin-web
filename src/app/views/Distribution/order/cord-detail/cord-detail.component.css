@@ -625,6 +625,13 @@
     top: -20px;
     z-index: 99999999;
   }
+
+  .icon-succes {
+    margin-bottom: 25px !important;
+    margin-top: -5px !important;
+    margin-left: 10px !important;
+    cursor: pointer;
+  }
   .icon-echec {
     position: absolute;
     top: -20px;

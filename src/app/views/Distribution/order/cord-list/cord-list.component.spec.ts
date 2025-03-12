@@ -1,16 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {provideHttpClientTesting, HttpClientTestingModule } from '@angular/common/http/testing'
 
-import { CordListComponent } from './cord-list.component';
+import { sCordListComponent } from './cord-list.component';
 
-describe('CordListComponent', () => {
-  let component: CordListComponent;
-  let fixture: ComponentFixture<CordListComponent>;
+describe('sCordListComponent', () => {
+  let component: sCordListComponent;
+  let fixture: ComponentFixture<sCordListComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [CordListComponent]
+      imports: [sCordListComponent,HttpClientTestingModule]
     });
-    fixture = TestBed.createComponent(CordListComponent);
+    fixture = TestBed.createComponent(sCordListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -25,6 +25,18 @@ const routes: Routes = [
 
   },
   {
+    path: 'paiemennt',
+    component: PaymentComponent,
+  },
+  {
+    path: 'reglage',
+    component: SettingsComponent,
+  },
+  {
+    path: 'produits',
+    component: ProductsComponent,
+  },
+  {
     path: 'users',
     loadChildren: () => import('./views/Distribution/users/users.module').then(m => m.UsersModule),
 

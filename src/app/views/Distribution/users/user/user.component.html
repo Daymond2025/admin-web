@@ -13,17 +13,20 @@
 
 
                                     <div class="numbers">
-                                        <div style="display: flex;justify-content: space-between;">
+                                        <div >
                                             <h4 class="card-category">
-                                                <b style="color: #6f6f6f">DemandeS</b>
+                                                <b style="color: #6f6f6f">Les Standards</b>
                                             </h4>
-                                            <p class="card-title">12 0</p>
+                                           
 
                                         </div>
 
                                         
-                                        <h3>11 861 000 CFA</h3>
-                                        <h3 class="card-category">Aujourd'hui</h3>
+                                        <h3>{{totalStandard}}</h3>
+                                        <div class="card-category" style="display: flex;justify-content: space-between;">
+                                           <p>Aujourd'hui</p> 
+                                           <p class="card-title">{{totalStandardByDate}}</p>
+                                        </div>
                                     </div>
 
                                 </div>
@@ -39,14 +42,17 @@
                                     <div class="numbers">
                                         <div style="display: flex;justify-content: space-between;">
                                             <h4 class="card-category">
-                                                <b style="color: #6f6f6f">DemandeS</b>
+                                                <b style="color: #6f6f6f">Les recrutés</b>
                                             </h4>
-                                            <p class="card-title">12 0</p>
+                                            
 
                                         </div>
 
-                                        <h3>11 861 000 CFA</h3>
-                                        <h3 class="card-category">Aujourd'hui</h3>
+                                        <h3>{{totalRecrutes}}</h3>
+                                        <div class="card-category " style="display: flex;justify-content: space-between;">
+                                           <p>Aujourd'hui</p> 
+                                           <p class="card-title">{{totalRecrutesByDate}}</p>
+                                        </div>
                                     </div>
 
                                 </div>
@@ -73,11 +79,11 @@
                         <div class="col-6 d-flex gap-2">
                             <button style="background-color: #FFA11E!important;color: white;"
                                 class="btn btn-border btn-round btn-add button_style" routerLink="/products/add">
-                                demandes de payement
+                                Les standards
                             </button>
                             <button style="border:1px solid black!important;background-color: white!important;"
                                 class="btn btn-round btn-add button_style" routerLink="/products/add">
-                                Paiement effectués
+                                Les Recrutés
                             </button>
                         </div>
                         <div class="col-8 d-flex justify-content-center align-items-center">
@@ -101,38 +107,61 @@
                     </div>
                 </div>
 
-
-                <div class="row box-2" style="padding-bottom: 0;background-color: white;box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);border-radius: 10px;">
-                    <div class="col-12 d-flex flex-wrap order-row align-items-center mb-0 p-3">
-                        <div
-                        
-                        class="order-item d-flex align-items-center order-item-large border-end"><img
-                                src="assets/img/usee.png" alt="Product Image" class="product-image" routerLink="/users/detail">
-                            <div class="product-info"><span class="product-name" style="color: black;">Remail Kouadio</span>
-                                <p><small>Abidjan, yopougon</small></p>
+                <div *ngFor="let seller of dataset; let i = index">
+                    <div
+                    (click)="openDialog(seller.id)" role="button"
+                    class="row box-2 mb-5" style="padding-bottom: 0;background-color: white;box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);border-radius: 10px;">
+                        <div class="col-12 d-flex flex-wrap order-row align-items-center mb-0 ">
+                            <div
+                            
+                            class="order-item d-flex align-items-center order-item-large border-end"><img
+                                    [src]="seller?.picture_path ? seller?.picture_path :  'assets/img/leuser.jpg'" alt="Product Image" class="product-image" routerLink="/users/detail">
+                                <div class="product-info">
+                                    <span class="product-name text-truncate" style="color: black;max-width: 120px;">
+                                     {{seller?.seller?.first_name}} {{seller?.seller?.last_name}}
+                                    </span>
+                                    <p><small>{{seller?.seller?.city}}</small></p>
+                                </div>
+                            </div>
+                            <div class="px-5 border-end">
+                                <p class="label text-center">DATE D'INSCRIPTION</p>
+                                <p class="value text-center" style="color: #0055ff;"> {{seller?.created_at | date}} </p>
+                            </div>
+                            <div class="px-5 border-end">
+                                <p class="label text-center">PRODUITS VENDUS</p>
+                                <p class="value text-center" style="color: #0055ff;"> {{seller?.seller?.total_products_sold}} </p>
+                            </div>
+                            
+                            <div class="px-5 border-end">
+                                <p class="label text-center">ETOILES </p>
+                                <!-- <p class="value text-center" style="color: #0055ff;"> -->
+                                    <!-- <div  *ngFor="let star of [].constructor(seller?.seller?.stars)">
+                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                    </div> -->
+                                    <div class="" >
+                                        <ng-container *ngFor="let star of fullStars(seller?.seller?.stars)">
+                                            <span style="color: #ffe600;font-size: 24px;">★</span>
+                                            
+                                        </ng-container>
+                                        <ng-container *ngFor="let star of emptyStars(seller?.seller?.stars)">
+                                            <span style="color: #ffee54;font-size: 24px;">☆</span>
+                                           
+                                        </ng-container>
+                                      </div>
+                                  
+                                    
+                                <!-- </p> -->
+                            </div>
+                            
+                            
+                            <div class="px-5">
+                                <p class="label text-center">SOLDE ACTUEL </p>
+                                <p class="value text-center" style="color: #0055ff;">{{seller?.wallet ? seller?.wallet?.total_amount : 0}} Fcfa </p>
                             </div>
                         </div>
-                        <div class="px-5 border-end">
-                            <p class="label text-center">DATE D'INSCRIPTION</p>
-                            <p class="value text-center" style="color: #0055ff;"> 23 </p>
-                        </div>
-                        <div class="px-5 border-end">
-                            <p class="label text-center">PRODUITS VENDUS</p>
-                            <p class="value text-center" style="color: #0055ff;"> kdld </p>
-                        </div>
-                        
-                        <div class="px-5 border-end">
-                            <p class="label text-center">ETOILES </p>
-                            <p class="value text-center" style="color: #0055ff;"> kdld </p>
-                        </div>
-                        
-                        
-                        <div class="px-5">
-                            <p class="label text-center">SOLDE ACTUEL </p>
-                            <p class="value text-center" style="color: #0055ff;"> 15.ooo cfa </p>
-                        </div>
-                    </div>
+                    </div>  
                 </div>
+                
             </div>
         </div>
     </div>

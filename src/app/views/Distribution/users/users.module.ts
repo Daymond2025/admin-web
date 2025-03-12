@@ -18,6 +18,8 @@ const routes: Routes = [
     path: "list-users",
     component: UserComponent,
   },
+
+ 
 ];
 
 @NgModule({

@@ -161,22 +161,33 @@
 
                     </div>
 
-                    <div class="mt-2 p-3" style="display: flex;flex-direction: column;align-items: center;">
-                        <input type="text" name="" id="" placeholder="Ajouter une image  "
+                    <div [formGroup]="itemForm" class="mt-2 p-3" style="display: flex;flex-direction: column;align-items: center;">
+                        <label
+                            [style.backgroundImage]="file ? 'url('+fileSrc+')':''"
+                            for="down-image" class="d-flex justify-content-center align-items-center text-center mb-4"
+                                style="width: 100%; border: 1px solid rgb(213, 213, 213);border-radius: 10px;padding: 10px;height: 159px;background-repeat: no-repeat;background-size: contain;background-position: center;">
+
+                                <img *ngIf="!file" src="assets/img/addimage.png" alt="User image" style="width: 30px; height: 30px;">
+
+                            </label>
+                            <input
+                            (change)="loadFile($event)"
+                            type="file" style="display: none;" name="" id="down-image">
+                        <!-- <input type="text" name="" id="" placeholder="Ajouter une image  "
+                            style="width: 100%;height: 50px;border-radius: 5px;border: 1px solid rgb(176, 176, 176);margin-bottom: 20px;padding-left: 30px;"> -->
+                        <input type="text" name="" id="" placeholder="Entrer le nom DU SUJET" formControlName="title"
                             style="width: 100%;height: 50px;border-radius: 5px;border: 1px solid rgb(176, 176, 176);margin-bottom: 20px;padding-left: 30px;">
-                        <input type="text" name="" id="" placeholder="Entrer le nom DU SUJET"
-                            style="width: 100%;height: 50px;border-radius: 5px;border: 1px solid rgb(176, 176, 176);margin-bottom: 20px;padding-left: 30px;">
-                        <input type="text" name="" id="" placeholder="Coller un lient externe"
+                        <input type="text" name="" id="" placeholder="Coller un lient externe" formControlName="url"
                             style="width: 100%;height: 50px;border-radius: 5px;border: 1px solid rgb(176, 176, 176);margin-bottom: 20px;padding-left: 30px;">
                         <div style="display: flex;align-items: center;justify-content: start;width: 100%;">
                             <span style="padding-bottom: 20px;text-align: start " class="text-dark">Fréquence
                                 d’affichage</span>
                         </div>
 
-                        <input type="text" name="" id="" placeholder="NOMBRE DE FOIS"
+                        <input type="number" name="" id="" placeholder="NOMBRE DE FOIS" formControlName="nb_repeat"
                             style="width: 100%;height: 50px;border-radius: 5px;border: 1px solid rgb(176, 176, 176);margin-bottom: 20px;padding-left: 30px;">
 
-                        <button class="btn text-light"
+                        <button class="btn text-light" (click)="handleOk()"
                             style="padding-left: 100px;padding-right: 100px;background-color: #FC9702;margin: 0 auto;margin-top: 300px;">PUBLIER</button>
 
                     </div>
@@ -398,50 +409,67 @@
 
                             <p class="text-dark" style="padding-top: 10px;"> Annonces flottante</p>
 
-                            <a href="/annonces" aria-selected="true" style="padding-top: 10px;">
+                            <button
+                                style=""
+                                class="nav-link"
+                                type="button" (click)="charger()">
                                 <img src="assets/img/adfgh.png" style="width: 25px;height: 25px;" />
-                            </a>
+                            </button>
+
+                            <!-- <a href="/#/annonces" aria-selected="true" style="padding-top: 10px;">
+                                <img src="assets/img/adfgh.png" style="width: 25px;height: 25px;" />
+                            </a> -->
                         </div>
 
 
 
                     </div>
 
-                    <div class="row box-2 p-1" style="padding-bottom: 0;background-color: #F2F3F7;">
-                        <div class="col-12 d-flex flex-wrap order-row align-items-center mb-2">
-                            <div class="order-item d-flex align-items-center order-item-large"><img
-                                    src="assets/img/lp1.png" alt="Product Image" class="product-image">
-                                <div class="product-info"><span class="product-name">Spécial Ordinateur</span>
-                                    <small style="text-transform: lowercase;font-size: 0.8rem;padding-top: 10px;">Jeudi
-                                        14. JANvier 2022 <br></small><small
-                                        style="text-transform: lowercase;font-size: 0.8rem;">vENDR 15. JANvier 2022
-                                    </small>
-                                </div>
-                            </div>
-                            <div class="order-item">
-                                <p class="label">LIEN INTEGRÉ</p>
-                                <p class="value" style="color: #0055ff;"> 23 </p>
-                            </div>
-                            <div class="order-item">
-                                <p class="label">STATUT</p>
-                                <p class="value" style="color: #0055ff;"> kdld </p>
-                            </div>
-                            <div class="order-item">
-                                <p class="label">NOMBRE DE VUES</p>
-                                <p class="value" style="color: #0055ff;"> kdld </p>
-                            </div>
+                    <div *ngFor="let annonce of dataset">
 
-                            <div class="order-item order-item-large" style="background-color: white;">
-                                <div data-bs-toggle="modal" data-bs-target="#infoModal"
-                                    style=" width: 100%;display: flex;flex-direction: column;align-items: end;gap: 0;justify-content: center;">
-                                    <small style="background-color: #F7F6FE;padding: 10px;border-radius: 100%;"><img
-                                            src="assets/img/mm1mo.png" height="20px" alt="Product Image"></small>
-                                    <small>il y'a 16 min</small>
+                        <div class="row box-2 p-1" style="padding-bottom: 0;background-color: #F2F3F7;">
+                            <div class="col-12 d-flex flex-wrap order-row align-items-center mb-2">
+                                <div class="order-item d-flex align-items-center order-item-large"><img
+                                        [src]="annonce?.picture_path" alt="Product Image" class="product-image">
+                                    <div class="product-info"><span class="product-name">{{annonce?.title}}</span>
+                                        <small style="text-transform: lowercase;font-size: 0.8rem;padding-top: 10px;">{{annonce?.created_at | date}} <br></small>
+                                        <small *ngIf="annonce?.created_at != annonce?.updated_at"
+                                            style="text-transform: lowercase;font-size: 0.8rem;">{{annonce?.updated_at | date}}
+                                        </small>
+                                    </div>
                                 </div>
-
+                                <div class="order-item">
+                                    <p class="label">LIEN INTEGRÉ</p>
+                                    <p class="value" style="color: #0055ff;">  {{annonce?.url}} </p>
+                                </div>
+                                <div class="order-item">
+                                    <p class="label">STATUT</p>
+                                    <p class="value" style="color: #0055ff;">  {{annonce?.status}} </p>
+                                </div>
+                                <div class="order-item">
+                                    <p class="label">NOMBRE DE VUES</p>
+                                    <p class="value" style="color: #0055ff;"> {{annonce?.user_count}} </p>
+                                </div>
+    
+                                <div class="d-flex justify-content-end order-item order-item-large" style="background-color: white;">
+                                    <div data-bs-toggle="modal" data-bs-target="#infoModal" (click)="handleOpenDialog(annonce)"
+                                        style="cursor: pointer; width: 100%;display: flex;flex-direction: column;align-items: end;gap: 0;justify-content: center;">
+                                        <small style="background-color: #F7F6FE;padding: 10px;border-radius: 100%;"><img
+                                                src="assets/img/mm1mo.png" height="20px" alt="Product Image"></small>
+                                        <!-- <small>il y'a 16 min</small> -->
+                                    </div>
+                                    <div class=" p-2">
+                                        <button type="button" class="btn btn-outline-danger" (click)="handleDelete(annonce)">
+                                            <i class="uil uil-trash-alt"></i>
+                                        </button>
+                                     </div>
+    
+                                </div>
                             </div>
                         </div>
+
                     </div>
+                    
 
 
 
@@ -473,29 +501,29 @@
                 <!-- Card Wrapper -->
                 <div class="card shadow-lg" style="border-radius: 10px;padding: 10px;">
                     <!-- Image Section -->
-                    <img src="assets/img/aaa.png" alt="Spécial Ordinateur" class="card-img-top"
+                    <img [src]="annonceD?.picture_path" alt="Spécial Ordinateur" class="card-img-top"
                         style="border-top-left-radius: 10px; border-top-right-radius: 10px;" />
                     <!-- Card Body -->
                     <div class="card-body">
                         <!-- Title -->
-                        <h5 class="card-title text-center fw-bold">Spécial Ordinateur</h5>
+                        <h5 class="card-title text-center fw-bold">{{annonceD?.title}}</h5>
 
                         <!-- Frequency -->
                         <div class="d-flex justify-content-between align-items-center mb-2">
                             <span class="fw-bold">Fréquence d’affichage</span>
-                            <span class="text-primary fw-semibold">2 x</span>
+                            <span class="text-primary fw-semibold">{{annonceD?.nb_repeat}} x</span>
                         </div>
 
                         <!-- Publication Date -->
                         <div class="d-flex justify-content-between align-items-center mb-2">
                             <span class="fw-bold">Date de publication</span>
-                            <span class="text-muted">Jeudi 14. Janvier 2024</span>
+                            <span class="text-muted">{{annonceD?.created_at | date}}</span>
                         </div>
 
                         <!-- Deactivation Date -->
-                        <div class="d-flex justify-content-between align-items-center mb-3">
+                        <div class="d-flex justify-content-between align-items-center mb-3" *ngIf="annonceD?.status == 'disabled'">
                             <span class="fw-bold text-danger">Date de désactivation</span>
-                            <span class="text-danger fw-semibold">Vendr 20. Janvier 2024</span>
+                            <span class="text-danger fw-semibold">{{annonceD?.updated_at | date}}</span>
                         </div>
 
                         <!-- Statistics -->
@@ -509,19 +537,28 @@
                             <tbody>
                                 <tr>
                                     <td>Nombre de vue</td>
-                                    <td class="text-end">1012</td>
+                                    <td class="text-end">{{annonceD?.user_count}}</td>
                                 </tr>
-                                <tr>
+                                <!-- <tr>
                                     <td>Consultation du lien</td>
                                     <td class="text-end">107</td>
-                                </tr>
+                                </tr> -->
                             </tbody>
                         </table>
 
                         <!-- Buttons -->
                         <div class="d-flex justify-content-center gap-3">
-                            <button class="btn btn-danger px-4">Désactivé</button>
-                            <button class="btn btn-outline-danger px-4">Modifier</button>
+                            <button
+                            (click)="handleActivation(annonceD,'Désactiver')"
+                            class="btn btn-danger px-4" *ngIf="annonceD?.status != 'disabled'">
+                                 Désactiver
+                            </button>
+                            <button
+                            (click)="handleActivation(annonceD,'Activer')"
+                            class="btn btn-success px-4" *ngIf="annonceD?.status == 'disabled'">
+                                Activer
+                           </button>
+                            <!-- <button class="btn btn-outline-danger px-4">Modifier</button> -->
                         </div>
                     </div>
                 </div>

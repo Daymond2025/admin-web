@@ -36,7 +36,7 @@
                   <div class="numbers">
                     <div style="display: flex;justify-content: space-between;">
                       <h4 class="card-category">
-                        <b style="color: #6f6f6f">DemandeS</b>
+                        <b style="color: #6f6f6f">Paiements effectués</b>
                       </h4>
                       <p class="card-title">12 0</p>
 
@@ -59,7 +59,7 @@
                   <div class="numbers">
                     <div style="display: flex;justify-content: space-between;">
                       <h4 class="card-category">
-                        <b style="color: #6f6f6f">DemandeS</b>
+                        <b style="color: #6f6f6f">Solde général user</b>
                       </h4>
                       <p class="card-title">12 0</p>
 
@@ -142,111 +142,46 @@
 
         <div class="tab-content" id="myTabContent">
           <div class="tab-pane fade show active" id="premmier" role="tabpanel" aria-labelledby="premmier-tab">
-            <div class="row box-2 mb-2"
-              style="padding-bottom: 0;background-color: white;box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);border-radius: 10px;">
-              <div class="col-12 d-flex flex-wrap order-row align-items-center mb-0">
-                <div class="order-item d-flex align-items-center order-item-large"><img src="assets/img/lp2.png"
-                    alt="Product Image" class="product-image">
-                  <div class="product-info"><span class="product-name" style="color: black;">Remail Kouadio</span>
-                    <p><small>#45DT57788839</small></p><small style="color: #FFA11E;">Détails commande</small>
+            <ng-container *ngFor="let item of dataset">
+              <div class="row box-2 mb-2"
+                style="padding-bottom: 0;background-color: white;box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);border-radius: 10px;">
+                <div class="col-12 d-flex flex-wrap order-row align-items-center mb-0">
+                  <div class="order-item d-flex align-items-center order-item-large"><img src="assets/img/lp2.png"
+                      alt="Product Image" class="product-image">
+                    <div class="product-info"><span class="product-name" style="color: black;">
+                      {{item?.user?.seller?.first_name}} {{item?.user?.seller?.last_name}}
+                    </span>
+                      <!-- <p><small>#{{item?.id}}</small></p><small style="color: #FFA11E;">Détails commande</small> -->
+                    </div>
                   </div>
-                </div>
-                <div class="order-item">
-                  <p class="label">MOYENT DE PAIEMENT</p>
-                  <p class="value" style="color: #0055ff;"> 23 </p>
-                </div>
-                <div class="order-item">
-                  <p class="label">NUMERO DE PAIEMENT</p>
-                  <p class="value" style="color: #0055ff;"> kdld </p>
-                </div>
-
-                <div class="order-item">
-                  <p class="label">MONTANT A PAYER </p>
-                  <p class="value" style="color: #0055ff;"> kdld </p>
-                </div>
-
-
-                <div class="order-item order-item-large" style="background-color: white;">
-                  <div style="text-align: end; gap: 40px; width: 100%; background-color: white;">
-                    <small>Il y'a 3 min</small>
+                  <div class="order-item">
+                    <p class="label">MOYEN DE PAIEMENT</p>
+                    <p class="value" style="color: #0055ff;"> {{item?.operateur}} </p>
                   </div>
-                  <div style="margin-left: 2px; margin-top: 10px; width: 100%;"><button
-                      style="width: 100%; padding-bottom: 10px; padding-top: 10px; border: none; color: white; border-radius: 4px; background-color: #FFA11E;"
-                      data-bs-toggle="modal" data-bs-target="#infoModal">
-                      Marquer payer</button></div>
+                  <div class="order-item">
+                    <p class="label">NUMERO DE PAIEMENT</p>
+                    <p class="value" style="color: #0055ff;"> {{item?.telephone}} </p>
+                  </div>
+
+                  <div class="order-item">
+                    <p class="label">MONTANT A PAYER </p>
+                    <p class="value" style="color: #0055ff;"> {{item?.montant}} Fcfa</p>
+                  </div>
+
+
+                  <div class="order-item order-item-large" style="background-color: white;">
+                    <div style="text-align: end; gap: 40px; width: 100%; background-color: white;">
+                      <small>{{item?.created_at | date : 'dd/MM/yyyy HH:mm' }}</small>
+                    </div>
+                    <div *ngIf="item?.statut == 'enattente'" style="margin-left: 2px; margin-top: 10px; width: 100%;"><button
+                      (click)="changeData(item)"
+                        style="width: 100%; padding-bottom: 10px; padding-top: 10px; border: none; color: white; border-radius: 4px; background-color: #FFA11E;"
+                        data-bs-toggle="modal" data-bs-target="#infoModal">
+                        Marquer payer</button></div>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div class="row box-2 mb-2"
-              style="padding-bottom: 0;background-color: white;box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);border-radius: 10px;">
-              <div class="col-12 d-flex flex-wrap order-row align-items-center mb-0">
-                <div class="order-item d-flex align-items-center order-item-large"><img src="assets/img/lp2.png"
-                    alt="Product Image" class="product-image">
-                  <div class="product-info"><span class="product-name" style="color: black;">Remail Kouadio</span>
-                    <p><small>#45DT57788839</small></p><small style="color: #FFA11E;">Détails commande</small>
-                  </div>
-                </div>
-                <div class="order-item">
-                  <p class="label">MOYENT DE PAIEMENT</p>
-                  <p class="value" style="color: #0055ff;"> 23 </p>
-                </div>
-                <div class="order-item">
-                  <p class="label">NUMERO DE PAIEMENT</p>
-                  <p class="value" style="color: #0055ff;"> kdld </p>
-                </div>
-
-                <div class="order-item">
-                  <p class="label">MONTANT A PAYER </p>
-                  <p class="value" style="color: #0055ff;"> kdld </p>
-                </div>
-
-
-                <div class="order-item order-item-large" style="background-color: white;">
-                  <div style="text-align: end; gap: 40px; width: 100%; background-color: white;">
-                    <small>Il y'a 3 min</small>
-                  </div>
-                  <div style="margin-left: 2px; margin-top: 10px; width: 100%;"><button
-                      style="width: 100%; padding-bottom: 10px; padding-top: 10px; border: none; color: white; border-radius: 4px; background-color: #FFA11E;"
-                      data-bs-toggle="modal" data-bs-target="#infoModal">
-                      Marquer payer</button></div>
-                </div>
-              </div>
-            </div>
-            <div class="row box-2 mb-2"
-              style="padding-bottom: 0;background-color: white;box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);border-radius: 10px;">
-              <div class="col-12 d-flex flex-wrap order-row align-items-center mb-0">
-                <div class="order-item d-flex align-items-center order-item-large"><img src="assets/img/lp2.png"
-                    alt="Product Image" class="product-image">
-                  <div class="product-info"><span class="product-name" style="color: black;">Remail Kouadio</span>
-                    <p><small>#45DT57788839</small></p><small style="color: #FFA11E;">Détails commande</small>
-                  </div>
-                </div>
-                <div class="order-item">
-                  <p class="label">MOYENT DE PAIEMENT</p>
-                  <p class="value" style="color: #0055ff;"> 23 </p>
-                </div>
-                <div class="order-item">
-                  <p class="label">NUMERO DE PAIEMENT</p>
-                  <p class="value" style="color: #0055ff;"> kdld </p>
-                </div>
-
-                <div class="order-item">
-                  <p class="label">MONTANT A PAYER </p>
-                  <p class="value" style="color: #0055ff;"> kdld </p>
-                </div>
-
-
-                <div class="order-item order-item-large" style="background-color: white;">
-                  <div style="text-align: end; gap: 40px; width: 100%; background-color: white;">
-                    <small>Il y'a 3 min</small>
-                  </div>
-                  <div style="margin-left: 2px; margin-top: 10px; width: 100%;"><button
-                      style="width: 100%; padding-bottom: 10px; padding-top: 10px; border: none; color: white; border-radius: 4px; background-color: #FFA11E;"
-                      data-bs-toggle="modal" data-bs-target="#infoModal">
-                      Marquer payer</button></div>
-                </div>
-              </div>
-            </div>
+            </ng-container>
           </div>
           <div class="tab-pane fade mt-0" id="deuxieme" role="tabpanel" aria-labelledby="deuxieme-tab">
             <div class="row box-2"
@@ -277,7 +212,7 @@
                   <div style="text-align: end; gap: 40px; width: 100%; background-color: white;">
                     <small>Il y'a 3 min</small>
                   </div>
-                  <div style="margin-left: 2px; margin-top: 10px; width: 100%;"><button
+                  <div style="margin-left: 2px; margin-top: 10px; width: 100%;"><button 
                       style="width: 100%; padding-bottom: 10px; padding-top: 10px; border: none; color: white; border-radius: 4px; background-color: #29BC6B;"
                       data-bs-toggle="modal" data-bs-target="#infoModal1">
                       Marquer payer</button></div>
@@ -310,7 +245,7 @@
               <img src="path/to/user-image.jpg" class="rounded-circle me-3 border" alt="User image"
                 style="width: 60px; height: 60px;">
               <div>
-                <h5 class="mb-0" style="color: white;">Remail Kouadiffo</h5>
+                <h5 class="mb-0" style="color: white;">{{ladata?.user?.seller?.first_name}}</h5>
                 <span class="text-warning">★★★★★</span> <br> <a href="#"
                   style="color: #FFA11E;font-size: 0.7rem;">Détails commande</a>
               </div>
@@ -416,32 +351,33 @@
                 <img src="path/to/user-image.jpg" class="rounded-circle me-3" alt="User image"
                   style="width: 60px; height: 60px;">
                 <div>
-                  <h5 class="mb-0">Remail Kouadio</h5>
-                  <span class="text-warning">★★★★★</span> <br> <a href="#"
-                    style="color: #FFA11E;font-size: 0.7rem;">Détails commande</a>
+                  <h5 class="mb-0">{{ladata?.user?.seller?.first_name}} {{ladata?.user?.seller?.last_name}}</h5>
+                  <span class="text-warning">★★★★★</span> <br>
+                   <!-- <a href="#"
+                    style="color: #FFA11E;font-size: 0.7rem;">Détails commande</a> -->
                 </div>
               </div>
               <div>
                 <p class="mb-0 text-muted">MOYEN DE PAIEMENT</p>
-                <span class="fw-bold">WAVE</span>
+                <span class="fw-bold">{{ladata?.operateur}}</span>
               </div>
               <div>
                 <p class="mb-0 text-muted">NUMÉRO DE PAIEMENT</p>
-                <span class="fw-bold" style="color: #0055FF;">+225 07 59 02 85 45</span>
+                <span class="fw-bold" style="color: #0055FF;">{{ladata?.telephone}}</span>
               </div>
               <div>
                 <p class="mb-0 text-muted">MONTANT À PAYER</p>
-                <span class="fw-bold text-warning">17 000 FCFA</span>
+                <span class="fw-bold text-warning">{{ladata?.montant}} FCFA</span>
               </div>
             </div>
 
             <!-- Payment Form -->
             <h6 class="text-center mb-3" style="font-weight: bolder;font-size: 1.5rem;">MARQUER PAYER</h6>
-            <form style="display: flex;flex-direction: column;align-items: center;max-width: 600px;margin: 0 auto;">
+            <form [formGroup]="itemForm" style="display: flex;flex-direction: column;align-items: center;max-width: 600px;margin: 0 auto;">
               <div class="mb-3" style="width: 100%;">
                 <label for="amount" class="form-label">MONTANT À PAYER</label>
                 <div class="input-group form-control" style="background-color: white;">
-                  <input type="text" class="form-control" style="border: none;" id="paymentRef" placeholder="17 000">
+                  <input type="text" formControlName="montant" readonly class="form-control" style="border: none;" id="paymentRef" [placeholder]="ladata?.montant">
                   <button type="button" style="background-color: white;border: none;"><img src="assets/img/blop.png"
                       alt="User image" style="width: 25px; height: 25px;background-color: white"></button>
                 </div>
@@ -450,13 +386,13 @@
               <div class="mb-3" style="width: 100%;">
                 <label for="paymentRef" class="form-label">Références de paiement</label>
                 <div class="input-group form-control" style="background-color: white;margin: 0 auto;">
-                  <input type="text" class="form-control" style="border: none;" id="paymentRef"
+                  <input formControlName="reference" type="text" class="form-control" style="border: none;" id="paymentRef"
                     placeholder="Entrer la référence">
                   <button class="btn btn-primary" type="button">Coller</button>
                 </div>
               </div>
 
-              <button type="submit" class="btn btn-warning w-auto " style="margin: auto;">Valider le paiement</button>
+              <button type="submit"  [disabled]="!itemForm.valid" (click)="handleOk()" class="btn btn-warning w-auto " style="margin: auto;">Valider le paiement</button>
             </form>
           </div>
         </div>

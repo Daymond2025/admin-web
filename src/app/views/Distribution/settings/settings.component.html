@@ -65,7 +65,7 @@
 
             <div class="d-flex justify-content-between align-items-center w-100">
 
-                <div class="d-flex gap-3 align-items-start justify-content-between w-100">
+                <div class="d-flex gap-3 align-items-start justify-content-between w-100" *ngIf="dataset?.length<10">
 
                     <p class="text-dark">Ajouter une couverture</p>
 
@@ -77,37 +77,124 @@
 
 
             </div>
+<div *ngIf="dataset?.length > 0">
+    <div class="d-flex gap-3 ">
+        <div
+        [style.backgroundImage]="'url(' + dataset[0]?.picture_path + ')'"
+        class="block-st" style="height: 300px; flex: 1 ; background-size : cover ; background-repeat : no-repeat ;" *ngIf="dataset[0]">
+            <!-- <img [src]="dataset[0]?.picture_path" style="width: 100%;height: 100%;" /> -->
+            <div class="d-flex justify-content-end p-2">
+                <button type="button" class="btn btn-outline-danger" (click)="handleDelete(dataset[0])">
+                    <i class="uil uil-trash-alt"></i>
+                </button>
+             </div>
+        </div>
 
-            <div class="d-flex gap-3 ">
-                <div class="block-st" style="height: 300px; flex: 1;">
-                    <img src="assets/img/caer2.png" style="width: 100%;height: 100%;" />
-                </div>
+    </div>
+    <div class="d-flex gap-3 mt-3">
+        <div
+        [style.backgroundImage]="'url(' + dataset[1]?.picture_path + ')'"
+        class="block-st" style="height: 200px; flex: 1 ; background-size : cover ; background-repeat : no-repeat ;" *ngIf="dataset[1]"> 
+            <!-- <img [src]="dataset[1]?.picture_path" style="width: 100%;height: 100%;" /> -->
+             <div class="d-flex justify-content-end p-2">
+                <button type="button" class="btn btn-outline-danger" (click)="handleDelete(dataset[1])">
+                    <i class="uil uil-trash-alt"></i>
+                </button>
+             </div>
+        </div>
+        <div
+        [style.backgroundImage]="'url(' + dataset[2]?.picture_path + ')'"
+        class="block-st" style="height: 200px; flex: 1 ; background-size : cover ; background-repeat : no-repeat ;" *ngIf="dataset[2]">
+            <!-- <img [src]="dataset[2]?.picture_path" style="width: 100%;height: 100%;" /> -->
+            <div class="d-flex justify-content-end p-2">
+                <button type="button" class="btn btn-outline-danger" (click)="handleDelete(dataset[2])">
+                    <i class="uil uil-trash-alt"></i>
+                </button>
+             </div>
+        </div>
+    </div>
+    <div class="d-flex gap-3 mt-3">
+        <div
+        [style.backgroundImage]="'url(' + dataset[3]?.picture_path + ')'"
+        class="block-st" style="height: 200px; flex: 1 ; background-size : cover ; background-repeat : no-repeat ;" *ngIf="dataset[3]">
+            <!-- <img [src]="dataset[3]?.picture_path" style="width: 100%;height: 100%;" /> -->
+            <div class="d-flex justify-content-end p-2">
+                <button type="button" class="btn btn-outline-danger" (click)="handleDelete(dataset[3])">
+                    <i class="uil uil-trash-alt"></i>
+                </button>
+             </div>
+        </div>
+        <div
+        [style.backgroundImage]="'url(' + dataset[4]?.picture_path + ')'"
+        class="block-st" style="height: 200px; flex: 1 ; background-size : cover ; background-repeat : no-repeat ;" *ngIf="dataset[4]">
+            <!-- <img [src]="dataset[4]?.picture_path" style="width: 100%;height: 100%;" /> -->
+            <div class="d-flex justify-content-end p-2">
+                <button type="button" class="btn btn-outline-danger" (click)="handleDelete(dataset[4])">
+                    <i class="uil uil-trash-alt"></i>
+                </button>
+             </div>
+        </div>
+    </div>
+    <div class="d-flex gap-3 mt-3">
+        <div
+        [style.backgroundImage]="'url(' + dataset[5]?.picture_path + ')'"
+        class="block-st" style="height: 200px; flex: 1 ; background-size : cover ; background-repeat : no-repeat ;" *ngIf="dataset[5]">
+            <!-- <img [src]="dataset[5]?.picture_path" style="width: 100%;height: 100%;" /> -->
+            <div class="d-flex justify-content-end p-2">
+                <button type="button" class="btn btn-outline-danger" (click)="handleDelete(dataset[5])">
+                    <i class="uil uil-trash-alt"></i>
+                </button>
+             </div>
+        </div>
+        <div
+        [style.backgroundImage]="'url(' + dataset[6]?.picture_path + ')'"
+        class="block-st" style="height: 200px; flex: 1 ; background-size : cover ; background-repeat : no-repeat ;" *ngIf="dataset[6]">
+            <!-- <img [src]="dataset[6]?.picture_path" style="width: 100%;height: 100%;" /> -->
+            <div class="d-flex justify-content-end p-2">
+                <button type="button" class="btn btn-outline-danger" (click)="handleDelete(dataset[6])">
+                    <i class="uil uil-trash-alt"></i>
+                </button>
+             </div>
+        </div>
+    </div>
+    <div class="d-flex gap-3 ">
+        <div
+        [style.backgroundImage]="'url(' + dataset[7]?.picture_path + ')'"
+        class="block-st" style="height: 300px; flex: 1 ; background-size : cover ; background-repeat : no-repeat ;" *ngIf="dataset[7]">
+            <!-- <img [src]="dataset[7]?.picture_path" style="width: 100%;height: 100%;" /> -->
+            <div class="d-flex justify-content-end p-2">
+                <button type="button" class="btn btn-outline-danger" (click)="handleDelete(dataset[7])">
+                    <i class="uil uil-trash-alt"></i>
+                </button>
+             </div>
+        </div>
 
-            </div>
-            <div class="d-flex gap-3 mt-3">
-                <div class="block-st" style="height: 200px; flex: 1;">
-                    <img src="assets/img/caer1.png" style="width: 100%;height: 100%;" />
-                </div>
-                <div class="block-st" style="height: 200px; flex: 1;">
-                    <img src="assets/img/caer3.png" style="width: 100%;height: 100%;" />
-                </div>
-            </div>
-            <div class="d-flex gap-3 mt-3">
-                <div class="block-st" style="height: 200px; flex: 1;">
-                    <img src="assets/img/caer4.png" style="width: 100%;height: 100%;" />
-                </div>
-                <div class="block-st" style="height: 200px; flex: 1;">
-                    <img src="assets/img/caer5.png" style="width: 100%;height: 100%;" />
-                </div>
-            </div>
-            <div class="d-flex gap-3 mt-3">
-                <div class="block-st" style="height: 200px; flex: 1;">
-                    <img src="assets/img/caer3.png" style="width: 100%;height: 100%;" />
-                </div>
-                <div class="block-st" style="height: 200px; flex: 1;">
-                    <img src="assets/img/caer4.png" style="width: 100%;height: 100%;" />
-                </div>
-            </div>
+    </div>
+    <div class="d-flex gap-3 mt-3">
+        <div 
+        [style.backgroundImage]="'url(' + dataset[8]?.picture_path + ')'"
+        class="block-st" style="height: 200px; flex: 1 ; background-size : cover ; background-repeat : no-repeat ;" *ngIf="dataset[8]">
+            <!-- <img [src]="dataset[8]?.picture_path" style="width: 100%;height: 100%;" /> -->
+            <div class="d-flex justify-content-end p-2">
+                <button type="button" class="btn btn-outline-danger" (click)="handleDelete(dataset[8])">
+                    <i class="uil uil-trash-alt"></i>
+                </button>
+             </div>
+        </div>
+        <div 
+        [style.backgroundImage]="'url(' + dataset[9]?.picture_path + ')'"
+        class="block-st" style="height: 200px; flex: 1 ; background-size : cover ; background-repeat : no-repeat ;" *ngIf="dataset[9]">
+            <!-- <img [src]="dataset[9]?.picture_path" style="width: 100%;height: 100%;" /> -->
+            <div class="d-flex justify-content-end p-2">
+                <button type="button" class="btn btn-outline-danger" (click)="handleDelete(dataset[9])">
+                    <i class="uil uil-trash-alt"></i>
+                </button>
+             </div>
+        </div>
+    </div>
+   
+</div>
+            
 
 
 
@@ -137,6 +224,8 @@
 
 
 
+
+
 <!-- Modal d'Information -->
 <div class="modal fade" id="infoModal" tabindex="-1" aria-labelledby="infoModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
@@ -151,20 +240,24 @@
 
                 <!-- Payment Information -->
 
-                <label for="down-image" class="d-flex justify-content-center align-items-center text-center mb-4"
-                    style="border: 1px solid rgb(213, 213, 213);border-radius: 10px;padding: 10px;height: 159px;">
+                <label
+                [style.backgroundImage]="file ? 'url('+fileSrc+')':''"
+                for="down-image" class="d-flex justify-content-center align-items-center text-center mb-4"
+                    style="border: 1px solid rgb(213, 213, 213);border-radius: 10px;padding: 10px;height: 159px;background-repeat: no-repeat;background-size: contain;background-position: center;">
 
-                    <img src="assets/img/addimage.png" alt="User image" style="width: 30px; height: 30px;">
+                    <img *ngIf="!file" src="assets/img/addimage.png" alt="User image" style="width: 30px; height: 30px;">
 
                 </label>
-                <input type="file" style="display: none;" name="" id="down-image">
+                <input
+                (change)="loadFile($event)"
+                type="file" style="display: none;" name="" id="down-image">
                 <!-- Payment Form -->
 
-                <form style="display: flex;flex-direction: column;align-items: center;max-width: 600px;margin: 0 auto;">
+                <form [formGroup]="itemForm" style="display: flex;flex-direction: column;align-items: center;max-width: 600px;margin: 0 auto;">
                     <div class="mb-3" style="width: 100%;">
 
                         <div class="input-group form-control" style="background-color: white;">
-                            <input type="text" class="form-control" style="border: none;" id="paymentRef"
+                            <input formControlName="product_id" type="text" class="form-control" style="border: none;" id="paymentRef"
                                 placeholder="17 000">
                             <button type="button" style="background-color: white;border: none;"><img
                                     src="assets/img/bx-chevron-down.png" alt="User image"
@@ -175,16 +268,20 @@
                     <div class="mb-3" style="width: 100%;">
 
                         <div class="input-group form-control" style="background-color: white;margin: 0 auto;">
-                            <input type="text" class="form-control" style="border: none;" id="paymentRef"
+                            <input formControlName="link" type="text" class="form-control" style="border: none;" id="paymentRef"
                                 placeholder="Entrer la référence">
                             <button class="btn btn-primary" type="button">Coller</button>
                         </div>
                     </div>
 
                     <button type="submit" class="btn btn-warning w-auto " style="margin: auto;color: white;"
-                        routerLink="/message" data-bs-dismiss="modal" aria-label="Close">ENREGISTRER</button>
+                        (click)="handleOk()" data-bs-dismiss="modal" aria-label="Close">ENREGISTRER</button>
                 </form>
             </div>
         </div>
     </div>
 </div>
+
+
+
+

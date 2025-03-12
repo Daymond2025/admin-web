@@ -6,7 +6,8 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "test:ci": "ng test --no-watch --no-progress --browsers ChromeHeadless"
   },
   "private": true,
   "dependencies": {
@@ -23,6 +24,7 @@
     "@auth0/angular-jwt": "^5.2.0",
     "@types/crypto-js": "^4.2.2",
     "@types/uuid": "^10.0.0",
+    "bootstrap": "^5.3.3",
     "crypto-js": "^4.2.0",
     "date-fns": "^4.1.0",
     "i": "^0.3.7",

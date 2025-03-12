@@ -1,5 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { CordDetailComponent } from './cord-detail.component';
+import {provideHttpClientTesting, HttpClientTestingModule } from '@angular/common/http/testing'
+
 
 describe('CordDetailComponent', () => {
   let component: CordDetailComponent;
@@ -7,7 +9,7 @@ describe('CordDetailComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [CordDetailComponent] // Déclare le composant à tester
+      imports: [CordDetailComponent,HttpClientTestingModule] // Déclare le composant à tester
     });
     fixture = TestBed.createComponent(CordDetailComponent); // Crée l'instance du composant
     component = fixture.componentInstance; // Accède à l'instance du composant

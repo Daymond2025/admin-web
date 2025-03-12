@@ -17,9 +17,10 @@ const routes: Routes = [
 
 @NgModule({
   declarations: [
-    SignInComponent,
+   
   ],
   imports: [
+    SignInComponent,
     CommonModule,
     SharedModule,
     RouterModule.forChild(routes)

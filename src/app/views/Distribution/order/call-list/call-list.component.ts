@@ -1,10 +1,16 @@
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { TruncatePipe } from 'src/app/shared/pipes/truncate.pipe';
+import { OrderService } from 'src/app/shared/services/Order.service';
+import { UtilisService } from 'src/app/shared/services/Utilis.service';
 
 @Component({
   selector: 'app-call-list',
   standalone: true, // Standalone component
   templateUrl: './call-list.component.html',
   styleUrls: ['./call-list.component.css'],
+  imports:[CommonModule , TruncatePipe ]
 })
 export class sCallListComponent {
   isLoading: boolean = false;
@@ -17,11 +23,37 @@ export class sCallListComponent {
   totalPages: number = 1;
   perPage: number = 5;
 
-  
+  dataset:any=[]
+  ladata:any
 
-  constructor(){}
+  constructor(
+    public utilisService: UtilisService,
+    private orderService : OrderService,
+    private router: Router,
+  ){}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    // this.getProd({size:10,page:0})
+    this.getProd({page:1,status:'new'})
+  }
+
+  getProd(obj:any){
+    this.orderService.getAllCallCenter(obj).subscribe({
+      next: (data) => {
+        this.utilisService.response(data, (d:any) => {
+          console.log('order',d)
+          // this.loading = false
+          this.dataset=d.data;
+          // this.total = d.totalItems
+        });
+      },
+      error: (error) => {
+        this.utilisService.response(error,(d:any)=>{
+    
+        })
+      },
+    });
+  }
 
   loadOrders(page: number = 1, status: string = this.filterStatus): void {
     this.isLoading = true;
@@ -73,5 +105,9 @@ export class sCallListComponent {
 
   selectReason(selectedReason: string): void {
     this.reason = selectedReason;
+  }
+
+  openDialog(data?:any) {
+    this.router.navigate(['/orders/details_coord'] , { state: data })
   }
 }

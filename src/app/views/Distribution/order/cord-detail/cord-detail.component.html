@@ -40,8 +40,8 @@
               </li>
             </ul>
 
-          <button type="button" class="btn btn-warning text-light" data-bs-toggle="modal" data-bs-target="#exampleModal">
-            Valider ma commande
+          <button *ngIf="order?.commission_applied == 0" type="button" class="btn btn-warning text-light" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            Valider la commande
           </button>
         </div>
       </div>
@@ -93,10 +93,88 @@
               </div>
             </div>
            
-            <div class="ertehj" style="padding-top: 30px;">
-              <!-- step -->
+            <ng-container
+            *ngIf="order?.status !== 'canceled'; else canceledTemplate"
+          >
+            <div
+              class="ertehj"
+              style="padding-top: 30px; display: flex; justify-content: center"
+            >
+              <ul
+                class="status-line"
+                style="
+                  width: 80%;
+                  display: flex;
+                  justify-content: space-between;
+                "
+              >
+                <li
+                  *ngFor="let step of steps; let i = index"
+                  [ngClass]="{ active: currentStep === i + 1 }"
+                >
+                  <div
+                    style="
+                      display: flex;
+                      flex-direction: column;
+                      align-items: center;
+                      text-align: center;
+                    "
+                  >
+                    <img
+                    (click)="handleChangeStatus(step.status, step.label)"
+                      [src]="
+                        step.completed
+                          ? 'assets/img/vrasi.png'
+                          : 'assets/img/croix.png'
+                      "
+                      class="icon-succes"
+                      alt="Step Icon"
+                      height="15px"
+                      width="15px"
+                    />
+                    <p style="font-size: 0.9rem; color: black">
+                      {{ step.label }} <br />
+                      <small style="font-size: 0.7rem; color: #979696">{{
+                        step.date
+                      }}</small>
+                    </p>
+                  </div>
+                </li>
+              </ul>
             </div>
-            
+          </ng-container>
+            <!-- Template when order is canceled -->
+          <ng-template #canceledTemplate>
+            <div
+              style="
+                border-radius: 50%;
+                width: 100px;
+                height: 100px;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                margin: 0 auto;
+                margin-bottom: 10px !important;
+              "
+            >
+              <img
+                src="assets/img/croix-rouge.png"
+                alt="Canceled"
+                height="100px"
+                width="100px"
+              />
+              <p
+                style="
+                  font-size: 1rem;
+                  margin-top: 5px;
+                  color: rgb(159, 42, 42);
+                "
+              >
+                Annulée
+              </p>
+            </div>
+          </ng-template>
   
           </div>
         </div>
@@ -299,7 +377,7 @@
   
       <div class="fixed_fourn">
         <div class="fixed_fourn1">
-          <form action="" method="post" class="formu_fourn">
+          <form [formGroup]="itemForm" action="" method="post" class="formu_fourn">
             <div class="nominf">
               <p style="padding-top: 10px">Détail du marché</p>
               <img src="assets/img/fleche.png" alt="Product Image" height="15px"
@@ -309,62 +387,67 @@
               <div class="nominf12">
                 <div class="nomin112">
                   <label style="color: black">Quantité</label>
-                  <input type="text" class="nomininp" />
+                  <input type="number" (input)="handleChange()" formControlName="quantity" class="nomininp" />
                 </div>
-                <div class="nomin12">
+                <!-- <div class="nomin12">
                   <img src="assets/img/pouce.png" style="
                       filter: invert(7%) sepia(99%) saturate(7495%)
                         hue-rotate(247deg) brightness(102%) contrast(144%);
                     " alt="Product Image" height="15px" />
-                </div>
+                </div> -->
               </div>
               <div class="nominf12">
                 <div class="nomin112">
-                  <label style="color: black">Prix grossiste</label>
-                  <input type="text" class="nomininp" />
+                  <label style="color: black">Prix Daymond</label>
+                  <input type="text" [value]="order?.items[0].product?.price?.price" class="nomininp" readonly />
                 </div>
-                <div class="nomin12">
+                <!-- <div class="nomin12">
                   <img src="assets/img/pouce.png" style="
                       filter: invert(7%) sepia(99%) saturate(7495%)
                         hue-rotate(247deg) brightness(102%) contrast(144%);
                     " alt="Product Image" height="15px" />
-                </div>
+                </div> -->
               </div>
               <div class="nominf12">
                 <div class="nomin112">
                   <label style="color: black">Prix d'achat</label>
-                  <input type="text" class="nomininp" />
+                  <input type="number" (input)="handleChange()" class="nomininp" formControlName="orderproductprice" />
                 </div>
-                <div class="nomin12">
+                <!-- <div class="nomin12">
                   <img src="assets/img/pouce.png" style="
                       filter: invert(7%) sepia(99%) saturate(7495%)
                         hue-rotate(247deg) brightness(102%) contrast(144%);
                     " alt="Product Image" height="15px" />
-                </div>
+                </div> -->
               </div>
               <div class="nominf12">
                 <div class="nomin112">
-                  <label style="color: black">Revenue total</label>
-                  <input type="text" class="nomininp" />
+                  <label style="color: black">Commission initiale</label>
+                  <input type="number" class="nomininp" (input)="handleChange()" formControlName="commissioninitiale" />
                 </div>
-                <div class="nomin12">
+                <!-- <div class="nomin12">
                   <img src="assets/img/pouce.png" style="
                       filter: invert(7%) sepia(99%) saturate(7495%)
                         hue-rotate(247deg) brightness(102%) contrast(144%);
                     " alt="Product Image" height="15px" />
-                </div>
+                </div> -->
               </div>
               <div class="nominf12">
                 <div class="nomin112">
-                  <label style="color: black">50% de revenue</label>
-                  <input type="text" class="nomininp" />
+                  <label style="color: black">Commission supplémentaire</label>
+                  <input type="number" (input)="handleChange()" class="nomininp" formControlName="commissionsupplementaire" />
                 </div>
-                <div class="nomin12">
+                <!-- <div class="nomin12">
                   <img src="assets/img/pouce.png" style="
                       filter: invert(7%) sepia(99%) saturate(7495%)
                         hue-rotate(247deg) brightness(102%) contrast(144%);
                     " alt="Product Image" height="15px" />
-                </div>
+                </div> -->
+              </div>
+              <div style="font-weight: bold;color:green;padding:10px;" class="d-flex justify-content-between">
+                <div>Revenu total du vendeur</div>
+                
+                <div>{{this.total}} FCFA</div>
               </div>
               <!-- <div class="nominf12">
                 <p style="padding-top: 10px;">NCC </p>
@@ -399,7 +482,7 @@
                   <p>Autres détails</p>
                 </div>
                 <div style="width: 100%; height: 80px">
-                  <textarea name="" id="" style="resize: none; width: 100%; height: 100%; border: none"></textarea>
+                  <textarea formControlName="detail"  name="" id="" style="resize: none; width: 100%; height: 100%; border: none"></textarea>
                 </div>
               </div>
               <div class="dosi2">
@@ -443,7 +526,7 @@
             </div>
   
             <p style="padding-top: 30px; text-align: center">
-              <button type="button" class="btn btn-success" style="padding-left: 80px; padding-right: 80px"
+              <button (click)="handleOk('validated')" type="button" class="btn btn-success" style="padding-left: 80px; padding-right: 80px"
                 data-bs-toggle="modal" data-bs-target="#exampleModal">
                 Validation
               </button>

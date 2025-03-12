@@ -16,9 +16,11 @@
             </div>
             <div class="product-info">
 
-                <p><small style="color: white;text-transform: uppercase;font-size: 1.3rem;">Remail Kouadio</small></p>
+                <p><small style="color: white;text-transform: uppercase;font-size: 1.3rem;">
+                    {{dataset?.seller?.first_name}} {{dataset?.seller?.last_name}}
+                </small></p>
                 <small style="color: white;">Fornisseur:DK-FRD-345</small>
-                <small style="color: #00FFFF;">Inscrit le : 12/30/30 29:23</small>
+                <small style="color: #00FFFF;">{{dataset?.created_at | date }}</small>
             </div>
         </div>
 
@@ -58,28 +60,28 @@
         <p style="color: black;font-weight: bolder;">PROFIL</p>
         <div class="d-flex justify-content-between align-items-center mb-2" style="padding-left: 20px;padding-right: 20px;background-color: #F5F6FC;height: 50px;">
             <span>NOM & PRENOM</span>
-            <span>Remail Kouadio</span>
+            <span>{{dataset?.seller?.first_name}} {{dataset?.seller?.last_name}}</span>
         </div>
         <div class="d-flex justify-content-between align-items-center mb-2" style="padding-left: 20px;padding-right: 20px;background-color: #F5F6FC;height: 50px;">
             <span>PAYS & VILLE</span>
-            <span>Remail Kouadio</span>
+            <span>{{dataset?.seller?.city}}</span>
         </div>
         <div class="d-flex justify-content-between align-items-center mb-2" style="padding-left: 20px;padding-right: 20px;background-color: #F5F6FC;height: 50px;">
-            <span>profession</span>
-            <span>Chef de projet</span>
+            <span>Profession</span>
+            <span>{{dataset?.seller?.job}}</span>
         </div>
         <div class="d-flex justify-content-between align-items-center mb-2" style="padding-left: 20px;padding-right: 20px;background-color: #F5F6FC;height: 50px;">
             <span>Téléphone</span>
-            <span>+225 0759028545
+            <span>{{dataset?.phone_number}}
             </span>
         </div>
         <div class="d-flex justify-content-between align-items-center mb-2" style="padding-left: 20px;padding-right: 20px;background-color: #F5F6FC;height: 50px;">
             <span>E-mail</span>
-            <span class="text-danger">Confirmé votre mailo</span>
+            <span class="text-danger">{{dataset?.email}}</span>
         </div>
         <div class="d-flex justify-content-between align-items-center mb-2" style="padding-left: 20px;padding-right: 20px;background-color: #F5F6FC;height: 50px;">
             <span> NOMBRE D'ÉTOILES</span>
-            <span>Remail Kouadio</span>
+            <span>{{dataset?.seller?.stars}}</span>
         </div>
     </div>
 </div>

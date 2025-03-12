@@ -25,6 +25,14 @@ export class UserService {
     });
   }
 
+  public getUser(data:any) {
+    return this.http.get(this.configService.getApi('GET_USER'), {
+      observe: 'response',
+      params:data
+    });
+  }
+
+
 //   public create(lePost: any) {
 //     return this.http.post(this.configService.getApi('ALL_USER'), lePost, {
 //       observe: 'response',

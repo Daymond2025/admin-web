@@ -77,7 +77,7 @@
         </div>
       </div>
     
-      <div class="tab-content" id="nav-tabContent">
+      <div class="tab-content" id="nav-tabContent" style="height: 70vh !important; overflow-y: auto; overflow-x: hidden">
 
         <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab" tabindex="0">
           
@@ -85,9 +85,9 @@
           <!-- Content -->
           <ng-container >
             <!-- on boucle ceci -->
-            <ng-container >
+            <ng-container  *ngFor="let order of dataset; let i = index" >
               <div
-                
+              
                 class="row box-2"
                 style="padding-bottom: 0;"
               >
@@ -101,38 +101,41 @@
                   >
                     <img
                       class="product-image"
-                      src="assets/img/lp1.png"
+                      [src]="order?.items[0]?.product?.images[0]"
                       alt="Product Image"
                      
                     />
                     <div class="product-info">
-                      <span class="product-name">Abobo …</span>
+                      <span class="product-name">{{order?.items[0]?.product?.name | truncate : 20}}</span>
                       <p>
-                        <small class="">#Abobo …</small>
+                        <small class="">#{{order?.items[0]?.reference}}</small>
                       </p>
                       <small
-                        >Aujourd'hui, à
+                        >{{order?.items[0]?.product?.created_at | date}}
                         </small
                       >
                     </div>
                   </div>
                   <div class="order-item" >
                     <p class="label">Prix de vente</p>
-                    <p class="value">10 000 FCFA</p>
+                    <p class="value">{{order?.items[0]?.product?.price.price}} FCFA</p>
                   </div>
                   <div class="order-item">
                     <p class="label">Frais de livraison</p>
-                    <p class="value">2 000 FCFA</p>
+                    <p class="value">
+                      {{order?.delivery?.city?.name?.startsWith("Abidjan") ? order?.items[0]?.product?.price_delivery.city : order?.items[0]?.product?.price_delivery.no_city }}
+                       FCFA
+                    </p>
                   </div>
                   <div class="order-item">
                     <p class="label">Total à payer</p>
-                    <p class="value mb-0 colore">12 000 FCFA</p>
+                    <p class="value mb-0 colore">{{order?.items[0].total}} FCFA</p>
                     <small>À la livraison</small>
                   </div>
                   <div class="order-item">
                     <p class="label">Lieu de livraison</p>
                     <p class="value colore">
-                      Abobo …
+                      {{order?.delivery?.city?.name}}
                     </p>
                   </div>
                   <div
@@ -143,10 +146,10 @@
                       position: relative;
                     "
                   >
-                    <p class="m-0 text-dark">Lamine, Laetitia & Cissé</p>
-                    <small class="m-0"
+                    <p class="m-0 text-dark">{{order?.client?.name}}</p>
+                    <!-- <small class="m-0"
                       >Client en attente de votre appel depuis 3 min</small
-                    >
+                    > -->
                     <div class="row d-flex justify-content-center mt-3">
                       <!-- change status -->
                       <div class="col-6">

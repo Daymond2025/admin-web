@@ -1,16 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {provideHttpClientTesting, HttpClientTestingModule } from '@angular/common/http/testing'
 
-import { CallListComponent } from './call-list.component';
+import { sCallListComponent } from './call-list.component';
 
-describe('CallListComponent', () => {
-  let component: CallListComponent;
-  let fixture: ComponentFixture<CallListComponent>;
+describe('sCallListComponent', () => {
+  let component: sCallListComponent;
+  let fixture: ComponentFixture<sCallListComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [CallListComponent]
+      imports: [sCallListComponent,HttpClientTestingModule]
     });
-    fixture = TestBed.createComponent(CallListComponent);
+    fixture = TestBed.createComponent(sCallListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

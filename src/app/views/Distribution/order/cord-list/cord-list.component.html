@@ -92,9 +92,9 @@
       <div >
        
         <ng-container >
-          <ng-container >
+          <ng-container *ngFor="let order of dataset; let i = index" >
             <div
-
+            (click)="openDialog(order)"
               class="row box-2"
               style="padding-bottom: 0"
             >
@@ -108,16 +108,16 @@
                 >
                   <img
                     class="product-image"
-                    src="assets/img/lp3.png"
+                    [src]="order?.items[0]?.product?.images[0]"
                     alt="Product Image"
                     routerLink="/orders/details_coord"
 
                   />
                   <div class="product-info">
                     <span class="product-name" 
-                      >Range cuisine moderne</span
+                      >{{order?.items[0]?.product?.name}}</span
                     >
-                    <p><small class="">#45DT57788839</small></p>
+                    <p><small class="">{{order?.items[0]?.reference}}</small></p>
                     <small>Aujourd'hui, à 10h10</small>
                   </div>
                 </div>
@@ -125,14 +125,14 @@
                 <div class="order-item">
                   <p class="label">Total à payer</p>
                   <p class="value" style="color: #0055ff">
-                    23
+                    {{order?.items[0]?.total}}
                   </p>
                 </div>
                 <!-- livraison -->
                 <div class="order-item">
                   <p class="label">Lieux de livraison</p>
                   <p class="value" style="color: #0055ff">
-                    kdld
+                    {{order?.delivery?.city?.name}}
                   </p>
                 </div>
                 <!-- business -->
@@ -197,7 +197,9 @@
                   </div>
                   <div style="margin-left: 2px; margin-top: 10px; width: 100%">
                     <button
-                    
+                    [ngStyle]="{
+                      'background-color': getButtonColor(order.status)
+                    }"
                       style="
                         width: 100%;
                         padding-bottom: 10px;
@@ -208,7 +210,7 @@
                         background-color: green;
                       "
                     >
-                    commande En attente
+                    {{ getButtonText(order.status) }}
                     </button>
                   </div>
                 </div>

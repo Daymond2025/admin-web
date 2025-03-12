@@ -1,5 +1,6 @@
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, FormControl, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { first } from 'rxjs';
 
@@ -10,7 +11,11 @@ import Swal from 'sweetalert2';
 @Component({
   selector: 'app-sign-in',
   templateUrl: './sign-in.component.html',
-  styleUrls: ['./sign-in.component.css']
+  styleUrls: ['./sign-in.component.css'],
+  standalone: true, // Important
+    
+  imports:[CommonModule ,ReactiveFormsModule,
+          FormsModule, ]
 })
 export class SignInComponent {
   loginForm!: FormGroup;
