@@ -1,0 +1,349 @@
+<!-- Loader -->
+<div *ngIf="isLoading" class="loader-container">
+  <div class="spinner-border text-primary" role="status">
+    <span class="visually-hidden">Loading...</span>
+  </div>
+</div>
+
+<div *ngIf="!isLoading" class="container-fluid mt-5 p-3">
+  <div class="ms-auto d-flex justify-content-between align-items-center w-full">
+    <div
+      class="d-flex gap-3 align-items-start"
+      [routerLink]="['/providers/details/', detailsBusiness.business.id]"
+    >
+      <img
+        src="assets/img/icons/fleche.png"
+        style="margin-top: 8px"
+        alt=""
+        width="10"
+        height="10"
+        [routerLink]="['/providers/details/', detailsBusiness.business.id]"
+      />
+      <p>FOURNISSEUR</p>
+    </div>
+
+    <a routerLink="/parameter" href=""
+      ><img src="assets/img/icons/parametre.png" alt="" width="20" height="20"
+    /></a>
+  </div>
+
+  <div class="col-12 d-flex flex-wrap align-items-center">
+    <button
+      *ngIf="detailsBusiness?.business"
+      type="button"
+      style="border: none; background-color: transparent"
+      class="order-item d-flex align-items-center justify-content-start order-item-large col-md-2"
+    >
+      <img
+        class="product-image rounded-circle"
+        [src]="detailsBusiness.business.logo"
+        alt="Product Image"
+      />
+      <div class="rounded-circle"></div>
+      <div class="product-info">
+        <p style="margin: 0px !important">
+          <small class="">{{
+            detailsBusiness.business.name.toLocaleUpperCase()
+          }}</small>
+        </p>
+        <small>{{ detailsBusiness.business.ncc }}</small>
+        <small
+          >Inscrit le :
+          {{
+            detailsBusiness.business.created_at | date : "dd/mm/yy hh:mm"
+          }}</small
+        >
+      </div>
+    </button>
+
+    <div class="d-flex col-md-9 flex-wrap">
+      <div style="width: 100%; display: flex; flex-wrap: wrap; gap: 10px">
+        <button
+          style="
+            width: 30%;
+            min-width: 150px;
+            height: 40px;
+            border: 1px solid gainsboro;
+            background-color: #ff9500;
+            color: white;
+            position: relative;
+            border-radius: 4px;
+          "
+        >
+          <img
+            src="assets/img/icons/cart.png "
+            style="position: absolute; left: 10px"
+            alt=""
+            width="20"
+            height="20"
+          />
+          Commandes
+        </button>
+        <button
+          style="
+            width: 30%;
+            min-width: 150px;
+            height: 40px;
+            border: 1px solid gainsboro;
+            background-color: white;
+            color: black;
+            position: relative;
+            border-radius: 4px;
+          "
+          [routerLink]="['/providers/products/', detailsBusiness.business.id]"
+        >
+          <img
+            src="assets/img/icons/product.png"
+            style="position: absolute; left: 10px"
+            alt=""
+            width="20"
+            height="20"
+          />
+          Produits
+        </button>
+        <button
+          style="
+            width: 30%;
+            min-width: 150px;
+            height: 40px;
+            border: 1px solid gainsboro;
+            background-color: white;
+            color: black;
+            position: relative;
+            border-radius: 4px;
+          "
+          [routerLink]="['/providers/comptables/', detailsBusiness.business.id]"
+        >
+          <img
+            src="assets/img/icons/comptable.png"
+            style="position: absolute; left: 10px"
+            alt=""
+            width="20"
+            height="20"
+          />
+          Comptable
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bouton filtre -->
+  <div class="row d-flex p-3 box-1">
+    <div class="col-md d-flex flex-wrap justify-content-between mb-3 mb-md-0">
+      <button
+        class="btn btn-border btn-round w-auto me-3"
+        [class.active]="filterStatus === ''"
+        (click)="resetFilter()"
+      >
+        Tout
+      </button>
+      <button
+        class="btn btn-border btn-round w-auto me-3"
+        [class.active]="filterStatus === 'confirm'"
+        (click)="filterByNew()"
+      >
+        Nouvelle commande
+      </button>
+      <button
+        class="btn btn-border btn-round w-auto"
+        [class.active]="filterStatus === 'pending'"
+        (click)="filterByPending()"
+      >
+        En attente
+      </button>
+      <button
+        class="btn btn-border btn-round"
+        [class.active]="filterStatus === 'in_progress'"
+        (click)="filterByInProgress()"
+      >
+        En cours
+      </button>
+      <button
+        class="btn btn-border btn-round w-auto"
+        [class.active]="filterStatus === 'validated'"
+        (click)="filterByLivree()"
+      >
+        Livrées
+      </button>
+      <button
+        class="btn btn-border btn-round w-auto"
+        [class.active]="filterStatus === 'canceled'"
+        (click)="filterByCancel()"
+      >
+        Annulées
+      </button>
+    </div>
+  </div>
+
+  <!-- Content -->
+  <div>
+    <!-- Tout -->
+    <div class="" id="nav-home">
+      <!-- on boucle ceci -->
+      <div class="row box-2">
+        <!-- Loader -->
+        <div *ngIf="isLoading" class="loader-container">
+          <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+        </div>
+
+        <!-- Content -->
+        <div *ngIf="!isLoading">
+          <div
+            *ngFor="let order of listOrders"
+            class="col-12 d-flex flex-wrap order-row align-items-center"
+          >
+            <div class="order-item d-flex align-items-center order-item-large">
+              <img
+                class="product-image"
+                [src]="order.items[0].product.images[0]"
+                [alt]="order.items[0].product.name"
+                routerLink="commandes"
+              />
+              <div class="product-info">
+                <span class="product-name" routerLink="commandes">{{
+                  order.items[0].product.name | truncate : 15
+                }}</span>
+                <p>
+                  <small class="">#{{ order.reference }}</small>
+                </p>
+                <small
+                  >Aujourd'hui, à {{ order.created_at | date : "HH:MM" }}</small
+                >
+              </div>
+            </div>
+            <div class="order-item">
+              <p class="label">Prix de vente</p>
+              <p class="value">
+                {{ calculateTotals().totalAmount | number }} FCFA
+              </p>
+            </div>
+            <div class="order-item">
+              <p class="label">Frais de livraison</p>
+              <p class="value">
+                {{ calculateTotals().totalFees | number }} FCFA
+              </p>
+            </div>
+            <div class="order-item">
+              <p class="label">Total à payer</p>
+              <p class="value mb-0 colore">
+                {{ calculateTotalAmountToPay() | number }} FCFA
+              </p>
+              <small>À la livraison</small>
+            </div>
+            <div class="order-item">
+              <p class="label">Lieu de livraison</p>
+              <p class="value colore">
+                {{ order.delivery.city.name | truncate : 10 }}
+              </p>
+            </div>
+            <div class="order-item order-item-large">
+              <p class="m-0">Statut</p>
+
+              <div class="row d-flex justify-content-center mt-3">
+                <div class="col-12">
+                  <!-- Commande Annulée -->
+                  <button
+                    *ngIf="order.status === 'canceled'"
+                    class="btn btn-border-custom w-full btn-danger text-white"
+                  >
+                    Commande annulée
+                  </button>
+
+                  <!-- Commande Livrée -->
+                  <button
+                    *ngIf="order.status === 'validated'"
+                    class="btn btn-border-custom w-full btn-success text-white"
+                  >
+                    Commande livrée
+                  </button>
+
+                  <!-- En cours de livraison -->
+                  <button
+                    *ngIf="order.status === 'in_progress'"
+                    class="btn btn-border-custom w-full btn-primary text-white"
+                  >
+                    En cours de livraison
+                  </button>
+
+                  <!-- Commande en attente -->
+                  <button
+                    *ngIf="order.status === 'pending'"
+                    class="btn w-full text-white"
+                    style="background-color: rgb(62, 8, 85)"
+                  >
+                    Commande en attente
+                  </button>
+
+                  <!-- Commande confirmée -->
+                  <button
+                    *ngIf="order.status === 'confirm'"
+                    class="btn btn-border-custom w-full btn-warning text-white"
+                  >
+                    Nouvelle commande
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Vide -->
+        <div *ngIf="!isLoading && listOrders.length === 0" class="p-5">
+          <p class="text-center">Aucune commande trouvé</p>
+        </div>
+
+        <!-- Pagination -->
+        <nav
+          aria-label="Page navigation"
+          *ngIf="!isLoading && totalPages! > 1"
+          style="margin-top: 20px"
+        >
+          <ul class="pagination">
+            <!-- Bouton pour page précédente -->
+            <li class="page-item" [class.disabled]="currentPage === 1">
+              <a
+                class="page-link"
+                (click)="goToPage(currentPage! - 1)"
+                aria-label="Previous"
+              >
+                <img
+                  src="assets/img/left.png"
+                  alt="Previous"
+                  width="10"
+                  height="10"
+                />
+              </a>
+            </li>
+
+            <!-- Pages -->
+            <li
+              *ngFor="let page of [].constructor(totalPages); let i = index"
+              class="page-item"
+              [class.active]="currentPage === i + 1"
+            >
+              <a class="page-link" (click)="goToPage(i + 1)">{{ i + 1 }}</a>
+            </li>
+
+            <!-- Bouton pour page suivante -->
+            <li class="page-item" [class.disabled]="currentPage === totalPages">
+              <a
+                class="page-link"
+                (click)="goToPage(currentPage! + 1)"
+                aria-label="Next"
+              >
+                <img
+                  src="assets/img/right.png"
+                  alt="Next"
+                  width="10"
+                  height="10"
+                />
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </div>
+</div>

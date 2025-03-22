@@ -1,0 +1,1122 @@
+<div class="container-fluid mt-5 p-3">
+  <!-- Form -->
+  <form [formGroup]="productForm">
+    <div class="row d-flex p-3 box-1">
+      <div class="col-md-7 d-flex justify-content-between mb-3 mb-md-0">
+        <div
+          class="col-md-12 d-flex justify-content-start align-items-center gap-3 flex-wrap"
+        >
+          <div class="d-flex align-items-center" style="min-width: 190px">
+            <img
+              src="assets/img/icons/fleche.png"
+              style="margin-right: 10px; cursor: pointer"
+              alt=""
+              width="25"
+              height="25"
+              routerLink="/products/"
+            />
+            <p class="mb-0">Publier un produit</p>
+          </div>
+
+          <div
+            class="d-flex align-items-center"
+            style="
+              background-color: white;
+              padding: 10px 15px;
+              border: 1px solid #ccc;
+              border-radius: 7px;
+              min-width: 190px;
+            "
+          >
+            <select
+              class="form-select"
+              aria-label="Select boutique"
+              style="border: none; font-size: 0.8rem; color: black"
+            >
+              <option
+                *ngFor="let business of listBusiness"
+                [ngValue]="business"
+              >
+                <img [src]="business.logo" style="margin-right: 10px" alt="Logo" width="30" height="30"  />
+                <p>{{ business.name }}</p>
+                Fournisseur:{{ business.name }}
+              </option>
+            </select>
+          </div>
+
+          <div
+            class="d-flex align-items-center"
+            style="
+              background-color: white;
+              padding-left: 10px;
+              padding-right: 15px;
+              border: 1px solid #ccc;
+              border-radius: 7px;
+              min-width: 190px;
+            "
+          >
+            <img
+              src="assets/img/logoAdm.png"
+              style="margin-right: 10px"
+              alt=""
+              width="30"
+              height="30"
+            />
+            <p class="mb-0" style="font-size: 0.8rem; color: black">
+              BOUTIQUE LENOVO <br /><span style="font-size: 0.8rem; color: gray"
+                >Fournisseur : 26789</span
+              >
+            </p>
+          </div>
+          <!-- Select for "Plus recent" -->
+          <!-- <div
+            class="d-flex align-items-center"
+            style="
+              padding: 12px;
+              border: 1px solid #ff9500;
+              border-radius: 7px;
+              max-width: 100px;
+            "
+          >
+            <select
+              formControlName="popular"
+              style="border: none; font-size: 0.8rem; color: #ff9500"
+            >
+              <option value="false" selected>Plus récent</option>
+              <option value="true">Plus vendu</option>
+            </select>
+          </div> -->
+          <!-- Checkbox with changing star -->
+          <!-- <div
+            (click)="toggleFavorite()"
+            class="d-flex align-items-center"
+            style="
+              background-color: white;
+              padding-left: 20px;
+              padding-right: 10px;
+              border: 1px solid #ff9500;
+              border-radius: 7px;
+              min-width: 50px;
+              padding-top: 10px;
+              padding-bottom: 10px;
+            "
+          >
+            <img
+              [src]="
+                isFavorite
+                  ? 'assets/img/etoile.png'
+                  : 'assets/img/etoile-grise.jpg'
+              "
+              style="margin-right: 10px"
+              alt="Star"
+              width="20"
+              height="20"
+            />
+          </div> -->
+        </div>
+      </div>
+      <div
+        class="col-md-3 ms-auto d-flex justify-content-end align-items-center gap-3"
+      >
+        <!-- <button
+          style="width: 70%; border: none; background-color: white; color: gray"
+        >
+          Sauvegarder
+        </button> -->
+        <button
+          class="btn btn-primary btn-border btn-round btn-add"
+          style="width: 70%; color: #ff9500"
+          (click)="publishProduct()"
+        >
+          PUBLIER
+        </button>
+      </div>
+    </div>
+
+    <div class="pt-2 px-3">
+      <!-- bloc champs -->
+      <div class="row mt-3">
+        <!-- bloc Info -->
+        <div class="col-md-8 col-sm-6 mb-4" id="changsep">
+          <div
+            style="width: 100%; display: flex; padding-top: 5px"
+            id="changsep1"
+          >
+            <!-- <div id="titre2">
+              <input
+                formControlName="code"
+                type="text"
+                class="titre1"
+                placeholder="Scanner le code produit"
+                style="
+                  height: 100%;
+                  width: 100% !important;
+                  border: 1px solid #ccc;
+                  border-radius: 5px;
+                  height: 40px;
+                  padding-left: 10px;
+                "
+              />
+            </div> -->
+          </div>
+          <div
+            style="width: 100%; gap: 10px; display: flex; padding-top: 10px"
+            id="changsep1"
+          >
+
+            <div
+              style="width: 100%; gap: 10px; display: flex; padding-top: 10px"
+              id="changsep1"
+            >
+              <!-- <div id="titre2">
+                <input
+                  formControlName="name"
+                  type="text"
+                  class="titre1"
+                  style="
+                    height: 100%;
+                    width: 100%;
+                    border: 1px solid #ccc;
+                    border-radius: 5px;
+                    height: 40px;
+                    padding-left: 10px;
+                  "
+                  placeholder="Nom de l'article"
+                  value="{{ product.name | truncate : 23 }}"
+                  required
+                />
+              </div>
+              <div id="titre2">
+                <input
+                  formControlName="sub_title"
+                  type="text"
+                  class="titre1"
+                  value="{{ product.sub_title | truncate : 23 }}"
+                  style="
+                    height: 100%;
+                    width: 100%;
+                    border: 1px solid #ccc;
+                    border-radius: 5px;
+                    height: 40px;
+                    padding-left: 10px;
+                  "
+                  placeholder="Sous titre"
+                />
+              </div> -->
+            </div>
+            <!-- <div id="titre2">
+              <input
+                formControlName="sub_title"
+                type="text"
+                class="titre1"
+                value="{{ product.sub_title | truncate : 23 }}"
+                style="
+                  height: 100%;
+                  width: 100%;
+                  border: 1px solid #ccc;
+                  border-radius: 5px;
+                  height: 40px;
+                  padding-left: 10px;
+                "
+                placeholder="Sous titre"
+              />
+            </div> -->
+          </div>
+          <div
+            style="
+              width: 100%;
+              background-color: white;
+              gap: 10px;
+              display: flex;
+              padding-top: 10px;
+            "
+          >
+            <div id="titre2" style="width: 100%; height: auto">
+              <textarea
+                formControlName="description"
+                class="titre1"
+                [value]="product.description"
+                style="
+                  height: 300px;
+                  width: 100%;
+                  border: 1px solid #ccc;
+                  border-radius: 5px;
+                  padding-left: 10px;
+                  resize: none;
+                "
+                placeholder="Description"
+              ></textarea>
+            </div>
+          </div>
+          <div
+            style="
+              width: 100%;
+              background-color: white;
+              gap: 10px;
+              display: flex;
+              padding-top: 10px;
+            "
+            id="changsep1"
+          >
+            <div id="titre2">
+              <select
+              formControlName="category_id"
+              (change)="onCategoryChange($event)"
+              style="
+                height: 100%;
+                width: 100%;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+                height: 40px;
+                padding-left: 10px;
+              "
+            >
+              <option value="">Catégorie</option>
+              <option *ngFor="let category of listCategories" [value]="category.id" [selected]="category.id === product?.category?.id">
+                {{ category.name }}
+              </option>
+            </select>
+            
+            </div>
+            <div id="titre2">
+              <select
+                formControlName="sub_category_id"
+                style="
+                  height: 100%;
+                  width: 100%;
+                  border: 1px solid #ccc;
+                  border-radius: 5px;
+                  height: 40px;
+                  padding-left: 10px;
+                "
+              >
+                <option value="">Sous-Catégorie</option>
+                <option *ngFor="let subCategory of listSubCategories" [value]="subCategory.id" [selected]="subCategory.id === product?.sub_category?.id">
+                  {{ subCategory.name }}
+                </option>
+              </select>
+
+            </div>
+          </div>
+          <div
+            style="
+              width: 100%;
+              background-color: white;
+              gap: 10px;
+              display: flex;
+              padding-top: 10px;
+            "
+            id="changsep1"
+          >
+            <div id="titre2">
+              <select
+  formControlName="state_id"
+  id="state_id"
+  style="
+    height: 100%;
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    height: 40px;
+    padding-left: 10px;
+  "
+>
+  <option value="" *ngIf="product?.state?.id == null">État du produit</option>
+  <option *ngFor="let state of listStates" [value]="state.id" [selected]="state.id === product?.state?.id">
+    {{ state.name }}
+  </option>
+</select>
+
+            </div>
+            <div id="titre2">
+              <input
+                formControlName="stock"
+                type=""
+                class="titre1"
+                style="
+                  height: 100%;
+                  width: 100%;
+                  border: 1px solid #ccc;
+                  border-radius: 5px;
+                  height: 40px;
+                  padding-left: 10px;
+                "
+                placeholder="Quantité"
+              />
+            </div>
+          </div>
+          <!-- ligne 2 -->
+          <div
+            style="
+              width: 100%;
+              gap: 10px;
+              display: flex;
+              height: 50px;
+              align-items: center;
+              padding-top: 20px;
+            "
+          >
+            <div
+              style="
+                width: 50%;
+                background-color: rgb(234, 234, 234);
+                height: 1px;
+              "
+            ></div>
+            <p
+              style="
+                font-size: 0.7rem;
+                min-width: 100px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding-top: 10px;
+                color: rgb(194, 194, 194);
+              "
+            >
+              Ligne 2
+            </p>
+            <div
+              style="
+                width: 50%;
+                background-color: rgb(234, 234, 234);
+                height: 1px;
+              "
+            ></div>
+          </div>
+          <div
+            style="
+              width: 100%;
+              background-color: white;
+              gap: 10px;
+              display: flex;
+              padding-top: 10px;
+            "
+            id="changsep1"
+          >
+            <div id="titre2">
+              <input
+                formControlName="price_supplier"
+                type="number"
+                class="titre1"
+                style="
+                  height: 100%;
+                  width: 100%;
+                  border: 1px solid #ccc;
+                  border-radius: 5px;
+                  height: 40px;
+                  padding-left: 10px;
+                "
+                placeholder="Prix fournisseur"
+              />
+            </div>
+            <div id="titre2">
+              <select
+                (change)="onTypeChange($event)"
+                formControlName="category"
+                name=""
+                id=""
+                style="
+                  height: 100%;
+                  width: 100%;
+                  border: 1px solid #ccc;
+                  border-radius: 5px;
+                  height: 40px;
+                  padding-left: 10px;
+                "
+              >
+                <option value="">Type</option>
+                <option value="grossiste">Grossiste</option>
+
+              </select>
+            </div>
+          </div>
+          <div
+            style="
+              width: 100%;
+              background-color: white;
+              gap: 10px;
+              display: flex;
+              padding-top: 10px;
+            "
+            id="changsep1"
+          >
+            <div id="titre2">
+              <div class="input-group mb-3">
+                <input
+                  formControlName="price_normal"
+                  type="text"
+                  class="titre1"
+                  class="form-control"
+                  style="border: 1px solid #ccc"
+                  aria-label="Recipient's username"
+                  aria-describedby="basic-addon2"
+                  placeholder="Prix réduit"
+                />
+                <div class="input-group-append">
+                  <span
+                    class="input-group-text"
+                    id="basic-addon2"
+                    style="color: red"
+                    >- 10 %</span
+                  >
+                </div>
+              </div>
+            </div>
+            <div id="titre2">
+              <input
+                formControlName="brand_id"
+                type="number"
+                class="titre1"
+                style="
+                  height: 100%;
+                  width: 100%;
+                  border: 1px solid #ccc;
+                  border-radius: 5px;
+                  height: 40px;
+                  padding-left: 10px;
+                "
+                placeholder="Marque"
+              />
+            </div>
+          </div>
+          <div
+            style="
+              width: 100%;
+              background-color: white;
+              padding-top: 10px;
+              padding-top: 5px;
+              border: 1px solid #f0f0f0;
+              margin-top: 20px;
+              padding: 5px;
+              border-radius: 5px;
+              padding-bottom: 15px;
+            "
+          >
+
+            <p style="width: 100px">Prix Daymond</p>
+            <div
+              *ngIf="selectedType === 'grossiste'"
+              style="display: flex; width: 100%; gap: 10px"
+              id="changsep1"
+            >
+              <div id="titre2">
+                <input
+                  formControlName="price"
+                  type="number"
+                  class="titre1"
+                  style="
+                    height: 100%;
+                    width: 100%;
+                    border: 1px solid #ccc;
+                    border-radius: 5px;
+                    height: 40px;
+                    padding-left: 10px;
+                  "
+                  placeholder="Prix Daymond"
+                />
+              </div>
+              <div id="titre2">
+                <input
+                  formControlName="price_min"
+                  type="number"
+                  class="titre1"
+                  style="
+                    height: 100%;
+                    width: 100%;
+                    border: 1px solid #ccc;
+                    border-radius: 5px;
+                    height: 40px;
+                    padding-left: 10px;
+                  "
+                  placeholder="De :"
+                />
+              </div>
+              <div id="titre2">
+                <input
+                  formControlName="price_max"
+                  type="number"
+                  class="titre1"
+                  style="
+                    height: 100%;
+                    width: 100%;
+                    border: 1px solid #ccc;
+                    border-radius: 5px;
+                    height: 40px;
+                    padding-left: 10px;
+                  "
+                  placeholder="A :"
+                />
+              </div>
+            </div>
+            <div
+              *ngIf="selectedType === 'vente' || selectedType === 'location'"
+              style="display: flex; width: 100%; gap: 10px"
+              id="changsep1"
+            >
+              <div id="titre2">
+                <input
+                  formControlName="price"
+                  type="text"
+                  class="titre1"
+                  style="
+                    height: 100%;
+                    width: 100%;
+                    border: 1px solid #ccc;
+                    border-radius: 5px;
+                    height: 40px;
+                    padding-left: 10px;
+                  "
+                  placeholder="Prix Daymond"
+                />
+              </div>
+              <div id="titre2">
+                <input
+                  formControlName="commission"
+                  type="number"
+                  class="titre1"
+                  style="
+                    height: 300vh;
+                    width: 100%;
+                    border: 1px solid #ccc;
+                    border-radius: 5px;
+                    height: 40px;
+                    padding-left: 10px;
+                  "
+                  placeholder="Commission"
+                />
+              </div>
+            </div>
+          </div>
+          <div
+            style="
+              width: 100%;
+              background-color: white;
+              gap: 10px;
+              display: flex;
+            "
+            id="changsep1"
+          >
+            <div id="titre2" style="height: auto">
+              <div
+                class="titre1"
+                style="
+                  height: 150px;
+                  width: 100%;
+                  border: 1px solid #ccc;
+                  border-radius: 5px;
+                  padding-left: 10px;
+                  display: flex;
+                  align-items: center;
+                  padding-right: 10px;
+                  flex-wrap: wrap;
+                  gap: 10px;
+                  padding-bottom: 10px;
+                "
+              >
+                <div class="titre212">
+                  <p>Offre achat pour soit</p>
+                </div>
+                <div class="titre212" style="gap: 10px">
+                  <input
+                    formControlName="price_partner"
+                    placeholder="12 000 FCFA"
+                    style="
+                      width: 50%;
+                      border: 1px solid #ccc;
+                      padding: 7px;
+                      background-color: white;
+                    "
+                  />
+                  <p style="color: red">- 18 %</p>
+                </div>
+              </div>
+            </div>
+
+            <div id="titre2" style="height: auto">
+              <div
+                class="titre1"
+                style="
+                  height: 150px;
+                  width: 100%;
+                  border: 1px solid #ccc;
+                  border-radius: 5px;
+                  padding-left: 10px;
+                  display: flex;
+                  align-items: center;
+                  padding-right: 10px;
+                  flex-wrap: wrap;
+                  gap: 10px;
+                  padding-bottom: 10px;
+                "
+              >
+                <div class="titre212">
+                  <p>Prix livraison</p>
+                  <select
+                    name=""
+                    id=""
+                    style="width: 50%; border: 1px solid #ccc; padding: 7px"
+                  >
+                    <option value="">Localisation</option>
+                    <option *ngFor="let city of listCities" [value]="city.id">
+                      {{ city.name }}
+                    </option>
+                  </select>
+                </div>
+                <div class="titre212" style="gap: 10px">
+                  <input
+                    type="number"
+                    style="
+                      width: 50%;
+                      border: 1px solid #ccc;
+                      padding: 7px;
+                      background-color: white;
+                    "
+                    formControlName="price_city_delivery"
+                    [placeholder]="'A ville'"
+                  />
+                  <input
+                    type="number"
+                    style="
+                      width: 50%;
+                      border: 1px solid #ccc;
+                      padding: 7px;
+                      background-color: white;
+                    "
+                    formControlName="price_no_city_delivery"
+                    [placeholder]="'Hors ville'"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            style="
+              width: 100%;
+              background-color: white;
+              gap: 10px;
+              display: flex;
+              padding-top: 10px;
+            "
+            id="changsep1"
+          >
+            <!-- Taille du produit -->
+            <div id="titre2" style="height: auto">
+              <div
+                style="
+                  height: auto !important;
+                  width: 100%;
+                  border: 1px solid #ccc;
+                  border-radius: 5px;
+                  padding-left: 10px;
+                  padding-top: 40px;
+                  display: flex;
+                  align-items: center;
+                  padding-right: 10px;
+                  flex-wrap: wrap;
+                  gap: 10px;
+                "
+              >
+                
+                <select
+                  formControlName="sizes"
+                  (change)="onSizeChange($event)"
+                  style="
+                    width: 100%;
+                    padding: 10px;
+                    border: 1px solid #ccc;
+                    border-radius: 5px;
+                  "
+                >
+                  <option value="" disabled selected>
+                    Sélectionnez vos tailles
+                  </option>
+                  <option *ngFor="let size of sizes" [value]="size">
+                    {{ size }}
+                  </option>
+                </select>
+
+                
+                <div
+                  style="
+                    display: flex;
+                    padding-bottom: 10px !important;
+                    flex-wrap: wrap;
+                    gap: 10px;
+                  "
+                >
+                  <div
+                    *ngFor="let size of selectedSizes"
+                    style="
+                      padding: 1px 10px;
+                      color: white;
+                      background-color: rgb(0, 217, 255);
+                      border-radius: 20px;
+                      text-align: center;
+                      width: fit-content;
+                    "
+                  >
+                    {{ size }}
+                  </div>
+                </div>
+              </div>
+
+              <label
+                id="titre"
+                style="
+                  display: flex;
+                  justify-content: space-between;
+                  width: 100%;
+                  padding-right: 20px;
+                "
+              >
+                <span>Taille du produit</span>
+              </label>
+            </div> 
+
+            <!-- Couleur du produit -->
+            <div id="titre2" style="height: auto">
+              <div
+                style="
+                  height: auto !important;
+                  width: 100%;
+                  border: 1px solid #ccc;
+                  border-radius: 5px;
+                  padding-left: 10px;
+                  display: flex;
+                  align-items: center;
+                  padding-right: 10px;
+                  flex-wrap: wrap;
+                  gap: 10px;
+                  padding-top: 40px;
+                "
+              >
+                
+                <select
+                  formControlName="colors"
+                  (change)="onColorChange($event)"
+                  style="
+                    width: 100%;
+                    padding: 10px;
+                    border: 1px solid #ccc;
+                    border-radius: 5px;
+                  "
+                >
+                  <option value="" disabled selected>
+                    Sélectionnez vos couleurs
+                  </option>
+                  <option *ngFor="let color of colors" [value]="color.value">
+                    {{ color.name }}
+                  </option>
+                </select>
+
+                
+                <div
+                  style="
+                    display: flex;
+                    padding-bottom: 10px !important;
+                    flex-wrap: wrap;
+                    gap: 10px;
+                  "
+                >
+                  <div
+                    *ngFor="let color of selectedColors"
+                    [ngStyle]="{ 'background-color': color.value }"
+                    style="
+                      padding: 1px 10px;
+                      color: white;
+                      border-radius: 20px;
+                      text-align: center;
+                      width: fit-content;
+                    "
+                  >
+                    {{ color.name }}
+                  </div>
+                </div>
+              </div>
+
+              <label
+                id="titre"
+                style="
+                  display: flex;
+                  justify-content: space-between;
+                  width: 100%;
+                  padding-right: 20px;
+                "
+              >
+                <span>Couleur du produit</span>
+              </label>
+            </div>
+          </div>
+          <div
+            class="input-group mb-3"
+            style="box-shadow: none; padding-top: 20px"
+          >
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Lien de la video du produit"
+              aria-label="Recipient's username"
+              aria-describedby="basic-addon2"
+              style="
+                border: 1px solid #ccc;
+                border-radius: 5px;
+                box-shadow: none;
+                padding-top: 10px;
+              "
+            />
+            <div class="input-group-append">
+              <button
+                type="button"
+                style="
+                  padding-left: 20px;
+                  padding-right: 20px;
+                  border: 1px solid #ccc;
+                  margin-top: 20px;
+                  padding-top: 7px;
+                  padding-bottom: 7px;
+                  margin-right: 2px;
+                  background-color: rgb(0, 106, 255);
+                  color: white;
+                  border-radius: 3px;
+                  border: none;
+                "
+              >
+                Coller
+              </button>
+            </div>
+          </div>
+          <div id="titre2">
+            <select
+              (change)="onCategoryChange($event)"
+              class="titre1"
+              style="
+                height: 100%;
+                width: 100%;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+                height: 40px;
+                padding-left: 10px;
+              "
+              placeholder="Catégorie"
+            >
+            
+              <option value="">Catégorie</option>
+              <option
+                *ngFor="let category of listCategories"
+                [value]="category.id"
+              >
+                {{ category.name }}
+              </option>
+            </select>
+          </div>
+          <input
+            formControlName="shopId"
+            id="shop_id"
+            type="number"
+            placeholder="Identifiant de la boutique"
+          /> 
+          <div
+            class="d-flex align-items-center"
+            style="background-color: white"
+          >
+            <select
+              class="form-select"
+              style="
+                border: 1px solid #ccc;
+                border-radius: 7px;
+                padding: 10px;
+                width: 250px;
+              "
+              [(ngModel)]="selectedShop"
+              formControlName="shop_id"
+              required
+            >
+              <option value="" disabled selected>
+                Sélectionner une boutique
+              </option>
+              <option *ngFor="let shop of listShop" [value]="shop.id">
+                <div class="d-flex align-items-center">
+                  <p class="mb-0" style="font-size: 0.8rem; color: black">
+                    {{ shop.business.name }}: {{ shop.business.ncc }}<br />
+                  </p>
+                </div>
+              </option>
+            </select>
+          </div>
+        </div>
+
+        <!-- bloc Images du form -->
+        <div
+          class="col-md-4 col-sm-6 mb-4"
+          style="
+            min-width: 300px;
+            background-color: rgba(244, 244, 244, 0.743);
+            padding: 10px;
+            border-radius: 10px;
+            padding-bottom: 10px;
+          "
+        >
+          <!-- Input d'image caché permettant plusieurs images -->
+          <input
+            type="file"
+            id="download_image"
+            (change)="onFileSelected($event)"
+            style="display: none"
+            multiple
+          />
+
+          <!-- Label stylisé pour le téléchargement d'image -->
+          <label
+            for="download_image"
+            class="images1"
+            style="
+              width: 100%;
+              height: 250px;
+              border-radius: 10px;
+              background-color: white;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              flex-direction: column;
+              cursor: pointer;
+            "
+          >
+            <img
+              src="assets/img/downimage.png"
+              style="margin-right: 10px"
+              alt=""
+              width="50"
+              height="50"
+            />
+            <p style="text-align: center">
+              Sélectionner des images <br />
+              (8 minimum)
+            </p>
+          </label>
+
+          <!-- Zone de prévisualisation des images téléchargées -->
+          <div
+            class="images1"
+            style="
+              width: 100%;
+              border-radius: 10px;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              margin-top: 10px;
+              gap: 10px;
+              flex-wrap: wrap;
+            "
+          >
+            <!-- Afficher chaque image téléchargée -->
+            <div
+              *ngFor="let image of product.images; let i = index"
+              class="image-container"
+              style="
+                position: relative;
+                width: 150px;
+                height: 150px;
+                border-radius: 10px;
+                background-color: white;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-direction: column;
+                overflow: hidden;
+              "
+            >
+              <!-- Image -->
+              <img
+                [src]="image"
+                alt="Product Image"
+                width="100%"
+                height="100%"
+                style="border-radius: 5px"
+              />
+
+              <!-- Icônes affichées au survol -->
+              <div
+                class="icons-overlay"
+                style="
+                  display: flex;
+                  gap: 10px;
+                  position: absolute;
+                  top: 50%;
+                  left: 50%;
+                  transform: translate(-50%, -50%);
+                  opacity: 0;
+                  transition: opacity 0.3s;
+                "
+              >
+                <!-- Icône œil pour afficher en grand -->
+                <span (click)="viewImage(image)">
+                  <i
+                    class="fas fa-eye"
+                    style="cursor: pointer; color: white"
+                  ></i>
+                </span>
+                <!-- Icône corbeille pour supprimer l'image -->
+                <span (click)="removeImage(i)">
+                  <i
+                    class="fas fa-trash"
+                    style="cursor: pointer; color: red"
+                  ></i>
+                </span>
+              </div>
+            </div>
+
+            <!-- <div
+              *ngFor="let image of product.images"
+              class="images1"
+              style="
+                width: 150px;
+                height: 150px;
+                border-radius: 10px;
+                background-color: white;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-direction: column;
+              "
+            >
+              <img
+                [src]="image"
+                alt="Product Image"
+                width="100%"
+                height="100%"
+                style="border-radius: 5px"
+              />
+            </div> -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+
+<!-- Modal pour afficher l'image en grand -->
+<!-- <div
+  *ngIf="selectedImage"
+  class="image-modal"
+  (click)="removeImage()"
+  style="
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    cursor: pointer;
+  "
+>
+  <img
+    [src]="selectedImage"
+    alt="Selected Product Image"
+    style="max-width: 85%; max-height: 70%; border-radius: 10px"
+  />
+</div> -->

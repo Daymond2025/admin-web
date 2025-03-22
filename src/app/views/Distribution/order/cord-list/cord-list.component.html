@@ -118,7 +118,7 @@
                       >{{order?.items[0]?.product?.name}}</span
                     >
                     <p><small class="">{{order?.items[0]?.reference}}</small></p>
-                    <small>Aujourd'hui, à 10h10</small>
+                    <small>{{order?.created_at | date }}</small>
                   </div>
                 </div>
                 <!-- prix -->

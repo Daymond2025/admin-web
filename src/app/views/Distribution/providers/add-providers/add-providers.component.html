@@ -1,0 +1,664 @@
+<div class="container-fluid mt-5 p-3">
+  <div class="ms-auto d-flex justify-content-between align-items-center w-full">
+    <div class="d-flex gap-3 align-items-start">
+      <img
+        src="assets/img/icons/fleche.png"
+        style="margin-top: 8px"
+        alt=""
+        width="10"
+        height="10"
+        routerLink="/providers"
+      />
+      <p>Ajouter un fournisseur</p>
+    </div>
+
+    <button
+      (click)="onSubmit()"
+      [disabled]="!isFormValid()"
+      class="btn btn-warning"
+      style="
+        background-color: #ffa500;
+        border: 1px solid #ffa500;
+        color: white;
+        padding-left: 70px;
+        padding-right: 70px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        border-radius: 5px;
+      "
+    >
+      <span class="indicator-label fs-6" *ngIf="!loading">Enregistrer</span>
+      <span *ngIf="loading" class="indicator-progress"
+        >Enregistrement...
+        <span
+          *ngIf="loading"
+          class="spinner-border spinner-border-sm align-middle ms-2"
+        ></span
+      ></span>
+    </button>
+  </div>
+
+  <div
+    class="row d-flex p-3 box-1"
+    style="
+      position: relative;
+      margin-top: 15px;
+      border-top: 1px solid gainsboro;
+      margin-bottom: 30px;
+    "
+  >
+    <div class="col-md-9 d-flex flex-wrap justify-content-between mb-3 mb-md-0">
+      <div
+        class="nav"
+        id="nav-tab"
+        role="tablist"
+        style="position: absolute; bottom: -12px"
+      >
+        <button
+          class="tab-btn"
+          [ngClass]="{ 'active-tab': selectedTab === 'entreprise' }"
+          (click)="selectTab('entreprise')"
+          style="
+            padding-left: 20px;
+            padding-right: 20px;
+            border-radius: 20px;
+            margin-right: 10px;
+          "
+          id="nav-entreprise-tab"
+          data-bs-toggle="tab"
+          data-bs-target="#nav-entreprise"
+          type="button"
+          role="tab"
+          aria-controls="nav-entreprise"
+          aria-selected="true"
+        >
+          Information Entreprise
+        </button>
+
+        <button
+          class="tab-btn"
+          [ngClass]="{ 'active-tab': selectedTab === 'proprietaire' }"
+          (click)="selectTab('proprietaire')"
+          style="
+            padding-left: 20px;
+            padding-right: 20px;
+            border-radius: 20px;
+            margin-right: 10px;
+          "
+          id="nav-proprietaire-tab"
+          data-bs-toggle="tab"
+          data-bs-target="#nav-proprietaire"
+          type="button"
+          role="tab"
+          aria-controls="nav-proprietaire"
+          aria-selected="false"
+        >
+          Information propriétaire
+        </button>
+      </div>
+    </div>
+    <div class="col-md-1 ms-auto d-flex justify-content-end"></div>
+  </div>
+
+  <div class="tab-content" id="nav-tabContent">
+    <!-- Entreprise -->
+    <form
+      role="form"
+      [formGroup]="entrepriseForm"
+      class="tab-pane fade form-horizontal"
+      [ngClass]="{ 'show active': selectedTab === 'entreprise' }"
+      id="nav-entreprise"
+      role="tabpanel"
+      aria-labelledby="nav-entreprise-tab"
+      tabindex="0"
+    >
+      <div class="dispok">
+        <div class="dispok1">
+          <div class="dispok11">
+            <p style="font-size: 0.8rem; padding-left: 10px">Logo</p>
+            <input
+              type="file"
+              (change)="onFileSelected($event, 'logo')"
+              name=""
+              id="logoInput"
+              style="display: none"
+            />
+
+            <label
+              for="logoInput"
+              style="
+                width: 150px;
+                height: 150px;
+                background-color: white;
+                border-radius: 100%;
+                margin: 0 auto;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+              "
+            >
+              <img
+                [src]="previewLogo || 'assets/img/downimage.png'"
+                style="margin-top: 8px"
+                alt=""
+                width="50"
+                height="50"
+              />
+            </label>
+          </div>
+          <div
+            class="dispok12"
+            style="
+              padding-left: 10px;
+              padding-right: 10px;
+              display: flex;
+              align-items: center;
+              justify-content: space-between;
+              gap: 10px;
+              padding-top: 7px;
+            "
+          >
+            <div
+              style="
+                width: 50%;
+                height: 100%;
+                display: flex;
+                align-items: flex-start;
+                justify-content: flex-start;
+                flex-direction: column;
+              "
+            >
+              <p style="font-size: 0.8rem">REGISTRE COMMERCE</p>
+              <input
+                type="file"
+                (change)="onFileSelected($event, 'registreRecto')"
+                name=""
+                id="registreRectoInput"
+                style="display: none"
+              />
+              <label
+                for="registreRectoInput"
+                style="
+                  width: 100%;
+                  height: 110px;
+                  background-color: white;
+                  margin: 0 auto;
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                "
+              >
+                <img
+                  [src]="previewRegistreRecto || 'assets/img/downimage.png'"
+                  style="margin-top: 8px"
+                  alt=""
+                  width="50"
+                  height="50"
+                />
+              </label>
+              <p
+                style="
+                  font-size: 0.8rem;
+                  text-align: center;
+                  padding-top: 20px;
+                  margin: 0 auto;
+                "
+              >
+                Recto
+              </p>
+            </div>
+            <div
+              style="
+                width: 50%;
+                height: 100%;
+                display: flex;
+                align-items: flex-end;
+                justify-content: staert;
+                flex-direction: column;
+              "
+            >
+              <p style="font-size: 0.8rem">2 IMAGES</p>
+              <input
+                type="file"
+                (change)="onFileSelected($event, 'registreVerso')"
+                name=""
+                id="registreVersoInput"
+                style="display: none"
+              />
+              <label
+                for="registreVersoInput"
+                style="
+                  width: 100%;
+                  height: 110px;
+                  background-color: white;
+                  margin: 0 auto;
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                "
+              >
+                <img
+                  [src]="previewRegistreVerso || 'assets/img/downimage.png'"
+                  style="margin-top: 8px"
+                  alt=""
+                  width="50"
+                  height="50"
+                />
+              </label>
+              <p
+                style="
+                  font-size: 0.8rem;
+                  text-align: center;
+                  padding-top: 20px;
+                  margin: 0 auto;
+                "
+              >
+                verso
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="dispok2">
+          <input
+            class="mb-4"
+            formControlName="name"
+            type="text"
+            name=""
+            id=""
+            placeholder="Nom De L'entreprise"
+          />
+          <input
+            class="mb-4"
+            formControlName="ncc"
+            type="text"
+            name=""
+            id=""
+            placeholder="NCC"
+          />
+          <input
+            class="mb-4"
+            formControlName="email_business"
+            type="text"
+            name=""
+            id=""
+            placeholder="EMAIL"
+          />
+          <input
+            class="mb-4"
+            formControlName="phone_number_business"
+            type="text"
+            name=""
+            id=""
+            placeholder="CONTACT"
+          />
+          <select class="mb-4" formControlName="city_id">
+            <option value="" disabled selected>VILLE/COMMUNE</option>
+            <option *ngFor="let shop of listCities" [value]="shop.id">{{ shop.name }}</option>
+          </select>
+          <input
+            class="mb-4"
+            formControlName="address"
+            type="text"
+            name=""
+            id=""
+            placeholder="LOCALISATION MAPS"
+          />
+        </div>
+      </div>
+    </form>
+
+    <!-- Proprietaire -->
+    <form
+      role="form"
+      [formGroup]="proprietaireForm"
+      class="tab-pane fade"
+      [ngClass]="{ 'show active': selectedTab === 'proprietaire' }"
+      id="nav-proprietaire"
+      role="tabpanel"
+      aria-labelledby="nav-proprietaire-tab"
+      tabindex="0"
+    >
+      <div class="dispok">
+        <div class="dispok1">
+          <div class="dispok11">
+            <p style="font-size: 0.8rem; padding-left: 10px">
+              PHOTO DE PROFILE
+            </p>
+            <input
+              type="file"
+              (change)="onFileSelected($event, 'profilePhoto')"
+              name=""
+              id="profilePhotoInput"
+              style="display: none"
+            />
+
+            <label
+              for="profilePhotoInput"
+              style="
+                width: 150px;
+                height: 150px;
+                background-color: white;
+                border-radius: 100%;
+                margin: 0 auto;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+              "
+            >
+              <img
+                [src]="previewProfilePhoto || 'assets/img/downimage.png'"
+                style="margin-top: 8px"
+                alt=""
+                width="50"
+                height="50"
+              />
+            </label>
+          </div>
+          <div
+            class="dispok12"
+            style="
+              padding-left: 10px;
+              padding-right: 10px;
+              display: flex;
+              align-items: center;
+              justify-content: space-between;
+              gap: 10px;
+              padding-top: 7px;
+            "
+          >
+            <div
+              style="
+                width: 50%;
+                height: 100%;
+                display: flex;
+                align-items: flex-start;
+                justify-content: flex-start;
+                flex-direction: column;
+              "
+            >
+              <p style="font-size: 0.8rem">PIECES D’IDENTITÉ</p>
+              <input
+                type="file"
+                (change)="onFileSelected($event, 'cniRecto')"
+                name=""
+                id="cniRectoInput"
+                style="display: none"
+              />
+              <label
+                for="cniRectoInput"
+                style="
+                  width: 100%;
+                  height: 110px;
+                  background-color: white;
+                  margin: 0 auto;
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                "
+              >
+                <img
+                  [src]="previewCniRecto || 'assets/img/downimage.png'"
+                  style="margin-top: 8px"
+                  alt=""
+                  width="50"
+                  height="50"
+                />
+              </label>
+              <p
+                style="
+                  font-size: 0.8rem;
+                  text-align: center;
+                  padding-top: 20px;
+                  margin: 0 auto;
+                "
+              >
+                Recto
+              </p>
+            </div>
+            <div
+              style="
+                width: 50%;
+                height: 100%;
+                display: flex;
+                align-items: flex-end;
+                justify-content: staert;
+                flex-direction: column;
+              "
+            >
+              <p style="font-size: 0.8rem">2 IMAGES</p>
+              <input
+                type="file"
+                (change)="onFileSelected($event, 'cniVerso')"
+                name=""
+                id="cniVersoInput"
+                style="display: none"
+              />
+              <label
+                for="cniVersoInput"
+                style="
+                  width: 100%;
+                  height: 110px;
+                  background-color: white;
+                  margin: 0 auto;
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                "
+              >
+                <img
+                  [src]="previewCniVerso || 'assets/img/downimage.png'"
+                  style="margin-top: 8px"
+                  alt=""
+                  width="50"
+                  height="50"
+                />
+              </label>
+              <p
+                style="
+                  font-size: 0.8rem;
+                  text-align: center;
+                  padding-top: 20px;
+                  margin: 0 auto;
+                "
+              >
+                verso
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="dispok2">
+          <input
+            class="mb-3"
+            formControlName="first_name"
+            type="text"
+            name=""
+            id=""
+            placeholder="NOM"
+          />
+          <input
+            class="mb-3"
+            formControlName="last_name"
+            type="text"
+            name=""
+            id=""
+            placeholder="PRENOM"
+          />
+          <select class="mb-3" formControlName="identity_doc_type">
+            <option value="" disabled selected>Type de Document</option>
+            <option value="CNI">CNI</option>
+            <option value="Passport">Passeport</option>
+            <option value="Autre">Autre</option>
+          </select>
+          <input
+            class="mb-3"
+            formControlName="identity_doc_no"
+            type="text"
+            name=""
+            id=""
+            placeholder="N* du Document"
+          />
+          <input
+            class="mb-3"
+            formControlName="email"
+            type="text"
+            name=""
+            id=""
+            placeholder="EMAIL"
+          />
+          <input
+            class="mb-3"
+            formControlName="phone_number"
+            type="text"
+            name=""
+            id=""
+            placeholder="CONTACT"
+          />
+          <select class="mb-3" formControlName="city_id">
+            <option value="" disabled selected>VILLE/COMMUNE</option>
+            <option *ngFor="let shop of listCities" [value]="shop.id">{{ shop.name }}</option>
+          </select>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="exampleModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <!-- <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          ...
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div> -->
+    </div>
+  </div>
+
+  <div class="fixed_fourn">
+    <div class="fixed_fourn1">
+      <form action="" method="post" class="formu_fourn">
+        <div class="nominf1">
+          <div class="nominf121" style="padding: none">
+            <p
+              style="
+                color: orange;
+                font-weight: bolder;
+                text-transform: uppercase;
+                font-size: 1.8rem;
+                text-align: center;
+              "
+            >
+              fournisseur enregistré avec succès
+            </p>
+            <p style="padding-top: 20px; min-width: 35px; text-align: center">
+              Cliquez sur envoyé pour transmettre les coordonnées de connexion
+              aux mails suivants
+            </p>
+          </div>
+
+          <div
+            class="input-group mb-3"
+            style="box-shadow: none; padding-top: 20px; width: 100%"
+            id="titre2"
+          >
+            <input
+              type="text"
+              class="form-control"
+              aria-label="Recipient's username"
+              aria-describedby="basic-addon2"
+              style="
+                border: 1px solid #ccc;
+                border-radius: 5px;
+                box-shadow: none;
+                padding-top: 10px;
+              "
+              id="titre1"
+            />
+            <label id="titre"> Propriétaire</label>
+            <div
+              class="input-group-append"
+              style="padding-top: 20px; padding-right: 10px"
+            ></div>
+          </div>
+          <div
+            class="input-group mb-3"
+            style="box-shadow: none; padding-top: 20px; width: 100%"
+            id="titre2"
+          >
+            <input
+              type="text"
+              class="form-control"
+              aria-label="Recipient's username"
+              aria-describedby="basic-addon2"
+              style="
+                border: 1px solid #ccc;
+                border-radius: 5px;
+                box-shadow: none;
+                padding-top: 10px;
+              "
+              id="titre1"
+            />
+            <label id="titre"> Gérant</label>
+            <div
+              class="input-group-append"
+              style="padding-top: 20px; padding-right: 10px"
+            ></div>
+          </div>
+        </div>
+        <div class="dosi">
+          <button
+            class="nominf12"
+            style="
+              background-color: #ffa500;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              border: none;
+              border-radius: 5px;
+            "
+          >
+            <p style="text-align: center; color: white; padding-top: 10px">
+              Envoyer
+            </p>
+          </button>
+        </div>
+
+        <div
+          style="
+            position: absolute;
+            top: 70px;
+            height: 30px;
+            width: 30px;
+            background-color: white;
+            right: 40px;
+            border-radius: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+          "
+        >
+          <!-- <img src="assets/img/icons/croix.png" alt="Product Image" height="15px"> -->
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

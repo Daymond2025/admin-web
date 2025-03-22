@@ -1,0 +1,673 @@
+<!-- Loader -->
+<div *ngIf="isLoading" class="loader-container">
+  <div class="spinner-border text-primary" role="status">
+    <span class="visually-hidden">Loading...</span>
+  </div>
+</div>
+
+<div *ngIf="!isLoading" class="container-fluid mt-5 p-3">
+  <!-- Button Group -->
+
+  <div class="ms-auto d-flex justify-content-between align-items-center w-full">
+    <div
+      class="d-flex gap-3 align-items-start"
+      [routerLink]="['/providers/details/', detailsBusiness.business.id]"
+    >
+      <img
+        src="assets/img/icons/fleche.png"
+        style="margin-top: 8px"
+        alt=""
+        width="10"
+        height="10"
+        routerLink="/providers"
+      />
+      <p>FOURNISSEUR</p>
+    </div>
+
+    <a routerLink="/parameter"
+      ><img src="assets/img/icons/parametre.png" alt="" width="20" height="20"
+    /></a>
+  </div>
+
+  <div class="col-12 d-flex flex-wrap align-items-center">
+    <button
+      *ngIf="detailsBusiness?.business"
+      type="button"
+      style="border: none; background-color: transparent"
+      class="order-item d-flex align-items-center justify-content-start order-item-large col-md-2"
+    >
+      <img
+        class="product-image rounded-circle"
+        [src]="detailsBusiness.business.logo"
+        alt="Product Image"
+      />
+      <div class="rounded-circle"></div>
+      <div class="product-info">
+        <p style="margin: 0px !important">
+          <small class="">{{
+            detailsBusiness.business.name.toLocaleUpperCase()
+          }}</small>
+        </p>
+        <small>{{ detailsBusiness.business.ncc }}</small>
+        <small
+          >Inscrit le :
+          {{
+            detailsBusiness.business.created_at | date : "dd/mm/yy hh:mm"
+          }}</small
+        >
+      </div>
+    </button>
+
+    <div class="d-flex col-md-9 flex-wrap">
+      <div style="width: 100%; display: flex; flex-wrap: wrap; gap: 10px">
+        <button
+          style="
+            width: 30%;
+            min-width: 150px;
+            height: 40px;
+            border: 1px solid gainsboro;
+            background-color: white;
+            color: black;
+            position: relative;
+            border-radius: 4px;
+          "
+          [routerLink]="['/providers/commandes/', detailsBusiness.business.id]"
+        >
+          <img
+            src="assets/img/icons/cart.png "
+            style="position: absolute; left: 10px"
+            alt=""
+            width="20"
+            height="20"
+          />
+          Commandes
+        </button>
+        <button
+          style="
+            width: 30%;
+            min-width: 150px;
+            height: 40px;
+            border: 1px solid gainsboro;
+            background-color: white;
+            color: black;
+            position: relative;
+            border-radius: 4px;
+          "
+          [routerLink]="['/providers/products/', detailsBusiness.business.id]"
+        >
+          <img
+            src="assets/img/icons/product.png"
+            style="position: absolute; left: 10px"
+            alt=""
+            width="20"
+            height="20"
+          />
+          Produits
+        </button>
+        <button
+          style="
+            width: 30%;
+            min-width: 150px;
+            height: 40px;
+            border: 1px solid gainsboro;
+            background-color: #ff9500;
+            color: white;
+            position: relative;
+            border-radius: 4px;
+          "
+        >
+          <img
+            src="assets/img/icons/comptable.png"
+            style="position: absolute; left: 10px"
+            alt=""
+            width="20"
+            height="20"
+          />
+          Comptable
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="w-full row" style="background-color: blue">
+    <div class="col-12 d-flex flex-wrap align-items-center">
+      <div
+        class="order-item"
+        style="
+          background-color: rgba(26, 26, 186, 0.472);
+          border-radius: 20px 20px 0px 0px;
+          margin-top: 10px;
+          margin-bottom: 10px;
+          color: white;
+          padding-left: 20px;
+          margin-right: 20px;
+        "
+      >
+        <p class="label" style="color: white">Chiffre d'affaires</p>
+        <small class="">Janvier 2024</small>
+        <p class="value" style="font-size: 2rem; color: white">
+          {{ detailsBusiness.wallet.chiffre_affaire | number : "1.0-0" }}
+          <span
+            ><small>{{ "FCFA" }}</small></span
+          >
+        </p>
+      </div>
+      <div
+        class="order-item d-flex flex-wrap"
+        style="
+          background-color: #ff009552;
+          border-radius: 20px 20px 0px 0px;
+          margin-top: 10px;
+          margin-bottom: 10px;
+          color: white;
+          padding-left: 20px;
+        "
+      >
+        <div class="order-item">
+          <p class="label" style="color: rgb(0, 255, 0)">SOLDE</p>
+          <p class="value" style="font-size: 2rem; color: white">
+            {{ detailsBusiness.wallet.solde | number : "1.0-0" }}
+            <span
+              ><small>{{ "FCFA" }}</small></span
+            >
+          </p>
+        </div>
+
+        <div
+          class="order-item"
+          style="border-left: 1px solid #ccc; padding-left: 30px"
+        >
+          <p class="label" style="color: #ff9500">TOTAL A SOLDER</p>
+          <p class="value" style="font-size: 2rem; color: white">
+            {{ detailsBusiness.wallet.a_solder | number : "1.0-0" }}
+            <span
+              ><small>{{ "FCFA" }}</small></span
+            >
+          </p>
+        </div>
+      </div>
+
+      <div class="order-item">
+        <p class="label" style="color: white">Total reçu aujourd'hui</p>
+        <p class="value" style="font-size: 2rem; color: white">
+          + {{ detailsBusiness.wallet.retrait_jour }} Fr
+        </p>
+      </div>
+      <div
+        class="order-item"
+        style="border-left: 1px solid #ccc; padding-left: 30px"
+      >
+        <p class="label" style="color: white">Commission Daymond du jours</p>
+        <p class="value" style="font-size: 2rem; color: white">
+          {{ detailsBusiness.wallet.commission_jour }} Fr
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- list buttons -->
+  <div class="row d-flex p-3 box-1">
+    <div class="flex-wrap d-flex w-full">
+      <div class="col-md-7 d-flex flex-wrap justify-content-start mb-3 mb-md-0">
+        <div class="nav" id="nav-tab" role="tablist">
+          <button
+            class="btn btn-round btn-border"
+            [class.active]="filterStatus === 'not_solde'"
+            id="nav-notsolde-tab"
+            data-bs-toggle="tab"
+            data-bs-target="#nav-notsolde"
+            type="button"
+            role="tab"
+            aria-controls="nav-notsolde"
+            aria-selected="true"
+            (click)="loadNonSoldTransactions()"
+          >
+            Non soldé
+          </button>
+          <button
+            class="btn btn-round btn-border"
+            [class.active]="filterStatus === 'solde'"
+            id="nav-solde-tab"
+            data-bs-toggle="tab"
+            data-bs-target="#nav-solde"
+            type="button"
+            role="tab"
+            aria-controls="nav-solde"
+            aria-selected="false"
+            (click)="loadSoldTransactions()"
+          >
+            Soldé
+          </button>
+          <button
+            class="btn btn-round btn-border"
+            [class.active]="filterStatus === 'transaction'"
+            id="nav-transaction-tab"
+            data-bs-toggle="tab"
+            data-bs-target="#nav-transaction"
+            type="button"
+            role="tab"
+            aria-controls="nav-transaction"
+            aria-selected="false"
+            (click)="loadTransactionByBusiness(businessId)"
+          >
+            Transaction
+          </button>
+        </div>
+      </div>
+      <div
+        class="col-md-5 d-flex flex-wrap justify-content-end mb-3 mb-md-0 gap-3"
+      >
+        <p><small style="color: #ff527a" class="">TOTAL A SOLDER</small></p>
+        <p>
+          <small style="color: #ff5f84; font-weight: bold"
+            >{{ detailsBusiness.wallet.a_solder }} FCFA</small
+          >
+        </p>
+      </div>
+    </div>
+    <div class="col-md-1 ms-auto d-flex justify-content-end"></div>
+  </div>
+
+  <!-- content -->
+  <div
+    class="tab-content"
+    id="nav-tabContent"
+    style="height: 70vh !important; overflow-y: auto; overflow-x: hidden"
+  >
+    <!-- notSolde tabs -->
+    <div
+      class="tab-pane fade show"
+      [class.active]="filterStatus === 'not_solde'"
+      id="nav-notsolde"
+      role="tabpanel"
+      aria-labelledby="nav-notsolde-tab"
+      tabindex="0"
+    >
+      <!-- code aujourdhui affiche -->
+      <!-- <div class="d-flex gap-3 align-items-center">
+        <small class="w-auto min-w-auto">Aujourd'hui</small>
+        <div
+          style="
+            height: 1px;
+            border-top: 1px solid rgba(128, 128, 128, 0.403);
+            width: 100%;
+          "
+        ></div>
+      </div> -->
+      <div *ngIf="filteredTransOrdersNotSolde.length > 0" class="row box-2">
+        <div
+          *ngFor="let order of filteredTransOrdersNotSolde"
+          class="col-12 d-flex flex-wrap order-row align-items-center"
+        >
+          <div
+            class="order-item d-flex align-items-center justify-content-start order-item-large col-6"
+          >
+            <img
+              class="product-image"
+              [src]="
+                order.items[0].product.images[0] || 'assets/img/placeholder.png'
+              "
+              alt="Product Image"
+              [routerLink]="['/orders/details_coord', order.id]"
+            />
+            <div class="rounded-circle"></div>
+            <div class="product-info">
+              <p class="value">
+                {{ order.items[0].product.name | truncate : 20 }}
+              </p>
+              <small>#{{ order.reference }}</small>
+              <small
+                >Aujourd'hui à {{ order.created_at | date : "hh:mm" }}</small
+              >
+            </div>
+          </div>
+          <div
+            class="order-item"
+            style="border-left: 1px solid #ccc; padding-left: 30px"
+          >
+            <p class="label">Prix de partenaire</p>
+            <p class="value">{{ order.items[0].total | currency : "XOF" }}</p>
+          </div>
+          <div
+            class="order-item"
+            style="border-left: 1px solid #ccc; padding-left: 30px"
+          >
+            <p class="label">Total à payer</p>
+            <p class="value text-info">
+              {{ order.items[0].product.price.partner | currency : "XOF" }}
+            </p>
+          </div>
+          <div
+            class="order-item"
+            style="border-left: 1px solid #ccc; padding-left: 30px"
+          >
+            <p class="label">Commission Daymond</p>
+            <p class="value text-warning">
+              {{ order.items[0].order_commission | currency : "XOF" }}
+            </p>
+          </div>
+        </div>
+      </div>
+      <!-- Vide -->
+      <div
+        *ngIf="!isLoading && filteredTransOrdersNotSolde.length === 0"
+        class="d-flex justify-content-center align-items-center"
+        style="height: 70vh"
+      >
+        <p class="text-center">Aucune commande non soldé trouvée</p>
+      </div>
+      <!-- Pagination pour les transactions non soldées -->
+      <nav
+        aria-label="Page navigation"
+        *ngIf="!isLoading && totalPages! > 1"
+        style="margin-top: 20px"
+      >
+        <ul class="pagination">
+          <!-- Bouton pour page précédente des transactions non soldées -->
+          <li class="page-item" [class.disabled]="currentPage === 1">
+            <a
+              class="page-link"
+              (click)="goToPageForNonSoldTrans(currentPage! - 1)"
+              aria-label="Previous"
+            >
+              <img
+                src="assets/img/left.png"
+                alt="Previous"
+                width="10"
+                height="10"
+              />
+            </a>
+          </li>
+
+          <!-- Pages pour les transactions non soldées -->
+          <li
+            *ngFor="let page of [].constructor(totalPages); let i = index"
+            class="page-item"
+            [class.active]="currentPage === i + 1"
+          >
+            <a class="page-link" (click)="goToPageForNonSoldTrans(i + 1)">{{
+              i + 1
+            }}</a>
+          </li>
+
+          <!-- Bouton pour page suivante des transactions non soldées -->
+          <li class="page-item" [class.disabled]="currentPage === totalPages">
+            <a
+              class="page-link"
+              (click)="goToPageForNonSoldTrans(currentPage! + 1)"
+              aria-label="Next"
+            >
+              <img
+                src="assets/img/right.png"
+                alt="Next"
+                width="10"
+                height="10"
+              />
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+
+    <!-- Solde tabs -->
+    <div
+      class="tab-pane fade show"
+      [class.active]="filterStatus === 'solde'"
+      id="nav-solde"
+      role="tabpanel"
+      aria-labelledby="nav-solde-tab"
+      tabindex="0"
+    >
+      <!-- code aujourdhui affiche -->
+      <!-- <div class="d-flex gap-3 align-items-center">
+          <small class="w-auto min-w-auto">Aujourd'hui</small>
+          <div
+            style="
+              height: 1px;
+              border-top: 1px solid rgba(128, 128, 128, 0.403);
+              width: 100%;
+            "
+          ></div>
+        </div> -->
+      <div *ngIf="filteredTransOrdersSolde.length > 0" class="row box-2">
+        <div
+          *ngFor="let order of filteredTransOrdersSolde"
+          class="col-12 d-flex flex-wrap order-row align-items-center"
+        >
+          <div
+            class="order-item d-flex align-items-center justify-content-start order-item-large col-6"
+          >
+            <img
+              class="product-image"
+              [src]="
+                order.items[0].product.images[0] || 'assets/img/placeholder.png'
+              "
+              alt="Product Image"
+              [routerLink]="['/orders/details_coord', order.id]"
+            />
+            <div class="rounded-circle"></div>
+            <div class="product-info">
+              <p class="value">
+                {{ order.items[0].product.name | truncate : 20 }}
+              </p>
+              <small>#{{ order.reference }}</small>
+              <small
+                >Aujourd'hui à {{ order.created_at | date : "hh:mm" }}</small
+              >
+            </div>
+          </div>
+          <div
+            class="order-item"
+            style="border-left: 1px solid #ccc; padding-left: 30px"
+          >
+            <p class="label">Prix de partenaire</p>
+            <p class="value">{{ order.items[0].total | currency : "XOF" }}</p>
+          </div>
+          <div
+            class="order-item"
+            style="border-left: 1px solid #ccc; padding-left: 30px"
+          >
+            <p class="label">Total à payer</p>
+            <p class="value text-info">
+              {{ order.items[0].product.price.partner | currency : "XOF" }}
+            </p>
+          </div>
+          <div
+            class="order-item"
+            style="border-left: 1px solid #ccc; padding-left: 30px"
+          >
+            <p class="label">Commission Daymond</p>
+            <p class="value text-warning">
+              {{ order.items[0].order_commission | currency : "XOF" }}
+            </p>
+          </div>
+        </div>
+      </div>
+      <!-- Vide -->
+      <div
+        *ngIf="!isLoading && filteredTransOrdersSolde.length === 0"
+        class="d-flex justify-content-center align-items-center"
+        style="height: 70vh"
+      >
+        <p class="text-center">Aucune commande soldé trouvée</p>
+      </div>
+      <!-- Pagination pour les transactions soldées -->
+      <nav
+        aria-label="Page navigation"
+        *ngIf="!isLoading && totalPages! > 1"
+        style="margin-top: 20px"
+      >
+        <ul class="pagination">
+          <!-- Bouton pour page précédente des transactions soldées -->
+          <li class="page-item" [class.disabled]="currentPage === 1">
+            <a
+              class="page-link"
+              (click)="goToPageForSoldTrans(currentPage! - 1)"
+              aria-label="Previous"
+            >
+              <img
+                src="assets/img/left.png"
+                alt="Previous"
+                width="10"
+                height="10"
+              />
+            </a>
+          </li>
+
+          <!-- Pages pour les transactions soldées -->
+          <li
+            *ngFor="let page of [].constructor(totalPages); let i = index"
+            class="page-item"
+            [class.active]="currentPage === i + 1"
+          >
+            <a class="page-link" (click)="goToPageForSoldTrans(i + 1)">{{
+              i + 1
+            }}</a>
+          </li>
+
+          <!-- Bouton pour page suivante des transactions soldées -->
+          <li class="page-item" [class.disabled]="currentPage === totalPages">
+            <a
+              class="page-link"
+              (click)="goToPageForSoldTrans(currentPage! + 1)"
+              aria-label="Next"
+            >
+              <img
+                src="assets/img/right.png"
+                alt="Next"
+                width="10"
+                height="10"
+              />
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+
+    <!-- transaction tabs -->
+    <div
+      class="tab-pane fade show"
+      [class.active]="filterStatus === 'transaction'"
+      id="nav-transaction"
+      role="tabpanel"
+      aria-labelledby="nav-transaction-tab"
+      tabindex="0"
+    >
+      <div *ngIf="detailsBusinessWallet.length > 0" class="row box-2">
+        <div
+          *ngFor="let trans of detailsBusinessWallet"
+          class="col-12 d-flex flex-wrap order-row align-items-center"
+        >
+          <div
+            class="order-item d-flex align-items-center justify-content-start order-item-large col-9"
+            data-bs-toggle="modal"
+            data-bs-target="#exampleModal"
+          >
+            <img
+              *ngIf="trans.operator == 'wave'"
+              height="50px"
+              width="50px"
+              src="assets/img/wave.png"
+              alt="Product Image"
+            />
+            <div class="rounded-circle"></div>
+            <div class="product-info" style="margin-left: 10px">
+              <small
+                *ngIf="trans.category == 'withdrawal'"
+                style="color: #4913c6; font-size: 20px; font-weight: 600"
+                >Retrait</small
+              >
+              <small
+                *ngIf="trans.category == 'recharge'"
+                style="color: #4913c6; font-size: 20px; font-weight: 600"
+                >Recharge</small
+              >
+              <small *ngIf="trans.operator == 'wave'" style="color: #4ad2fa"
+                >Wave</small
+              >
+            </div>
+          </div>
+
+          <div class="order-item" style="padding-left: 30px">
+            <p
+              *ngIf="trans.category == 'recharge'"
+              class="value"
+              style="color: blue; font-size: 1.3rem"
+            >
+              + {{ trans.amount | currency : "XOF" }}
+            </p>
+            <p
+              *ngIf="trans.category == 'withdrawal'"
+              class="value"
+              style="color: red; font-size: 1.3rem"
+            >
+              - {{ trans.amount | currency : "XOF" }}
+            </p>
+            <p style="font-size: 0.7rem">
+              {{ trans.created_at_fr }} {{ trans.created_at | date : "HH:mm" }}
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Vide -->
+      <div
+        *ngIf="!isLoading && detailsBusinessWallet.length === 0"
+        class="d-flex justify-content-center align-items-center"
+        style="height: 70vh"
+      >
+        <p class="text-center">Aucune transaction trouvée</p>
+      </div>
+
+      <!-- Pagination -->
+      <nav
+        aria-label="Page navigation"
+        *ngIf="!isLoading && totalPages! > 1"
+        style="margin-top: 20px"
+      >
+        <ul class="pagination">
+          <!-- Bouton pour page précédente -->
+          <li class="page-item" [class.disabled]="currentPage === 1">
+            <a
+              class="page-link"
+              (click)="goToPage(currentPage! - 1)"
+              aria-label="Previous"
+            >
+              <img
+                src="assets/img/left.png"
+                alt="Previous"
+                width="10"
+                height="10"
+              />
+            </a>
+          </li>
+
+          <!-- Pages -->
+          <li
+            *ngFor="let page of [].constructor(totalPages); let i = index"
+            class="page-item"
+            [class.active]="currentPage === i + 1"
+          >
+            <a class="page-link" (click)="goToPage(i + 1)">{{ i + 1 }}</a>
+          </li>
+
+          <!-- Bouton pour page suivante -->
+          <li class="page-item" [class.disabled]="currentPage === totalPages">
+            <a
+              class="page-link"
+              (click)="goToPage(currentPage! + 1)"
+              aria-label="Next"
+            >
+              <img
+                src="assets/img/right.png"
+                alt="Next"
+                width="10"
+                height="10"
+              />
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>

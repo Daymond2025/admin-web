@@ -1,0 +1,628 @@
+<div class="container-fluid mt-5 p-0">
+  <!-- Info global -->
+  <div
+    class="w-full"
+    style="
+      background-color: blue;
+      border-top-right-radius: 18px;
+      border-top-left-radius: 18px;
+    "
+  >
+    <div class="col-12 d-flex flex-wrap align-items-center">
+      <div class="col-md-9 d-flex flex-wrap">
+        <div
+          class="order-item"
+          style="
+            background-color: rgba(26, 26, 186, 0.472);
+            border-radius: 20px 20px 0px 0px;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            color: white;
+            padding-left: 20px;
+            margin-left: 20px;
+            max-width: 400px;
+          "
+        >
+          <p class="label" style="color: white">Chiffres d'affaires</p>
+          <small class="">Janvier 2024</small>
+          <p class="value" style="font-size: 2rem; color: white">
+            {{ dataComptable.total_amount }} <span> <small>FCFA </small> </span>
+          </p>
+        </div>
+        <div
+          class="order-item d-flex flex-wrap"
+          style="
+            background-color: rgba(162, 26, 186, 0.472);
+            border-radius: 20px 20px 0px 0px;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            color: white;
+            padding-left: 20px;
+            margin-left: 20px;
+            max-width: 400px;
+          "
+        >
+          <div class="order-item">
+            <p class="label" style="color: rgb(0, 255, 0)">
+              SOLDE DES FOURNISSEURS
+            </p>
+            <p class="value" style="font-size: 2rem; color: white">
+              {{ dataComptable.supplier_amount }}
+              <span> <small>FCFA </small> </span>
+            </p>
+          </div>
+          <div class="order-item" style="padding-left: 20px">
+            <p class="label" style="color: red">TOTAL A RECEVOIR</p>
+            <p class="value" style="font-size: 2rem; color: white">
+              RAS <span> <small>FCFA </small> </span>
+            </p>
+          </div>
+        </div>
+        <div
+          class="order-item"
+          style="
+            background-color: rgba(26, 26, 186, 0.472);
+            border-radius: 20px 20px 0px 0px;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            color: white;
+            padding-left: 20px;
+            margin-left: 20px;
+            max-width: 400px;
+          "
+        >
+          <p class="label" style="color: white">REVENUE DAYMOND</p>
+          <small class="">Janvier 2024</small>
+          <p class="value" style="font-size: 2rem; color: white">
+            {{ dataComptable.income }} <span> <small>FCFA </small> </span>
+          </p>
+        </div>
+      </div>
+
+      <!-- Menu hamburger (recharge et retrait)-->
+      <!-- <div
+        class="btn-group dropstart d-flex align-items-center justify-content-center"
+        style="
+          position: absolute;
+          right: 50px;
+          top: 150px;
+          background-color: white;
+          height: 40px;
+          width: 40px;
+          border-radius: 100%;
+        "
+      >
+        <div
+          type="button"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
+          class="d-flex align-items-center justify-content-center"
+          style="
+            background-color: white;
+            height: 40px;
+            width: 40px;
+            border-radius: 100%;
+          "
+        >
+          <a href=""
+            ><img
+              src="assets/img/icons/menu.png"
+              style="background-color: white"
+              alt=""
+              width="15"
+              height="15"
+          /></a>
+        </div>
+        <ul
+          class="dropdown-menu"
+          style="
+            height: 100px;
+            width: 200px;
+            background-color: rgba(188, 188, 255, 0.739);
+            padding: 8px;
+          "
+        >
+          <li
+            class="d-flex align-items-center justify-content-start"
+            style="height: 50%; border-bottom: 1px solid white; color: white"
+          >
+            <a href="" style="color: white">Recharger</a>
+          </li>
+          <li
+            class="d-flex align-items-center justify-content-start"
+            style="height: 50%; color: white"
+          >
+            <a href="" style="color: white">Retirer </a>
+          </li>
+        </ul>
+      </div> -->
+    </div>
+    <div class="m-3" style="background-color: blue">
+      <div
+        class="col-12 d-flex flex-wrap order-row align-items-center"
+        style="background-color: blue"
+      >
+        <div class="order-item" style="padding-left: 30px">
+          <p class="label" style="color: white">Total reçu aujourd'hui</p>
+          <p class="value" style="font-size: 2rem; color: white">
+            + {{ dataComptable.income_today }}
+            <span> <small>FCFA </small> </span>
+          </p>
+        </div>
+        <div
+          class="order-item"
+          style="border-left: 1px solid #ccc; padding-left: 30px"
+        >
+          <p class="label" style="color: white">Commission Daymond du jours</p>
+          <p class="value" style="font-size: 2rem; color: white">
+            RAS <span> <small>FCFA </small> </span>
+          </p>
+        </div>
+        <div
+          class="order-item"
+          style="border-left: 1px solid #ccc; padding-left: 30px"
+        >
+          <p class="label" style="color: white">Recharge aujourd'hui</p>
+          <p class="value" style="font-size: 2rem; color: white">
+            {{ dataComptable.recharge_today }}
+            <span> <small>FCFA </small> </span>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- bloc button -->
+  <div class="row d-flex p-3 box-1 m-3">
+    <div class="flex-wrap d-flex w-full">
+      <div
+        class="col-md-7 d-flex flex-wrap justify-content-start mb-3 mb-md-0 gap-3"
+      >
+        <button
+          style="
+            background-color: white;
+            width: auto;
+            padding-left: 40px;
+            padding-right: 40px;
+            color: black;
+            border: 1px solid #ccc;
+            border-radius: 30px;
+          "
+          class="heigth_style"
+          routerLink="/accountant/"
+        >
+          Non soldés
+        </button>
+        <button
+          style="
+            background-color: white;
+            width: auto;
+            padding-left: 40px;
+            padding-right: 40px;
+            color: blue;
+            border: 1px solid blue;
+            border-radius: 30px;
+            font-weight: bold;
+          "
+          class="heigth_style"
+          routerLink="/accountant/solde"
+        >
+          Soldé
+        </button>
+        <button
+          style="
+            background-color: white;
+            width: auto;
+            padding-left: 40px;
+            padding-right: 40px;
+            color: black;
+            border: 1px solid #ccc;
+            border-radius: 30px;
+          "
+          class="heigth_style"
+          routerLink="/accountant/recharge"
+        >
+          Transactions
+        </button>
+      </div>
+      <div
+        class="col-md-5 d-flex flex-wrap justify-content-end mb-3 mb-md-0 gap-3"
+      >
+        <p><small style="color: #ff527a" class="">TOTAL A SAVOIR</small></p>
+        <p>
+          <small style="color: #ff5f84; font-weight: bold"
+            >{{ dataComptable.to_be_sold }} FCFA</small
+          >
+        </p>
+        <div style="border-left: 1px solid #ccc; padding-left: 20px">
+          <button
+            style="
+              width: 30%;
+              min-width: 150px;
+              height: 40px;
+              border: 1px solid #ffa500;
+              background-color: #ffa500;
+              color: white;
+              position: relative;
+              border-radius: 4px;
+            "
+            data-bs-toggle="modal"
+            data-bs-target="#afficherModal"
+          >
+            TOUT SOLDER
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- content -->
+  <div class="d-flex gap-3 align-items-center m-3">
+    <small class="w-auto min-w-auto">Aujourd'hui</small>
+    <div
+      style="
+        height: 1px;
+        border-top: 1px solid rgba(128, 128, 128, 0.403);
+        width: 100%;
+      "
+    ></div>
+  </div>
+  <div class="row box-2 m-3">
+    <div class="col-12 d-flex flex-wrap order-row align-items-center">
+      <div
+        class="order-item d-flex align-items-center justify-content-start order-item-large col-6"
+        data-bs-toggle="modal"
+        data-bs-target="#exampleModal"
+      >
+        <img
+          class="product-image"
+          src="assets/img/products/pducts-1.png"
+          alt="Product Image"
+        />
+        <div class="rounded-circle"></div>
+        <div class="product-info">
+          <p class="value">Range cuisine moderne</p>
+          <small>#DK-FRD-345</small>
+          <small>Aujourd'hui à 29:23</small>
+        </div>
+      </div>
+      <div
+        class="order-item"
+        style="border-left: 1px solid #ccc; padding-left: 30px"
+      >
+        <p class="label">Prix de partenaire</p>
+        <p class="value">10 000 FCFA</p>
+      </div>
+      <div
+        class="order-item"
+        style="border-left: 1px solid #ccc; padding-left: 30px"
+      >
+        <p class="label">Total à payer</p>
+        <p class="value text-info">2 000 FCFA</p>
+      </div>
+      <div
+        class="order-item"
+        style="border-left: 1px solid #ccc; padding-left: 30px"
+      >
+        <p class="label">Commission Daymond</p>
+        <p class="value text-warning">2 000 FCFA</p>
+      </div>
+    </div>
+  </div>
+  <div class="d-flex gap-3 align-items-center m-3">
+    <small class="w-auto min-w-auto">Hier</small>
+    <div
+      style="
+        height: 1px;
+        border-top: 1px solid rgba(128, 128, 128, 0.403);
+        width: 100%;
+      "
+    ></div>
+  </div>
+  <div class="row box-2 m-3">
+    <div class="col-12 d-flex flex-wrap order-row align-items-center">
+      <div
+        class="order-item d-flex align-items-center justify-content-start order-item-large col-6"
+        data-bs-toggle="modal"
+        data-bs-target="#exampleModal"
+      >
+        <img
+          class="product-image"
+          src="assets/img/products/pducts-1.png"
+          alt="Product Image"
+        />
+        <div class="rounded-circle"></div>
+        <div class="product-info">
+          <p class="value">Range cuisine moderne</p>
+          <small>#DK-FRD-345</small>
+          <small>Aujourd'hui à 29:23</small>
+        </div>
+      </div>
+      <div
+        class="order-item"
+        style="border-left: 1px solid #ccc; padding-left: 30px"
+      >
+        <p class="label">Prix de partenaire</p>
+        <p class="value">10 000 FCFA</p>
+      </div>
+      <div
+        class="order-item"
+        style="border-left: 1px solid #ccc; padding-left: 30px"
+      >
+        <p class="label">Total à payer</p>
+        <p class="value text-info">2 000 FCFA</p>
+      </div>
+      <div
+        class="order-item"
+        style="border-left: 1px solid #ccc; padding-left: 30px"
+      >
+        <p class="label">Commission Daymond</p>
+        <p class="value text-warning">2 000 FCFA</p>
+      </div>
+    </div>
+  </div>
+  <nav aria-label="Page navigation example" style="margin-top: 20px">
+    <ul class="pagination">
+      <li class="page-item1">
+        <a href="#" aria-label="Previous">
+          <img src="assets/img/left.png" alt="" width="10" height="10" />
+        </a>
+      </li>
+      <li class="page-item"><a href="#">1</a></li>
+      <li class="page-item actived"><a href="#">2</a></li>
+      <li
+        class="page-item"
+        style="background-color: transparent; color: rgb(0, 187, 255)"
+      >
+        <a href="#">...</a>
+      </li>
+      <li class="page-item"><a href="#">16</a></li>
+      <li class="page-item1">
+        <a href="#" aria-label="Next">
+          <img src="assets/img/right.png" alt="" width="10" height="10" />
+        </a>
+      </li>
+    </ul>
+  </nav>
+</div>
+
+<!-- Info solde -->
+<div
+  class="modal fade"
+  id="exampleModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <!-- <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            ...
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Save changes</button>
+          </div> -->
+    </div>
+  </div>
+
+  <div class="fixed_fourn">
+    <div class="fixed_fourn1">
+      <div class="formu_fourn">
+        <div
+          class="nominf"
+          style="
+            background-color: rgb(137, 227, 0);
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+          "
+        >
+          <p
+            style="
+              padding-top: 10px;
+              text-align: center;
+              text-transform: uppercase;
+              color: white;
+            "
+          >
+            Soldé
+          </p>
+          <!-- <img src="assets/img/icons/parametre.png" alt="Product Image" height="15px"
+              style="position: absolute;left: 20px;" /> -->
+        </div>
+        <div class="nominf1">
+          <div class="col-12 d-flex flex-wrap align-items-center">
+            <div
+              class="order-item d-flex align-items-center justify-content-start order-item-large col-6"
+            >
+              <img
+                src="assets/img/products/pducts-1.png"
+                alt="Product Image"
+                height="70px"
+                width="70px"
+              />
+              <div class="rounded-circle"></div>
+              <div class="product-info" style="margin-left: 10px">
+                <p style="color: black">Range cuisine moderne</p>
+                <small>Stock 91 / 110 Pieces</small>
+                <small>#DK-FRD-345</small>
+              </div>
+            </div>
+            <div
+              class="order-item"
+              style="
+                padding-left: 30px;
+                display: flex;
+                justify-content: flex-end;
+                align-items: flex-end;
+                padding-top: 50px;
+              "
+            >
+              <p style="text-align: flex-end; font-size: 0.8rem">
+                INFORMATION GENERALE
+              </p>
+            </div>
+          </div>
+          <div
+            class="nominf12"
+            style="
+              border: none;
+              border-left: 1px solid gainsboro;
+              background-color: transparent;
+            "
+          >
+            <p style="padding-top: 10px; color: black">
+              Prix partenaire <br />
+            </p>
+
+            <p style="font-weight: bolder; color: black">10 000 FCFA</p>
+          </div>
+          <div
+            class="nominf12"
+            style="
+              border: none;
+              border-left: 1px solid gainsboro;
+              background-color: transparent;
+            "
+          >
+            <p style="padding-top: 10px; color: black">Prix de vente <br /></p>
+
+            <p style="font-weight: bolder">10 000 FCFA</p>
+          </div>
+          <div
+            class="nominf12"
+            style="
+              border: none;
+              border-left: 1px solid gainsboro;
+              background-color: transparent;
+            "
+          >
+            <p style="padding-top: 10px; color: black">
+              Frais de livraison <br />
+            </p>
+
+            <p style="font-weight: bolder">10 000 FCFA</p>
+          </div>
+          <div
+            class="nominf12"
+            style="
+              border: none;
+              border-left: 1px solid gainsboro;
+              background-color: transparent;
+            "
+          >
+            <p style="padding-top: 10px; color: black">Total payé <br /></p>
+
+            <p style="font-weight: bolder">10 000 FCFA</p>
+          </div>
+          <div
+            class="nominf12"
+            style="
+              border: none;
+              border-left: 1px solid gainsboro;
+              background-color: transparent;
+            "
+          >
+            <p style="padding-top: 10px; color: black">
+              Commission Daymond <br />
+            </p>
+
+            <p style="font-weight: bolder; color: orange">10 000 FCFA</p>
+          </div>
+          <div class="col-12 d-flex flex-wrap align-items-center">
+            <div
+              class="order-item d-flex align-items-center justify-content-start order-item-large col-6"
+              style="border-left: 1px solid #ccc"
+            >
+              <div class="rounded-circle"></div>
+              <div class="product-info" style="margin-left: 10px">
+                <p style="color: black">Types</p>
+                <small>Liens</small>
+                <small>ORANGE MONEY</small>
+              </div>
+            </div>
+            <div
+              class="order-item"
+              style="
+                padding-left: 30px;
+                display: flex;
+                justify-content: flex-end;
+                align-items: flex-end;
+                padding-top: 50px;
+              "
+            >
+              <p style="text-align: flex-end; font-size: 0.8rem">
+                07 59 02 85 45
+              </p>
+            </div>
+          </div>
+          <div class="col-12 d-flex flex-wrap align-items-center">
+            <div
+              class="order-item d-flex align-items-center justify-content-start order-item-large col-6"
+              style="border-left: 1px solid #ccc"
+            >
+              <div class="rounded-circle"></div>
+              <div class="product-info" style="margin-left: 10px">
+                <p style="color: black">REFERENCES</p>
+                <small>R4HHFF8M</small>
+                <small>18/05/2022 18:10</small>
+              </div>
+            </div>
+            <div
+              class="order-item"
+              style="
+                padding-left: 30px;
+                display: flex;
+                justify-content: flex-end;
+                align-items: flex-end;
+                padding-top: 50px;
+              "
+            >
+              <a
+                href=""
+                style="
+                  text-align: flex-end;
+                  font-size: 0.8rem;
+                  text-transform: lowercase;
+                  background-color: blue;
+                  color: white;
+                  padding-left: 10px;
+                  padding-right: 10px;
+                  border-radius: 10px;
+                "
+                >VOIR la FACTURE</a
+              >
+            </div>
+          </div>
+        </div>
+
+        <div
+          style="
+            position: absolute;
+            top: 70px;
+            height: 30px;
+            width: 30px;
+            background-color: white;
+            right: 40px;
+            border-radius: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+          "
+        >
+          <!-- <img src="assets/img/icons/croix.png" alt="Product Image" height="15px"> -->
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

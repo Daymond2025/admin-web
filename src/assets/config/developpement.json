@@ -28,6 +28,28 @@
         "comment ": "------------ OPERATIONS ADS---------------",
         "OPE_ADS":"admin/ad",
 
+        "comment ": "------------ OPERATIONS PRODUITS---------------",
+        "ALL_PRODUITS":"admin/product",
+
+        "comment ": "------------ OPERATIONS TRANSACTIONS---------------",
+        "ALL_TRANSACTIONS":"admin/transactions",
+
+        "comment ": "------------ OPERATIONS SHOP---------------",
+        "ALL_SHOP":"admin/shop",
+
+        "comment ": "------------ OPERATIONS MANAGER---------------",
+        "ALL_MANAGER":"admin/supplier",
+
+        "comment ": "------------ OPERATIONS BUSINESS---------------",
+        "ALL_BUSINESS":"admin/business",
+        "ALL_BUSINESS_ORDER":"admin/order/business",
+
+        "comment ": "------------ OPERATIONS GLOBAL---------------",
+        "ALL_GLOBAL":"params/data",
+
+        "comment ": "------------ OPERATIONS DASHBOARD---------------",
+        "ALL_DASHBOARD":"admin/dashboard",
+
         "comment ": "------------ OPERATIONS PAIEMENT---------------",
         "GETALL_PAIEMENT":"admin/payement"
     }

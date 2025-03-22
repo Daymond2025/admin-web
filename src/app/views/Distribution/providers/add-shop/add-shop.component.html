@@ -1,0 +1,631 @@
+<div class="container-fluid mt-5 p-3">
+  <div class="ms-auto d-flex justify-content-between align-items-center w-full">
+    <div class="d-flex gap-3 align-items-start">
+      <img
+        src="assets/img/icons/fleche.png"
+        style="margin-top: 8px"
+        alt=""
+        width="10"
+        height="10"
+        routerLink="/providers"
+      />
+      <p>Ajouter une boutique</p>
+    </div>
+    <!-- [disabled]="!isFormValid()" -->
+    <button
+      (click)="onSubmit()"
+      class="btn btn-warning"
+      style="
+        background-color: #ffa500;
+        border: 1px solid #ffa500;
+        color: white;
+        padding-left: 70px;
+        padding-right: 70px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        border-radius: 5px;
+      "
+      data-bs-toggle="modal"
+      data-bs-target="#exampleModal"
+    >
+      Enregister
+    </button>
+  </div>
+
+  <div
+    class="row d-flex p-3 box-1"
+    style="
+      position: relative;
+      margin-top: 15px;
+      border-top: 1px solid gainsboro;
+      margin-bottom: 30px;
+    "
+  >
+    <div class="col-md-9 d-flex flex-wrap justify-content-between mb-3 mb-md-0">
+      <div
+        class="nav"
+        id="nav-tab"
+        role="tablist"
+        style="position: absolute; bottom: -12px"
+      >
+        <button
+          class="tab-btn"
+          [ngClass]="{ 'active-tab': selectedTab === 'boutique' }"
+          (click)="selectTab('boutique')"
+          style="
+            padding-left: 20px;
+            padding-right: 20px;
+            border-radius: 20px;
+            margin-right: 10px;
+          "
+          id="nav-boutique-tab"
+          data-bs-toggle="tab"
+          data-bs-target="#nav-boutique"
+          type="button"
+          role="tab"
+          aria-controls="nav-boutique"
+          aria-selected="true"
+        >
+          Information boutique
+        </button>
+
+        <!-- <button
+          class="tab-btn"
+          [ngClass]="{ 'active-tab': selectedTab === 'gerant' }"
+          (click)="selectTab('gerant')"
+          style="
+            padding-left: 20px;
+            padding-right: 20px;
+            border-radius: 20px;
+            margin-right: 10px;
+          "
+          id="nav-gerant-tab"
+          data-bs-toggle="tab"
+          data-bs-target="#nav-gerant"
+          type="button"
+          role="tab"
+          aria-controls="nav-gerant"
+          aria-selected="false"
+        >
+          Information gerant
+        </button> -->
+
+        <!-- <button
+          class="tab-btn"
+          [ngClass]="{ 'active-tab': selectedTab === 'compte' }"
+          (click)="selectTab('compte')"
+          style="padding-left: 20px; padding-right: 20px; border-radius: 20px"
+          id="nav-compte-tab"
+          data-bs-toggle="tab"
+          data-bs-target="#nav-compte"
+          type="button"
+          role="tab"
+          aria-controls="nav-compte"
+          aria-selected="false"
+        >
+          Information du compte
+        </button> -->
+      </div>
+    </div>
+    <div class="col-md-1 ms-auto d-flex justify-content-end"></div>
+  </div>
+
+  <div class="tab-content">
+    <!-- Boutique -->
+    <form
+      role="form"
+      [formGroup]="boutiqueForm"
+      class="tab-pane fade form-horizontal"
+      [ngClass]="{ 'show active': selectedTab === 'boutique' }"
+      id="nav-boutique"
+      role="tabpanel"
+      aria-labelledby="nav-boutique-tab"
+      tabindex="0"
+    >
+      <div class="dispok">
+        <div class="dispok2">
+          <input
+            class="mb-4"
+            formControlName="name"
+            type="text"
+            id=""
+            placeholder="Nom de la boutique"
+          />
+
+          <input
+            class="mb-4"
+            formControlName="phone_number_shop"
+            type="text"
+            id=""
+            placeholder="CONTACT"
+          />
+          <div
+            style="
+              width: 100%;
+              height: 50px;
+              margin-top: 0px;
+              margin-bottom: 15px;
+              border: 1px solid #c4c4c4;
+              display: flex;
+              align-items: center;
+              justify-content: space-between;
+              padding-right: 10px;
+              padding-top: 10px;
+              padding-left: 10px;
+            "
+          >
+            <!-- Zone de texte pour numéro de mobile money -->
+            <div
+              style="
+                width: 500px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin: 0px !important;
+              "
+            >
+              <input
+                type="text"
+                style="
+                  border: none;
+                  border-bottom: 1px solid #c4c4c4;
+                  width: 100%;
+                  height: 30px;
+                "
+                formControlName="recharge_account_phone"
+                placeholder="Saisir le numéro mobile money"
+              />
+            </div>
+
+            <!-- Zone pour logo et sélection du service -->
+            <div
+              style="
+                width: 150px;
+                height: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: end;
+                gap: 10px;
+              "
+            >
+              <!-- Image affichée en fonction de la sélection -->
+              <img
+                [src]="selectedRechargeLogo"
+                alt=""
+                width="30"
+                height="30"
+                class="rounded-circle"
+              />
+
+              <!-- Select pour choisir le service -->
+              <select
+                (change)="onRechargeServiceChange($event)"
+                style="border: none; background-color: transparent"
+                formControlName="recharge_service"
+              >
+                <option value="orange" selected>Orange Money</option>
+                <option value="mtn">MTN Money</option>
+                <option value="wave">Wave Money</option>
+                <option value="moov">Moov Money</option>
+              </select>
+            </div>
+          </div>
+
+          <input
+            class="mb-4"
+            formControlName="email_shop"
+            type="text"
+            id=""
+            placeholder="EMAIL"
+          />
+          <select class="mb-4" formControlName="city_id">
+            <option value="" disabled selected>VILLE/COMMUNE</option>
+            <option *ngFor="let shop of listCities" [value]="shop.id">
+              {{ shop.name }}
+            </option>
+          </select>
+          <input
+            class="mb-4"
+            formControlName="address"
+            type="text"
+            id=""
+            placeholder="LOCALISATION MAPS"
+          />
+          <input
+            type="hidden"
+            formControlName="business_id"
+            [value]="businessId"
+          />
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Gerant -->
+<!-- <form
+      role="form"
+      [formGroup]="gerantForm"
+      class="tab-pane fade form-horizontal"
+      [ngClass]="{ 'show active': selectedTab === 'gerant' }"
+      id="nav-gerant"
+      role="tabpanel"
+      aria-labelledby="nav-gerant-tab"
+      tabindex="0"
+    >
+      <div class="dispok">
+        <div class="dispok1">
+          <div class="dispok11">
+            <p style="font-size: 0.8rem; padding-left: 10px">
+              PHOTO DE PROFILE
+            </p>
+            <input type="file" (change)="onFileSelected($event, 'profilePhoto')" id="profilPictureInput" style="display: none" />
+
+            <label
+              for="profilPictureInput"
+              style="
+                width: 150px;
+                height: 150px;
+                background-color: white;
+                border-radius: 100%;
+                margin: 0 auto;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+              "
+            >
+            <img
+            [src]="previewProfilePhoto || 'assets/img/downimage.png'"
+            style="margin-top: 8px"
+            alt=""
+            width="50"
+            height="50"
+          />
+            </label>
+          </div>
+          <div
+            class="dispok12"
+            style="
+              padding-left: 10px;
+              padding-right: 10px;
+              display: flex;
+              align-items: center;
+              justify-content: space-between;
+              gap: 10px;
+              padding-top: 7px;
+            "
+          >
+            <div
+              style="
+                width: 50%;
+                height: 100%;
+                display: flex;
+                align-items: flex-start;
+                justify-content: flex-start;
+                flex-direction: column;
+              "
+            >
+              <p style="font-size: 0.8rem">PIECES D’IDENTITÉ</p>
+              <input type="file"  (change)="onFileSelected($event, 'cniRecto')" name="" id="CniRecto" style="display: none" />
+              <label
+                for="CniRecto"
+                style="
+                  width: 100%;
+                  height: 110px;
+                  background-color: white;
+                  margin: 0 auto;
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                "
+              >
+                <img
+                  [src]="previewCniRecto || 'assets/img/downimage.png'"
+                  style="margin-top: 8px"
+                  alt=""
+                  width="50"
+                  height="50"
+                />
+              </label>
+              <p
+                style="
+                  font-size: 0.8rem;
+                  text-align: center;
+                  padding-top: 20px;
+                  margin: 0 auto;
+                "
+              >
+                Recto
+              </p>
+            </div>
+            <div
+              style="
+                width: 50%;
+                height: 100%;
+                display: flex;
+                align-items: flex-end;
+                justify-content: staert;
+                flex-direction: column;
+              "
+            >
+              <p style="font-size: 0.8rem">2 IMAGES</p>
+              <input type="file" (change)="onFileSelected($event, 'cniVerso')" name="" id="CniVerso" style="display: none" />
+              <label
+                for="CniVerso"
+                style="
+                  width: 100%;
+                  height: 110px;
+                  background-color: white;
+                  margin: 0 auto;
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                "
+              >
+                <img
+                  [src]="previewCniVerso || 'assets/img/downimage.png'"
+                  style="margin-top: 8px"
+                  alt=""
+                  width="50"
+                  height="50"
+                />
+              </label>
+              <p
+                style="
+                  font-size: 0.8rem;
+                  text-align: center;
+                  padding-top: 20px;
+                  margin: 0 auto;
+                "
+              >
+                verso
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="dispok2">
+          <input
+            type="text"
+            class="mb-1"
+            formControlName="first_name"
+            id=""
+            placeholder="Nom"
+          />
+          <input
+            type="text"
+            class="mb-1"
+            formControlName="last_name"
+            id=""
+            placeholder="prenom"
+          />
+          <select class="mb-1" formControlName="shop_id">
+            <option value="" disabled selected>Choisissez une boutique</option>
+            <option *ngFor="let shop of listShop" [value]="shop.id">{{ shop.code }}</option>
+          </select>
+          <select class="mb-1" formControlName="identity_doc_type">
+            <option value="" disabled selected>Type de Document</option>
+            <option value="CNI">CNI</option>
+            <option value="Passport">Passeport</option>
+            <option value="Autre">Autre</option>
+          </select>
+          <input
+            type="text"
+            class="mb-1"
+            formControlName="identity_doc_no"
+            id=""
+            placeholder="N* CNI"
+          />
+          <input
+            type="text"
+            class="mb-1"
+            formControlName="email"
+            id=""
+            placeholder="EMAIL"
+          />
+          <input
+            type="text"
+            class="mb-1"
+            formControlName="phone_number"
+            id=""
+            placeholder="CONTACT"
+          />
+          <select class="mb-1" formControlName="city_id">
+            <option value="" disabled selected>VILLE/COMMUNE</option>
+            <option *ngFor="let shop of listCities" [value]="shop.id">{{ shop.name }}</option>
+          </select>
+        </div>
+      </div>
+    </form> -->
+
+<!-- Compte -->
+<!-- <form
+      role="form"
+      [formGroup]="compteForm"
+      class="tab-pane fade form-horizontal"
+      [ngClass]="{ 'show active': selectedTab === 'compte' }"
+      id="nav-compte"
+      role="tabpanel"
+      aria-labelledby="nav-compte-tab"
+      tabindex="0"
+    >
+      <div
+        style="
+          width: 100%;
+          height: 150px;
+          background-color: #f8f8fb;
+          padding: 20px;
+        "
+      >
+        <span
+          style="
+            color: black;
+            font-size: 1.1rem;
+            display: flex;
+            justify-content: space-between;
+          "
+          >Compte Recharge
+          <span
+            ><img
+              src="assets/img/icons/plusdp.png"
+              style="margin-top: 8px"
+              alt=""
+              width="12"
+              height="12" /></span
+        ></span>
+        <div
+          style="
+            width: 100%;
+            height: 60px;
+            margin-top: 20px;
+            border: 1px solid #c4c4c4;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-right: 10px;
+            padding-left: 10px;
+            background-color: white;
+          "
+        >
+          <div
+            style="
+              width: 500px;
+              height: 100%;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+            "
+          >
+            <input
+              type="text"
+              style="
+                border: none;
+                border-bottom: 1px solid #c4c4c4;
+                width: 100%;
+                margin-bottom: 10px;
+              "
+              formControlName="recharge_account_phone"
+              placeholder="Saisir le numero mobile money"
+            />
+          </div>
+          <div
+            style="
+              width: 150px;
+              height: 100%;
+              display: flex;
+              align-items: center;
+              justify-content: end;
+              gap: 10px;
+            "
+          >
+            <img
+              [src]="selectedRechargeLogo"
+              alt=""
+              width="30"
+              height="30"
+              class="rounded-circle"
+            />
+            <select
+              (change)="onRechargeServiceChange($event)"
+              style="border: none; background-color: transparent"
+              formControlName="recharge_account_type"
+            >
+              <option value="orange" selected>Orange Money</option>
+              <option value="mtn">MTN Money</option>
+              <option value="wave">Wave Money</option>
+              <option value="moov">Moov Money</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div
+        style="
+          width: 100%;
+          height: 150px;
+          background-color: #f8f8fb;
+          padding: 20px;
+          margin-top: 20px;
+        "
+      >
+        <span
+          style="
+            color: black;
+            font-size: 1.1rem;
+            display: flex;
+            justify-content: space-between;
+          "
+          >Compte Retrait
+          <span
+            ><img
+              src="assets/img/icons/plusdp.png"
+              style="margin-top: 8px"
+              alt=""
+              width="12"
+              height="12" /></span
+        ></span>
+        <div
+          style="
+            width: 100%;
+            height: 60px;
+            margin-top: 20px;
+            border: 1px solid #c4c4c4;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-right: 10px;
+            padding-left: 10px;
+            background-color: white;
+          "
+        >
+          <div
+            style="
+              width: 500px;
+              height: 100%;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+            "
+          >
+            <input
+              type="text"
+              style="
+                border: none;
+                border-bottom: 1px solid #c4c4c4;
+                width: 100%;
+                margin-bottom: 10px;
+              "
+              formControlName="withdrawal_account_phone"
+              placeholder="Saisir le numero mobile money"
+            />
+          </div>
+          <div
+            style="
+              width: 150px;
+              height: 100%;
+              display: flex;
+              align-items: center;
+              justify-content: end;
+              gap: 10px;
+            "
+          >
+            <img
+              [src]="selectedRetraitLogo"
+              alt=""
+              width="30"
+              height="30"
+              class="rounded-circle"
+            />
+            <select
+              (change)="onRetraitServiceChange($event)"
+              style="border: none; background-color: transparent"
+              formControlName="withdrawal_account_type"
+            >
+              <option value="orange" selected>Orange Money</option>
+              <option value="mtn">MTN Money</option>
+              <option value="wave">Wave Money</option>
+              <option value="moov">Moov Money</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </form> -->

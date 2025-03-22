@@ -1,0 +1,702 @@
+<!-- Loader -->
+<div *ngIf="isLoading" class="loader-container">
+  <div class="spinner-border text-primary" role="status">
+    <span class="visually-hidden">Loading...</span>
+  </div>
+</div>
+
+<div *ngIf="!isLoading" class="container-fluid mt-2 p-3">
+  <!-- Button Group -->
+
+  <div class="ms-auto d-flex justify-content-between align-items-center w-full">
+    <div class="d-flex gap-3 align-items-start" routerLink="/providers">
+      <img
+        src="assets/img/icons/fleche.png"
+        style="margin-top: 8px"
+        alt=""
+        width="10"
+        height="10"
+      />
+      <p>FOURNISSEUR</p>
+    </div>
+
+    <a routerLink="/parameter"
+      ><img src="assets/img/icons/parametre.png" alt="" width="20" height="20"
+    /></a>
+  </div>
+  <div
+    *ngIf="detailsBusiness.shops!.length > 0"
+    class="col-12 d-flex flex-wrap align-items-center"
+  >
+    <button
+      *ngIf="detailsBusiness?.business"
+      type="button"
+      style="border: none; background-color: transparent"
+      class="order-item d-flex align-items-center justify-content-start order-item-large col-md-2"
+    >
+      <img
+        class="product-image rounded-circle"
+        [src]="detailsBusiness.business.logo"
+        alt="Product Image"
+      />
+      <div class="rounded-circle"></div>
+      <div class="product-info">
+        <p style="margin: 0px !important">
+          <small class="">{{
+            detailsBusiness.business.name.toLocaleUpperCase()
+          }}</small>
+        </p>
+        <small>{{ detailsBusiness.business.ncc }}</small>
+        <small
+          >Inscrit le :
+          {{
+            detailsBusiness.business.created_at | date : "dd/mm/yy hh:mm"
+          }}</small
+        >
+      </div>
+    </button>
+
+    <div class="d-flex col-md-9 flex-wrap">
+      <div style="width: 100%; display: flex; flex-wrap: wrap; gap: 10px">
+        <button
+          style="
+            width: 30%;
+            min-width: 150px;
+            height: 40px;
+            border: 1px solid gainsboro;
+            background-color: white;
+            color: black;
+            position: relative;
+            border-radius: 4px;
+          "
+          [routerLink]="['/providers/commandes/', detailsBusiness.business.id]"
+        >
+          <img
+            src="assets/img/icons/cart.png "
+            style="position: absolute; left: 10px"
+            alt=""
+            width="20"
+            height="20"
+          />
+          Commandes
+        </button>
+        <button
+          style="
+            width: 30%;
+            min-width: 150px;
+            height: 40px;
+            border: 1px solid gainsboro;
+            background-color: white;
+            color: black;
+            position: relative;
+            border-radius: 4px;
+          "
+          [routerLink]="['/providers/products/', detailsBusiness.business.id]"
+        >
+          <img
+            src="assets/img/icons/product.png"
+            style="position: absolute; left: 10px"
+            alt=""
+            width="20"
+            height="20"
+          />
+          Produits
+        </button>
+        <button
+          style="
+            width: 30%;
+            min-width: 150px;
+            height: 40px;
+            border: 1px solid gainsboro;
+            background-color: white;
+            color: black;
+            position: relative;
+            border-radius: 4px;
+          "
+          [routerLink]="['/providers/comptables/', detailsBusiness.business.id]"
+        >
+          <img
+            src="assets/img/icons/comptable.png"
+            style="position: absolute; left: 10px"
+            alt=""
+            width="20"
+            height="20"
+          />
+          Comptable
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="row box-2">
+    <!-- Loader -->
+    <div *ngIf="isLoading" class="loader-container">
+      <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+    </div>
+
+    <div *ngIf="!isLoading && detailsBusiness">
+      <!-- Cards -->
+      <!-- bloc info entreprise et proprietaire -->
+      <div
+        *ngIf="!isLoading && detailsBusiness.business && detailsBusiness.admin"
+        class="row mt-3 gap-3"
+      >
+        <div
+          class="order-item w-auto"
+          style="
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 1px 1px 4px 1px rgba(128, 128, 128, 0.095);
+            position: relative;
+          "
+        >
+          <div
+            style="
+              display: flex;
+              align-items: end;
+              width: 100%;
+              justify-content: flex-end;
+            "
+          >
+            <small
+              style="
+                color: black;
+
+                cursor: pointer;
+                box-shadow: 0.5px 0.5px 0.5px 0.5px gainsboro;
+                padding: 15px;
+                padding-top: 6px;
+                padding-bottom: 6px;
+                border-radius: 7px;
+              "
+              [routerLink]="[
+                '/providers/add_shop/',
+                detailsBusiness.business.id
+              ]"
+              >Ajouter une boutique</small
+            >
+          </div>
+
+          <div class="d-flex align-items-center">
+            <div
+              style="
+                display: flex;
+                justify-content: space-between;
+                width: 100%;
+                align-items: center;
+              "
+            >
+              <div class="row" style="min-width: 800px; padding-left: 10px">
+                <!-- info entreprise -->
+                <div
+                  class="order-item col-md-4"
+                  style="padding: 0; padding-right: 10px"
+                  (click)="openModal('business')"
+                >
+                  <div
+                    style="
+                      background-color: white;
+                      border-radius: 10px;
+                      box-shadow: 1px 1px 4px 1px rgba(128, 128, 128, 0.095);
+                      width: 100%;
+                      height: 100%;
+                      padding-top: 10px;
+                      padding-left: 20px;
+                    "
+                    data-bs-toggle="modal"
+                    data-bs-target="#gerantModal"
+                  >
+                    <small style="padding-bottom: 10px">Info entreprise</small>
+                    <div class="d-flex align-items-center">
+                      <img
+                        class="product-image rounded-circle"
+                        [src]="detailsBusiness.business.logo"
+                        alt="Product Image"
+                      />
+
+                      <div class="product-info">
+                        <p class="business-name">
+                          {{ detailsBusiness.business.name }}
+                        </p>
+                        <p class="business-details">
+                          <span class="detail-label">Fournisseur : </span>
+                          {{ detailsBusiness.business.ncc }}
+                        </p>
+                        <p class="business-registration">
+                          <span class="detail-label">Inscrit le </span>
+                          {{
+                            detailsBusiness.business.created_at
+                              | date : "dd/MM/yyyy HH:mm"
+                          }}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- info proprietaire -->
+                <div
+                  class="order-item col-md-4"
+                  style="padding: 0; padding-right: 10px"
+                  (click)="openModal('admin')"
+                >
+                  <div
+                    style="
+                      background-color: white;
+                      border-radius: 10px;
+                      box-shadow: 1px 1px 4px 1px rgba(128, 128, 128, 0.095);
+                      width: 100%;
+                      height: 100%;
+                      padding-top: 10px;
+                      padding-left: 20px;
+                      padding-bottom: 10px;
+                    "
+                    data-bs-toggle="modal"
+                    data-bs-target="#gerantModal"
+                  >
+                    <small>Info propriétaire</small>
+                    <div class="d-flex align-items-center">
+                      <img
+                        class="product-image rounded-circle"
+                        [src]="detailsBusiness.admin.picture"
+                        alt="Product Image"
+                      />
+
+                      <div class="product-info">
+                        <p style="font-weight: bolder; font-size: 1.2rem">
+                          {{ detailsBusiness.admin.first_name }}
+                          {{ detailsBusiness.admin.last_name }} <br /><span
+                            style="font-weight: normal"
+                            >{{ detailsBusiness.admin.phone_number }}</span
+                          >
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- bloc change shop -->
+              <div
+                style="
+                  width: 300px;
+                  position: absolute;
+                  right: 10px;
+                  top: 20px;
+                  margin-top: 50px;
+                "
+              >
+                <span style="color: #707070; font-size: 0.7rem">
+                  changer de boutique
+                </span>
+                <select
+                  class="mb-4"
+                  name="shopSelect"
+                  id="shopSelect"
+                  [(ngModel)]="selectedShopId"
+                  (change)="onShopChange($event)"
+                  style="
+                    border: 1px solid rgba(224, 223, 223, 0.539);
+                    padding: 5px 10px 10px 5px;
+                    border-radius: 4px;
+                    box-shadow: 0.5px 0.5px 0.5px 0.5px
+                      rgba(194, 194, 194, 0.192);
+                    width: 100%;
+                  "
+                >
+                  <option value="" disabled selected>Level boutique</option>
+                  <option *ngFor="let shop of listShops" [value]="shop.id">
+                    {{ shop.name }}
+                  </option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bloc info boutique et gérant principal -->
+      <ng-container *ngIf="!isLoading && selectedShop">
+        <div class="row mt-3 mb-3">
+          <!-- Info boutique -->
+          <div
+            class="order-item col-md-3"
+            style="padding: 0; padding-right: 10px"
+            (click)="openModal('shop')"
+          >
+            <div
+              style="
+                background-color: white;
+                border-radius: 10px;
+                box-shadow: 1px 1px 4px 1px rgba(128, 128, 128, 0.095);
+                width: 100%;
+                height: 100%;
+                padding-top: 10px;
+                padding-left: 20px;
+              "
+              data-bs-toggle="modal"
+              data-bs-target="#gerantModal"
+            >
+              <small style="padding-bottom: 10px">Info boutique</small>
+              <div class="d-flex align-items-center">
+                <img
+                  class="product-image rounded-circle"
+                  [src]="detailsBusiness.business.logo"
+                  alt="Product Image"
+                />
+                <div class="product-info">
+                  <p style="font-weight: bolder; font-size: 1.2rem">
+                    {{ selectedShop.name }} <br />
+                    <span style="font-weight: normal">{{
+                      selectedShop.city.name
+                    }}</span>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Info gérant Principal -->
+          <div
+            *ngIf="selectedShop.managers && selectedShop.managers.length > 0"
+            class="order-item col-md-3"
+            style="padding: 0; padding-right: 10px"
+            (click)="openModal('gerant')"
+          >
+            <div
+              style="
+                background-color: white;
+                border-radius: 10px;
+                box-shadow: 1px 1px 4px 1px rgba(128, 128, 128, 0.095);
+                width: 100%;
+                height: 100%;
+                padding-top: 10px;
+                padding-left: 20px;
+              "
+              data-bs-toggle="modal"
+              data-bs-target="#gerantModal"
+            >
+              <small>Info gérant Principal</small>
+              <div class="d-flex align-items-center">
+                <img
+                  [src]="selectedShop.managers[0].picture"
+                  style="height: 60px; width: 60px"
+                  class="product-image rounded-circle"
+                  alt="Product Image"
+                />
+                <div class="product-info">
+                  <p style="font-weight: bolder; font-size: 1.2rem">
+                    {{ selectedShop.managers[0].first_name }}
+                    {{ selectedShop.managers[0].last_name }} <br />
+                    <span style="font-weight: normal">{{
+                      selectedShop.managers[0].phone_number
+                    }}</span>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ajouter gerant -->
+          <div
+            class="order-item col-md-3"
+            style="
+              background-color: white;
+              border-radius: 10px;
+              box-shadow: 1px 1px 4px 1px rgba(128, 128, 128, 0.095);
+            "
+            [routerLink]="['/providers/add_manager/', selectedShop.id]"
+          >
+            <div
+              class="d-flex align-items-center justify-content-center text-center"
+              style="flex-direction: column; margin: 0 auto"
+            >
+              <div
+                class="product-image rounded-circle"
+                style="
+                  display: flex;
+                  justify-content: center;
+                  background-color: ghostwhite;
+                  max-width: 50px;
+                  max-height: 50px;
+                "
+              >
+                <img
+                  class="product-image rounded-circle"
+                  src="assets/img/ajo.png"
+                  alt="Product Image"
+                  style="margin: 0"
+                />
+              </div>
+
+              <div
+                class="product-info"
+                style="width: 100%; display: flex; justify-content: center"
+              >
+                <p class="text-center">
+                  <small style="text-align: center">Ajouter un gerant </small>
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- bloc compte -->
+          <div class="row mt-3">
+            <div
+              class="order-item w-auto"
+              style="padding: 0; padding-right: 10px; width: auto"
+            >
+              <div
+                style="
+                  background-color: white;
+                  border-radius: 10px;
+                  box-shadow: 1px 1px 4px 1px rgba(128, 128, 128, 0.095);
+                  height: 100%;
+                  padding-top: 10px;
+                  padding-left: 20px;
+                  padding-bottom: 10px;
+                  min-width: 400px;
+                "
+                data-bs-toggle="modal"
+                data-bs-target="#exampleModal"
+              >
+                <div class="d-flex align-items-center">
+                  <!-- Cercle bleu avec image centrée -->
+                  <div
+                    class="product-image rounded-circle"
+                    style="
+                      background-color: blue;
+                      height: 70px;
+                      width: 70px;
+                      display: flex;
+                      justify-content: center;
+                      align-items: center;
+                    "
+                  >
+                    <img
+                      src="assets/img/icons/comptable-blanc.png"
+                      height="30"
+                      style="display: block"
+                    />
+                  </div>
+
+                  <!-- Informations sur le compte -->
+                  <div class="product-info" style="margin-left: 10px">
+                    <p style="font-weight: bolder; font-size: 1.2rem">
+                      INFORMATION SUR COMPTE <br /><span
+                        style="font-weight: normal"
+                        >01 7306 8545</span
+                      >
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="gerantModal" tabindex="-1" aria-labelledby="gerantModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <!-- <div class="fixed_fourn" style="max-height: 75vh;">
+        <div class="fixed_fourn1" style="max-height: 75vh;"> -->
+          <div class="formu_fourng" style="height: 85vh;">
+            <div class="nominf">
+              <p style="padding-top: 10px; text-align: center; text-transform: uppercase;">
+                {{ selectedAdminInfo ? 'Profil, administrateur' : 'Info entreprise' }}
+              </p>
+            </div>
+            <ng-container *ngIf="flag == 'admin'">
+              <div class="nominf1">
+                <div class="nominf12">
+                  <p style="padding-top: 10px">Nom</p>
+                  <p style="padding-top: 10px">{{ selectedAdminInfo?.first_name || selectedBusinessInfo?.name }}</p>
+                </div>
+                <div class="nominf12">
+                  <p style="padding-top: 10px">Prénom</p>
+                  <p style="padding-top: 10px">{{ selectedAdminInfo?.last_name || '' }}</p>
+                </div>
+                <div class="nominf12">
+                  <p style="padding-top: 10px">Contact</p>
+                  <p style="padding-top: 10px">{{ selectedAdminInfo?.phone_number || '' }}</p>
+                </div>
+                <div class="nominf12">
+                  <p style="padding-top: 10px">Email</p>
+                  <p style="padding-top: 10px">{{ selectedAdminInfo?.email || '' }}</p>
+                </div>
+                <div class="nominf12" *ngIf="selectedBusinessInfo">
+                  <p style="padding-top: 10px">Nom de l'entreprise</p>
+                  <p style="padding-top: 10px">{{ selectedBusinessInfo.name }}</p>
+                </div>
+                <div class="nominf12" *ngIf="selectedBusinessInfo">
+                  <p style="padding-top: 10px">Date d'inscription</p>
+                  <p style="padding-top: 10px">{{ selectedBusinessInfo.created_at | date: 'dd/MM/yyyy HH:mm' }}</p>
+                </div>
+              </div>
+              <div class="dosi">
+                <div class="dosi1"></div>
+                <p style="padding-top: 10px; min-width: 100px; text-align: center">DOSSIER</p>
+                <div class="dosi1"></div>
+              </div>
+              <div class="nominf17">
+                <div class="carre1">
+                  <small style="position: absolute; left: 10px; top: 10px">PHOTO DE PROFILE</small>
+                  <div class="cerclez">
+                    <p style="color: white; font-size: 2rem; font-weight: bolder; padding-top: 10px">
+                      {{ selectedAdminInfo?.first_name?.charAt(0) || 'LV' }} <!-- Par défaut "LV" -->
+                    </p>
+                  </div>
+                </div>
+                <div class="carre2">
+                  <div style="display: flex; justify-content: space-between">
+                    <small style="font-size: 0.6rem">PIECES D’IDENTITÉ</small>
+                    <small style="font-size: 0.6rem">2 images</small>
+                  </div>
+                  <div class="moncae" style="width: 100%; height: 85px; display: flex; gap: 10px">
+                    <div style="width: 50%; height: 100%; background-color: gainsboro"></div>
+                    <div style="width: 50%; height: 100%; background-color: gainsboro"></div>
+                  </div>
+                </div>
+              </div>
+              <div style="width: 100%; display: flex; justify-content: space-between; align-items: center; padding-left: 20px; padding-right: 20px;">
+                <p style="padding-top: 30px">Créé le {{ selectedAdminInfo ? (selectedAdminInfo.created_at | date: 'dd/MM/yyyy') : (selectedBusinessInfo?.created_at | date: 'dd/MM/yyyy') }}</p>
+                <button style="margin-top: 30px; color: red; border: 1px solid gainsboro; padding-left: 10px; padding-right: 10px; border-radius: 3px;">Désactiver les accès</button>
+              </div>
+              <div style="position: absolute; top: 70px; height: 30px; width: 30px; background-color: white; right: 40px; border-radius: 100%; display: flex; justify-content: center; align-items: center;">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+            </ng-container>
+
+            <ng-container *ngIf="flag == 'business'">
+              <div class="nominf1">
+                <div class="nominf12">
+                  <p style="padding-top: 10px">Nom de l'entreprise</p>
+                  <p style="padding-top: 10px">{{ selectedBusinessInfo?.name }}</p>
+                </div>
+                <div class="nominf12">
+                  <p style="padding-top: 10px">NCC</p>
+                  <p style="padding-top: 10px">{{ selectedBusinessInfo?.ncc || '' }}</p>
+                </div>
+                <div class="nominf12">
+                  <p style="padding-top: 10px">Contact</p>
+                  <p style="padding-top: 10px">{{ selectedBusinessInfo?.phone_number || '' }}</p>
+                </div>
+                <div class="nominf12">
+                  <p style="padding-top: 10px">Email</p>
+                  <p style="padding-top: 10px">{{ selectedBusinessInfo?.email || '' }}</p>
+                </div>
+                <div class="nominf12">
+                  <p style="padding-top: 10px">Adresse</p>
+                  <p style="padding-top: 10px">{{ selectedBusinessInfo.address }}</p>
+                </div>
+              </div>
+              <div class="dosi">
+                <div class="dosi1"></div>
+                <p style="padding-top: 10px; min-width: 100px; text-align: center">DOSSIER</p>
+                <div class="dosi1"></div>
+              </div>
+              <div class="nominf17">
+                <div class="carre1">
+                  <small style="position: absolute; left: 10px; top: 10px">PHOTO DE PROFILE</small>
+                  <div class="cercles">
+                    <img [src]="selectedBusinessInfo.logo" alt="" width="80" height="80">
+                    <!-- <p style="color: white; font-size: 2rem; font-weight: bolder; padding-top: 10px">
+                      {{ selectedAdminInfo?.first_name?.charAt(0) || 'LV' }}
+                    </p> -->
+                  </div>
+                </div>
+                <!-- <div class="carre2">
+                  <div style="display: flex; justify-content: space-between">
+                    <small style="font-size: 0.6rem">PIECES D’IDENTITÉ</small>
+                    <small style="font-size: 0.6rem">2 images</small>
+                  </div>
+                  <div class="moncae" style="width: 100%; height: 85px; display: flex; gap: 10px">
+                    <img [src]="selectedBusinessInfo.logo" alt="" width="80" height="80">
+                    <div style="width: 50%; height: 100%; background-color: gainsboro"></div>
+                  </div>
+                </div> -->
+              </div>
+              <div style="width: 100%; display: flex; justify-content: space-between; align-items: center; padding-left: 20px; padding-right: 20px;">
+                <p style="padding-top: 30px">Créé le {{ selectedBusinessInfo?.created_at | date: 'dd/MM/yyyy' }}</p>
+                <button style="margin-top: 30px; color: red; border: 1px solid gainsboro; padding-left: 10px; padding-right: 10px; border-radius: 3px;">Désactiver les accès</button>
+              </div>
+              <div style="position: absolute; top: 70px; height: 30px; width: 30px; background-color: white; right: 40px; border-radius: 100%; display: flex; justify-content: center; align-items: center;">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+            </ng-container>
+
+            <ng-container *ngIf="flag == 'shop'">
+              <div class="nominf1">
+                <div class="nominf12">
+                  <p style="padding-top: 10px">Nom</p>
+                  <p style="padding-top: 10px">{{ selectedAdminInfo?.first_name || selectedBusinessInfo?.name }}</p>
+                </div>
+                <div class="nominf12">
+                  <p style="padding-top: 10px">Prénom</p>
+                  <p style="padding-top: 10px">{{ selectedAdminInfo?.last_name || '' }}</p>
+                </div>
+                <div class="nominf12">
+                  <p style="padding-top: 10px">Contact</p>
+                  <p style="padding-top: 10px">{{ selectedAdminInfo?.phone_number || '' }}</p>
+                </div>
+                <div class="nominf12">
+                  <p style="padding-top: 10px">Email</p>
+                  <p style="padding-top: 10px">{{ selectedAdminInfo?.email || '' }}</p>
+                </div>
+                <div class="nominf12" *ngIf="selectedBusinessInfo">
+                  <p style="padding-top: 10px">Nom de l'entreprise</p>
+                  <p style="padding-top: 10px">{{ selectedBusinessInfo.name }}</p>
+                </div>
+                <div class="nominf12" *ngIf="selectedBusinessInfo">
+                  <p style="padding-top: 10px">Date d'inscription</p>
+                  <p style="padding-top: 10px">{{ selectedBusinessInfo.created_at | date: 'dd/MM/yyyy HH:mm' }}</p>
+                </div>
+              </div>
+              <div class="dosi">
+                <div class="dosi1"></div>
+                <p style="padding-top: 10px; min-width: 100px; text-align: center">DOSSIER</p>
+                <div class="dosi1"></div>
+              </div>
+              <div class="nominf17">
+                <div class="carre1">
+                  <small style="position: absolute; left: 10px; top: 10px">PHOTO DE PROFILE</small>
+                  <div class="cerclez">
+                    <p style="color: white; font-size: 2rem; font-weight: bolder; padding-top: 10px">
+                      {{ selectedAdminInfo?.first_name?.charAt(0) || 'LV' }}
+                    </p>
+                  </div>
+                </div>
+                <div class="carre2">
+                  <div style="display: flex; justify-content: space-between">
+                    <small style="font-size: 0.6rem">PIECES D’IDENTITÉ</small>
+                    <small style="font-size: 0.6rem">2 images</small>
+                  </div>
+                  <div class="moncae" style="width: 100%; height: 85px; display: flex; gap: 10px">
+                    <div style="width: 50%; height: 100%; background-color: gainsboro"></div>
+                    <div style="width: 50%; height: 100%; background-color: gainsboro"></div>
+                  </div>
+                </div>
+              </div>
+              <div style="width: 100%; display: flex; justify-content: space-between; align-items: center; padding-left: 20px; padding-right: 20px;">
+                <p style="padding-top: 30px">Créé le {{ selectedAdminInfo ? (selectedAdminInfo.created_at | date: 'dd/MM/yyyy') : (selectedBusinessInfo?.created_at | date: 'dd/MM/yyyy') }}</p>
+                <button style="margin-top: 30px; color: red; border: 1px solid gainsboro; padding-left: 10px; padding-right: 10px; border-radius: 3px;">Désactiver les accès</button>
+              </div>
+              <div style="position: absolute; top: 70px; height: 30px; width: 30px; background-color: white; right: 40px; border-radius: 100%; display: flex; justify-content: center; align-items: center;">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+            </ng-container>
+          </div>
+        <!-- </div>
+      </div> -->
+    </div>
+  </div>
+</div>
+

@@ -1,0 +1,1190 @@
+<div class="container-fluid mt-5 p-0">
+  <!-- Info global -->
+  <div
+    class="w-full"
+    style="
+      background-color: blue;
+      border-top-right-radius: 18px;
+      border-top-left-radius: 18px;
+    "
+  >
+    <div class="col-12 d-flex flex-wrap align-items-center">
+      <div class="col-md-9 d-flex flex-wrap">
+        <div
+          class="order-item"
+          style="
+            background-color: rgba(26, 26, 186, 0.472);
+            border-radius: 20px 20px 0px 0px;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            color: white;
+            padding-left: 20px;
+            margin-left: 20px;
+            max-width: 400px;
+          "
+        >
+          <p class="label" style="color: white">Chiffres d'affaires</p>
+          <small class="">Janvier 2024</small>
+          <p class="value" style="font-size: 2rem; color: white">
+            {{ dataComptable.total_amount }} <span> <small>FCFA </small> </span>
+          </p>
+        </div>
+        <div
+          class="order-item d-flex flex-wrap"
+          style="
+            background-color: rgba(162, 26, 186, 0.472);
+            border-radius: 20px 20px 0px 0px;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            color: white;
+            padding-left: 20px;
+            margin-left: 20px;
+            max-width: 400px;
+          "
+        >
+          <div class="order-item">
+            <p class="label" style="color: rgb(0, 255, 0)">
+              SOLDE DES FOURNISSEURS
+            </p>
+            <p class="value" style="font-size: 2rem; color: white">
+              {{ dataComptable.supplier_amount }}
+              <span> <small>FCFA </small> </span>
+            </p>
+          </div>
+          <div class="order-item" style="padding-left: 20px">
+            <p class="label" style="color: red">TOTAL A RECEVOIR</p>
+            <p class="value" style="font-size: 2rem; color: white">
+              RAS <span> <small>FCFA </small> </span>
+            </p>
+          </div>
+        </div>
+        <div
+          class="order-item"
+          style="
+            background-color: rgba(26, 26, 186, 0.472);
+            border-radius: 20px 20px 0px 0px;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            color: white;
+            padding-left: 20px;
+            margin-left: 20px;
+            max-width: 400px;
+          "
+        >
+          <p class="label" style="color: white">REVENUE DAYMOND</p>
+          <small class="">Janvier 2024</small>
+          <p class="value" style="font-size: 2rem; color: white">
+            {{ dataComptable.income }} <span> <small>FCFA </small> </span>
+          </p>
+        </div>
+      </div>
+
+      <!-- Menu hamburger (recharge et retrait)-->
+      <!-- <div
+        class="btn-group dropstart d-flex align-items-center justify-content-center"
+        style="
+          position: absolute;
+          right: 50px;
+          top: 150px;
+          background-color: white;
+          height: 40px;
+          width: 40px;
+          border-radius: 100%;
+        "
+      >
+        <div
+          type="button"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
+          class="d-flex align-items-center justify-content-center"
+          style="
+            background-color: white;
+            height: 40px;
+            width: 40px;
+            border-radius: 100%;
+          "
+        >
+          <a href=""
+            ><img
+              src="assets/img/icons/menu.png"
+              style="background-color: white"
+              alt=""
+              width="15"
+              height="15"
+          /></a>
+        </div>
+        <ul
+          class="dropdown-menu"
+          style="
+            height: 100px;
+            width: 200px;
+            background-color: rgba(188, 188, 255, 0.739);
+            padding: 8px;
+          "
+        >
+          <li
+            class="d-flex align-items-center justify-content-start"
+            style="height: 50%; border-bottom: 1px solid white; color: white"
+          >
+            <a href="" style="color: white">Recharger</a>
+          </li>
+          <li
+            class="d-flex align-items-center justify-content-start"
+            style="height: 50%; color: white"
+          >
+            <a href="" style="color: white">Retirer </a>
+          </li>
+        </ul>
+      </div> -->
+    </div>
+    <div class="m-3" style="background-color: blue">
+      <div
+        class="col-12 d-flex flex-wrap order-row align-items-center"
+        style="background-color: blue"
+      >
+        <div class="order-item" style="padding-left: 30px">
+          <p class="label" style="color: white">Total reçu aujourd'hui</p>
+          <p class="value" style="font-size: 2rem; color: white">
+            + {{ dataComptable.income_today }}
+            <span> <small>FCFA </small> </span>
+          </p>
+        </div>
+        <div
+          class="order-item"
+          style="border-left: 1px solid #ccc; padding-left: 30px"
+        >
+          <p class="label" style="color: white">Commission Daymond du jours</p>
+          <p class="value" style="font-size: 2rem; color: white">
+            RAS <span> <small>FCFA </small> </span>
+          </p>
+        </div>
+        <div
+          class="order-item"
+          style="border-left: 1px solid #ccc; padding-left: 30px"
+        >
+          <p class="label" style="color: white">Recharge aujourd'hui</p>
+          <p class="value" style="font-size: 2rem; color: white">
+            {{ dataComptable.recharge_today }}
+            <span> <small>FCFA </small> </span>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- bloc button -->
+  <div class="row d-flex p-3 box-1 m-3">
+    <div class="flex-wrap d-flex w-full">
+      <div
+        class="col-md-7 d-flex flex-wrap justify-content-start mb-3 mb-md-0 gap-3"
+      >
+        <button
+          style="
+            background-color: white;
+            width: auto;
+            padding-left: 40px;
+            padding-right: 40px;
+            color: blue;
+            border: 1px solid blue;
+            border-radius: 30px;
+            font-weight: bold;
+          "
+          class="heigth_style"
+          routerLink="/accountant/"
+        >
+          Non soldés
+        </button>
+        <button
+          style="
+            background-color: white;
+            width: auto;
+            padding-left: 40px;
+            padding-right: 40px;
+            color: black;
+            border: 1px solid #ccc;
+            border-radius: 30px;
+          "
+          class="heigth_style"
+          routerLink="/accountant/solde"
+        >
+          Soldé
+        </button>
+        <button
+          style="
+            background-color: white;
+            width: auto;
+            padding-left: 40px;
+            padding-right: 40px;
+            color: black;
+            border: 1px solid #ccc;
+            border-radius: 30px;
+          "
+          class="heigth_style"
+          routerLink="/accountant/recharge"
+        >
+          Transactions
+        </button>
+      </div>
+      <div
+        class="col-md-5 d-flex flex-wrap justify-content-end mb-3 mb-md-0 gap-3"
+      >
+        <p><small style="color: #ff527a" class="">TOTAL A SAVOIR</small></p>
+        <p>
+          <small style="color: #ff5f84; font-weight: bold"
+            >{{ dataComptable.to_be_sold }} FCFA</small
+          >
+        </p>
+        <div style="border-left: 1px solid #ccc; padding-left: 20px">
+          <button
+            style="
+              width: 30%;
+              min-width: 150px;
+              height: 40px;
+              border: 1px solid #ffa500;
+              background-color: #ffa500;
+              color: white;
+              position: relative;
+              border-radius: 4px;
+            "
+            data-bs-toggle="modal"
+            data-bs-target="#afficherModal"
+          >
+            TOUT SOLDER
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- content -->
+  <div class="d-flex gap-3 align-items-center m-3">
+    <small class="w-auto min-w-auto">Aujourd'hui</small>
+    <div
+      style="
+        height: 1px;
+        border-top: 1px solid rgba(128, 128, 128, 0.403);
+        width: 100%;
+      "
+    ></div>
+  </div>
+  <div class="row box-2 m-3">
+    <div
+      class="col-12 d-flex flex-wrap order-row align-items-center"
+      data-bs-toggle="modal"
+      data-bs-target="#exampleModal"
+    >
+      <div class="order-item d-flex align-items-center order-item-large">
+        <img
+          class="product-image rounded-circle"
+          src="assets/img/logoAdm.png"
+          alt="Product Image"
+        />
+        <div class="rounded-circle"></div>
+        <div class="product-info">
+          <p><small class="">BOUTIQUE LENOVO</small></p>
+          <small>Fornisseur:DK-FRD-345</small>
+          <small>Inscrit le : 12/30/30 29:23</small>
+        </div>
+      </div>
+      <div
+        class="order-item"
+        style="border-left: 1px solid #ccc; padding-left: 30px"
+      >
+        <p class="label">Type du produits</p>
+        <p class="value">Informatique - électronique</p>
+      </div>
+      <div
+        class="order-item"
+        style="border-left: 1px solid #ccc; padding-left: 30px"
+      >
+        <p class="label">Localisation</p>
+        <p class="value">Abidjan ,Marcory</p>
+      </div>
+      <div
+        class="order-item"
+        style="border-left: 1px solid #ccc; padding-left: 30px"
+      >
+        <p class="label">Chiffre d'affaires</p>
+        <p class="value mb-0 colore">12 000 FCFA</p>
+        <small>Janvier 202>4</small>
+      </div>
+      <div
+        class="order-item"
+        style="border-left: 1px solid #ccc; padding-left: 30px"
+      >
+        <p class="label">Reçu aujourd'hui</p>
+        <p class="value">2 000 FCFA</p>
+      </div>
+
+      <div
+        class="order-item"
+        style="border-left: 1px solid #ccc; padding-left: 30px"
+      >
+        <p class="label">A solder</p>
+        <p class="value">2 000 FCFA</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="d-flex gap-3 align-items-center m-3">
+    <small class="w-auto min-w-auto">Hier</small>
+    <div
+      style="
+        height: 1px;
+        border-top: 1px solid rgba(128, 128, 128, 0.403);
+        width: 100%;
+      "
+    ></div>
+  </div>
+  <div class="row box-2 m-3">
+    <div
+      class="col-12 d-flex flex-wrap order-row align-items-center"
+      data-bs-toggle="modal"
+      data-bs-target="#exampleModal"
+    >
+      <div class="order-item d-flex align-items-center order-item-large">
+        <img
+          class="product-image rounded-circle"
+          src="assets/img/logoAdm.png"
+          alt="Product Image"
+        />
+        <div class="rounded-circle"></div>
+        <div class="product-info">
+          <p><small class="">BOUTIQUE LENOVO</small></p>
+          <small>Fornisseur:DK-FRD-345</small>
+          <small>Inscrit le : 12/30/30 29:23</small>
+        </div>
+      </div>
+      <div
+        class="order-item"
+        style="border-left: 1px solid #ccc; padding-left: 30px"
+      >
+        <p class="label">Type du produits</p>
+        <p class="value">Informatique - électronique</p>
+      </div>
+      <div
+        class="order-item"
+        style="border-left: 1px solid #ccc; padding-left: 30px"
+      >
+        <p class="label">Localisation</p>
+        <p class="value">Abidjan ,Marcory</p>
+      </div>
+      <div
+        class="order-item"
+        style="border-left: 1px solid #ccc; padding-left: 30px"
+      >
+        <p class="label">Chiffre d'affaires</p>
+        <p class="value mb-0 colore">12 000 FCFA</p>
+        <small>Janvier 202>4</small>
+      </div>
+      <div
+        class="order-item"
+        style="border-left: 1px solid #ccc; padding-left: 30px"
+      >
+        <p class="label">Reçu aujourd'hui</p>
+        <p class="value">2 000 FCFA</p>
+      </div>
+
+      <div
+        class="order-item"
+        style="border-left: 1px solid #ccc; padding-left: 30px"
+      >
+        <p class="label">A solder</p>
+        <p class="value">2 000 FCFA</p>
+      </div>
+    </div>
+  </div>
+  <div class="row box-2 m-3">
+    <div class="col-12 d-flex flex-wrap order-row align-items-center">
+      <div
+        class="order-item d-flex align-items-center justify-content-start order-item-large col-4"
+        data-bs-toggle="modal"
+        data-bs-target="#exampleModal"
+      >
+        <img
+          class="product-image"
+          src="assets/img/products/pducts-1.png"
+          alt="Product Image"
+        />
+        <div class="rounded-circle"></div>
+        <div class="product-info">
+          <p class="value">Range cuisine moderne</p>
+          <small>#DK-FRD-345</small>
+          <small>Aujourd'hui à 29:23</small>
+        </div>
+      </div>
+      <div
+        class="order-item"
+        style="border-left: 1px solid #ccc; padding-left: 30px"
+      >
+        <p class="label">Prix de partenaire</p>
+        <p class="value">10 000 FCFA</p>
+      </div>
+      <div
+        class="order-item"
+        style="border-left: 1px solid #ccc; padding-left: 30px"
+      >
+        <p class="label">Total à payer</p>
+        <p class="value text-info">2 000 FCFA</p>
+      </div>
+      <div
+        class="order-item"
+        style="border-left: 1px solid #ccc; padding-left: 30px"
+      >
+        <p class="label">Commission Daymond</p>
+        <p class="value text-warning">2 000 FCFA</p>
+      </div>
+      <div
+        class="order-item"
+        style="border-left: 1px solid #ccc; padding-left: 30px"
+      >
+        <p class="label">BOUTIQUE LENOVO</p>
+        <button
+          style="
+            width: 30%;
+            min-width: 150px;
+            height: 40px;
+            border: 1px solid #ffa500;
+            background-color: #ffa500;
+            color: white;
+            position: relative;
+            border-radius: 4px;
+          "
+        >
+          SOLDER
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- Etape lorsqu'on clique sur le bouton solder-->
+<!-- 1 selectionner un compte -->
+<div
+  class="modal fade"
+  id="afficherModal"
+  tabindex="-1"
+  aria-labelledby="afficherModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <!-- <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            ...
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Save changes</button>
+          </div> -->
+    </div>
+  </div>
+
+  <div class="fixed_fourn">
+    <div class="fixed_fourn1">
+      <div class="formu_fourn" style="height: 550px">
+        <div
+          class="nominf"
+          style="
+            background-color: white;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+          "
+        >
+          <p
+            style="
+              padding-top: 10px;
+              text-align: center;
+              text-transform: uppercase;
+              color: black;
+              font-weight: bolder;
+            "
+          >
+            selectionner un compte
+          </p>
+        </div>
+        <div class="nominf1">
+          <div class="nominf12">
+            <p style="padding-top: 10px">
+              <img
+                style="margin-right: 10px"
+                height="20px"
+                width="20px"
+                src="assets/img/Orangemoney.png"
+                alt="Product Image"
+              />wave
+            </p>
+            <p style="padding-top: 10px">07 59 02 85 45</p>
+          </div>
+          <div class="nominf12">
+            <p style="padding-top: 10px">
+              <img
+                style="margin-right: 10px"
+                height="20px"
+                width="20px"
+                src="assets/img/Orangemoney.png"
+                alt="Product Image"
+              />mtn
+            </p>
+            <p style="padding-top: 10px">07 59 02 85 45</p>
+          </div>
+          <div class="nominf12">
+            <p style="padding-top: 10px">
+              <img
+                style="margin-right: 10px"
+                height="20px"
+                width="20px"
+                src="assets/img/Orangemoney.png"
+                alt="Product Image"
+              />orange
+            </p>
+            <p style="padding-top: 10px">07 59 02 85 45</p>
+          </div>
+        </div>
+        <div
+          style="
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+          "
+        >
+          <button
+            style="
+              width: 30%;
+              min-width: 200px;
+              height: 40px;
+              border: 1px solid blue;
+              background-color: blue;
+              color: white;
+              border-radius: 4px;
+              margin: 0 auto;
+              margin-top: 200px;
+            "
+            data-bs-toggle="modal"
+            data-bs-target="#csoldeModal"
+          >
+            Validé
+          </button>
+        </div>
+        <div
+          style="
+            position: absolute;
+            top: 70px;
+            height: 30px;
+            width: 30px;
+            background-color: white;
+            right: 40px;
+            border-radius: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+          "
+        >
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 2 Soldes actuel-->
+<div
+  class="modal fade"
+  id="csoldeModal"
+  tabindex="-1"
+  aria-labelledby="csoldeModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <!-- <div class="modal-header">
+              <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              ...
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary">Save changes</button>
+            </div> -->
+    </div>
+  </div>
+
+  <div class="fixed_fourn">
+    <div class="fixed_fourn1">
+      <div class="formu_fourn" style="height: 550px">
+        <div
+          class="nominf"
+          style="
+            background-color: blue;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+            height: 100px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+          "
+        >
+          <p
+            style="
+              padding-top: 10px;
+              text-align: center;
+              text-transform: uppercase;
+              color: white;
+              font-weight: bolder;
+              background: rgba(36, 116, 255, 0.395);
+              padding-left: 50px;
+              padding-right: 50px;
+              padding-bottom: 10px;
+            "
+          >
+            Soldes actuel: 55 000 CFA
+          </p>
+          <!-- <img src="assets/img/icons/parametre.png" alt="Product Image" height="15px"
+                style="position: absolute;left: 20px;" /> -->
+        </div>
+        <div class="nominf1">
+          <div class="nominf12">
+            <p style="padding-top: 10px">
+              <img
+                style="margin-right: 10px"
+                height="20px"
+                width="20px"
+                src="assets/img/Orangemoney.png"
+                alt="Product Image"
+              />wave
+            </p>
+            <p style="padding-top: 10px">07 59 02 85 45</p>
+          </div>
+          <div
+            class="nominf12"
+            style="border: none; background-color: transparent; padding: 0"
+          >
+            <div id="titre2">
+              <input
+                type="text"
+                id="titre1"
+                style="
+                  height: 100%;
+                  width: 100%;
+                  border: 1px solid #ccc;
+                  border-radius: 5px;
+                  height: 40px;
+                  padding-left: 10px;
+                "
+              />
+              <label id="titre">Montant a recharger</label>
+            </div>
+          </div>
+        </div>
+        <div
+          style="
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+          "
+        >
+          <button
+            style="
+              width: 30%;
+              min-width: 200px;
+              height: 40px;
+              border: 1px solid blue;
+              background-color: blue;
+              color: white;
+              border-radius: 4px;
+              margin: 0 auto;
+              margin-top: 200px;
+            "
+            data-bs-toggle="modal"
+            data-bs-target="#compteModal"
+          >
+            RECHARGER
+          </button>
+        </div>
+        <div
+          style="
+            position: absolute;
+            top: 70px;
+            height: 30px;
+            width: 30px;
+            background-color: white;
+            right: 40px;
+            border-radius: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+          "
+        >
+          <!-- <img src="assets/img/icons/croix.png" alt="Product Image" height="15px"> -->
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 3 confirmer la transaction -->
+<div
+  class="modal fade"
+  id="compteModal"
+  tabindex="-1"
+  aria-labelledby="compteModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <!-- <div class="modal-header">
+              <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              ...
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary">Save changes</button>
+            </div> -->
+    </div>
+  </div>
+
+  <div class="fixed_fourn">
+    <div class="fixed_fourn1">
+      <div class="formu_fourn" style="height: 550px">
+        <div
+          class="nominf"
+          style="
+            background-color: rgba(242, 240, 240, 0.585);
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+            height: 150px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding-left: 20px;
+            padding-right: 20px;
+          "
+        >
+          <div
+            class="nominf12"
+            style="border: none; background-color: transparent; padding: 0"
+          >
+            <p style="padding-top: 10px">
+              <img
+                style="margin-right: 10px"
+                height="60px"
+                src="assets/img/Orangemoney.png"
+                alt="Product Image"
+              />
+            </p>
+
+            <div>
+              <p>
+                <small
+                  style="font-size: 1.1rem; font-weight: bolder; color: black"
+                  >orange</small
+                >
+                <br /><small style="color: blue">9.900 FCFA </small>
+              </p>
+
+              <small style="font-size: 0.7rem">MONTANT A RECHARGER</small>
+            </div>
+          </div>
+          <!-- <img src="assets/img/icons/parametre.png" alt="Product Image" height="15px"
+                    style="position: absolute;left: 20px;" /> -->
+        </div>
+        <div class="nominf1">
+          <div
+            class="nominf12"
+            style="border: none; background-color: transparent; padding: 0"
+          >
+            <div id="titre2">
+              <p style="text-align: center; color: black; font-size: 0.8rem">
+                Pour confirmer la transaction tape
+                <span style="color: orange">#144*82#</span>
+                pour générer un code temporaire
+              </p>
+              <input
+                type="text"
+                id="titre1"
+                style="
+                  height: 100%;
+                  width: 100%;
+                  border: 1px solid #ccc;
+                  border-radius: 5px;
+                  height: 40px;
+                  padding-left: 10px;
+                  text-align: center;
+                  font-size: 0.7rem;
+                "
+                placeholder="Saisir le code temporaire ici"
+              />
+            </div>
+          </div>
+        </div>
+        <div
+          style="
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+          "
+        >
+          <button
+            style="
+              width: 30%;
+              min-width: 200px;
+              height: 40px;
+              border: 1px solid blue;
+              background-color: blue;
+              color: white;
+              border-radius: 4px;
+              margin: 0 auto;
+              margin-top: 200px;
+            "
+            data-bs-toggle="modal"
+            data-bs-target="#termineModal"
+          >
+            RECHARGER
+          </button>
+        </div>
+        <div
+          style="
+            position: absolute;
+            top: 70px;
+            height: 30px;
+            width: 30px;
+            background-color: white;
+            right: 40px;
+            border-radius: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+          "
+        >
+          <!-- <img src="assets/img/icons/croix.png" alt="Product Image" height="15px"> -->
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- 4 Retrait en cours -->
+<div
+  class="modal fade"
+  id="termineModal"
+  tabindex="-1"
+  aria-labelledby="termineModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <!-- <div class="modal-header">
+              <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              ...
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary">Save changes</button>
+            </div> -->
+    </div>
+  </div>
+
+  <div class="fixed_fourn">
+    <div class="fixed_fourn1">
+      <div class="formu_fourn" style="height: 350px">
+        <div class="nominf1">
+          <div
+            class="nominf12"
+            style="border: none; background-color: transparent; padding: 0"
+          >
+            <div id="titre2">
+              <p style="text-align: center; color: green; font-size: 0.9rem">
+                Retrait en cours
+              </p>
+              <p style="text-align: center; color: black; font-size: 0.9rem">
+                votre retraite d'argent est en cours d'execution
+              </p>
+            </div>
+          </div>
+        </div>
+        <div
+          style="
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+          "
+        >
+          <button
+            style="
+              width: 30%;
+              min-width: 200px;
+              height: 40px;
+              border: 1px solid blue;
+              background-color: blue;
+              color: white;
+              border-radius: 4px;
+              margin: 0 auto;
+              margin-top: 200px;
+            "
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          >
+            OK
+          </button>
+        </div>
+        <div
+          style="
+            position: absolute;
+            top: 70px;
+            height: 30px;
+            width: 30px;
+            background-color: white;
+            right: 40px;
+            border-radius: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+          "
+        >
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- NON SOLDÉS -->
+<div
+  class="modal fade"
+  id="exampleModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <!-- <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            ...
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Save changes</button>
+          </div> -->
+    </div>
+  </div>
+
+  <div class="fixed_fourn">
+    <div class="fixed_fourn1">
+      <div class="formu_fourn" style="height: 600px">
+        <div
+          class="nominf"
+          style="
+            background-color: rgb(255, 188, 246);
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+          "
+        >
+          <p
+            style="
+              padding-top: 10px;
+              text-align: center;
+              text-transform: uppercase;
+              color: rgb(212, 41, 218);
+              font-weight: bolder;
+            "
+          >
+            NON SOLDÉS
+          </p>
+        </div>
+        <div class="nominf1">
+          <div class="col-12 d-flex flex-wrap align-items-center">
+            <div
+              class="order-item d-flex align-items-center justify-content-start order-item-large col-6"
+            >
+              <img
+                src="assets/img/products/pducts-1.png"
+                alt="Product Image"
+                height="70px"
+                width="70px"
+              />
+              <div class="rounded-circle"></div>
+              <div class="product-info" style="margin-left: 10px">
+                <p style="color: black">Range cuisine moderne</p>
+                <small>Stock 91 / 110 Pieces</small>
+                <small>#DK-FRD-345</small>
+              </div>
+            </div>
+            <div
+              class="order-item"
+              style="
+                padding-left: 30px;
+                display: flex;
+                justify-content: flex-end;
+                align-items: flex-end;
+                padding-top: 50px;
+              "
+            >
+              <p style="text-align: flex-end; font-size: 0.8rem">
+                INFORMATION GENERALE
+              </p>
+            </div>
+          </div>
+          <div
+            class="nominf12"
+            style="
+              border: none;
+              border-left: 1px solid gainsboro;
+              background-color: transparent;
+            "
+          >
+            <p style="padding-top: 10px; color: black">
+              Prix partenaire <br />
+              <small style="font-weight: bolder; color: black"
+                >10 000 FCFA</small
+              >
+            </p>
+          </div>
+          <div
+            class="nominf12"
+            style="
+              border: none;
+              border-left: 1px solid gainsboro;
+              background-color: transparent;
+            "
+          >
+            <p style="padding-top: 10px; color: black">
+              Prix de vente <br />
+              <small style="font-weight: bolder">10 000 FCFA</small>
+            </p>
+          </div>
+          <div
+            class="nominf12"
+            style="
+              border: none;
+              border-left: 1px solid gainsboro;
+              background-color: transparent;
+            "
+          >
+            <p style="padding-top: 10px; color: black">
+              Frais de livraison <br />
+              <small style="font-weight: bolder">10 000 FCFA</small>
+            </p>
+          </div>
+          <div
+            class="nominf12"
+            style="
+              border: none;
+              border-left: 1px solid gainsboro;
+              background-color: transparent;
+            "
+          >
+            <p style="padding-top: 10px; color: black">
+              Total payé <br />
+              <small style="font-weight: bolder">10 000 FCFA</small>
+            </p>
+          </div>
+          <div
+            class="nominf12"
+            style="
+              border: none;
+              border-left: 1px solid gainsboro;
+              background-color: transparent;
+            "
+          >
+            <p style="padding-top: 10px; color: black">
+              Commission Daymond <br />
+              <small style="font-weight: bolder; color: orange"
+                >10 000 FCFA</small
+              >
+            </p>
+          </div>
+        </div>
+        <div
+          style="
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+          "
+        >
+          <button
+            style="
+              width: 30%;
+              min-width: 200px;
+              height: 40px;
+              border: 1px solid #ffa500;
+              background-color: #ffa500;
+              color: white;
+              border-radius: 4px;
+              margin: 0 auto;
+              margin-top: 20px;
+            "
+          >
+            SOLDER
+          </button>
+          <small style="text-align: center; padding-top: 10px"
+            >Solde insuffisant</small
+          >
+        </div>
+        <div
+          style="
+            position: absolute;
+            top: 70px;
+            height: 30px;
+            width: 30px;
+            background-color: white;
+            right: 40px;
+            border-radius: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+          "
+        >
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

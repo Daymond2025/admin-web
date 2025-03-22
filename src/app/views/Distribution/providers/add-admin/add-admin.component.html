@@ -1,0 +1,170 @@
+<div class="container-fluid mt-5 p-3">
+    <div class=" ms-auto d-flex justify-content-between align-items-center w-full">
+
+        <div class="d-flex gap-3 align-items-start ">
+            <img src="assets/img/icons/fleche.png" style="margin-top: 8px;" alt="" width="10" height="10" routerLink="/providers" />
+            <p>Ajouter un administrateur </p>
+        </div>
+        
+
+        <button style="background-color: #FFA500;border: 1px solid #FFA500;color: white;padding-left: 70px;padding-right: 70px;padding-top: 10px;padding-bottom: 10px;border-radius: 5px;" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            Enregister
+        </button>
+
+
+    </div>
+
+    
+    <div class="row d-flex p-3 box-1" style="border-bottom: 1px solid gainsboro;">
+       
+    </div>
+
+    
+
+    <div class="tab-content" id="nav-tabContent">
+
+        <!-- Tout -->
+        <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab" tabindex="0">
+            <div class="dispok">
+                <div class="dispok1">
+                    <div class="dispok11">
+                        <p style="font-size: 0.8rem;padding-left: 10px;">PHOTO DE PROFILE </p>
+                        <input type="file" name="" id="imag12" style="display: none;">
+
+                        <label for="imag12" style="width: 150px;height: 150px;background-color: white;border-radius: 100%;margin: 0 auto;display: flex;align-items: center;justify-content: center;">
+                            
+                            <img src="assets/img/downimage.png" style="margin-top: 8px;" alt="" width="50" height="50" />
+                        </label>
+                    </div>
+                    <div class="dispok12" style="padding-left: 10px;padding-right: 10px;display: flex;align-items: center;justify-content: space-between;gap: 10px;padding-top: 7px;">
+
+                            <div style="width: 50%;height: 100%;display: flex;align-items: flex-start;justify-content: flex-start;flex-direction: column;">
+                                <p style="font-size: 0.8rem;">PIECES D’IDENTITÉ </p>
+                                <input type="file" name="" id="imag12" style="display: none;">
+                                <label for="imag12" style="width: 100%;height: 110px;background-color: white;margin: 0 auto;display: flex;align-items: center;justify-content: center;">
+                            
+                                    <img src="assets/img/downimage.png" style="margin-top: 8px;" alt="" width="50" height="50" />
+                                </label>
+                                <p style="font-size: 0.8rem;text-align: center;padding-top: 20px;margin: 0 auto;">Recto </p>
+                            </div>
+                            <div style="width: 50%;height: 100%;display: flex;align-items: flex-end;justify-content: staert;flex-direction: column;">
+                                <p style="font-size: 0.8rem;">PIECES D’IDENTITÉ </p>
+                                <input type="file" name="" id="imag12" style="display: none;">
+                                <label for="imag12" style="width: 100%;height: 110px;background-color: white;margin: 0 auto;display: flex;align-items: center;justify-content: center;">
+                            
+                                    <img src="assets/img/downimage.png" style="margin-top: 8px;" alt="" width="50" height="50" />
+                                </label>
+                                <p style="font-size: 0.8rem;text-align: center;padding-top: 20px;margin: 0 auto;">verso </p>
+                            </div>
+                            
+                    </div>
+                </div>
+                <div class="dispok2">
+                    <input type="text" name="" id="" placeholder="NOM">
+                    <input type="text" name="" id="" placeholder="PRENOM">
+                    <input type="text" name="" id="" placeholder="N* CNI">
+                    <input type="text" name="" id="" placeholder="EMAIL">
+                    <input type="text" name="" id="" placeholder="CONTACT">
+                    <input type="text" name="" id="" placeholder="VILLE/COMMUNE">
+                    
+                    <div class="input-group mb-3" style="box-shadow: none;padding-top: 20px;width: 100%;" id="titre2">
+                        <input type="text" class="form-control"  aria-label="Recipient's username" aria-describedby="basic-addon2" style="border: 1px solid #ccc;border-radius: 5px;box-shadow: none;padding-top: 10px;" id="titre1">
+                        <label id="titre"> <span style="color: orange;font-weight: bolder;">Call center</span> +  <span style="color: orange;font-weight: bolder;">Gestionnaire commandes</span></label>
+                        <div class="input-group-append" style="padding-top: 20px;padding-right: 10px;">
+                            <img src="assets/img/plus.png"  alt="" width="20" height="20" style="filter: invert();" routerLink="/providers/add_admin" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+  
+
+
+
+     
+  
+       
+    
+      </div>
+</div>
+
+
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <!-- <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          ...
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div> -->
+      </div>
+    </div>
+  
+  
+    <div class="fixed_fourn">
+      <div class="fixed_fourn1">
+  
+  
+        <form action="" method="post" class="formu_fourn">
+         
+          <div class="nominf1">
+            <div class="nominf121" style="padding: none;">
+                <p style="color: orange;font-weight: bolder;text-transform: uppercase;font-size: 1.2rem;text-align: center;">fournisseur enregistré
+                avec succès</p>
+              <p style="padding-top: 20px;min-width: 35px;text-align: center;">Cliquez sur envoyé pour transmettre les 
+                coordonnées de connexion aux mails suivants</p>
+
+            </div>
+  
+            <div class="input-group mb-3" style="box-shadow: none;padding-top: 20px;width: 100%;" id="titre2">
+                <input type="text" class="form-control"  aria-label="Recipient's username" aria-describedby="basic-addon2" style="border: 1px solid #ccc;border-radius: 5px;box-shadow: none;padding-top: 10px;" id="titre1">
+                <label id="titre"> Propriétaire</label>
+                <div class="input-group-append" style="padding-top: 20px;padding-right: 10px;">
+
+                </div>
+            </div>
+            <div class="input-group mb-3" style="box-shadow: none;padding-top: 20px;width: 100%;" id="titre2">
+                <input type="text" class="form-control"  aria-label="Recipient's username" aria-describedby="basic-addon2" style="border: 1px solid #ccc;border-radius: 5px;box-shadow: none;padding-top: 10px;" id="titre1">
+                <label id="titre"> Gérant</label>
+                <div class="input-group-append" style="padding-top: 20px;padding-right: 10px;">
+
+                </div>
+            </div>
+  
+  
+          </div>
+          <div class="dosi">
+            <button class="nominf12" style="background-color: #FFA500;display: flex;
+            align-items: center;
+            justify-content: center;border: none;border-radius: 5px;">
+              <p style="text-align: center;color: white;padding-top: 10px;">Envoyer</p>
+            </button>
+          </div>
+  
+  
+          <div
+            style="position: absolute;top: 70px;height: 30px;width: 30px;background-color: white;right: 40px;border-radius: 100%;display: flex;justify-content: center;align-items: center">
+  
+            <!-- <img src="assets/img/icons/croix.png" alt="Product Image" height="15px"> -->
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+        </form>
+  
+      </div>
+  
+    </div>
+  
+  
+  </div>

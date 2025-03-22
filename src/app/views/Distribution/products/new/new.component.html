@@ -1,0 +1,217 @@
+<div class="container-fluid mt-5 p-3">
+  <div class="row d-flex p-3 box-1">
+    <div class="col-md-7 d-flex justify-content-between mb-3 mb-md-0">
+      <div class="nav gap-3">
+        <button
+          class="btn btn-round btn-border"
+          [class.active]="filterStatus === ''"
+          (click)="resetFilter()"
+        >
+          Tous
+        </button>
+        <button
+          class="btn btn-round btn-border"
+          [class.active]="filterStatus === 'inStock'"
+          (click)="filterByInStock()"
+        >
+          En stock
+        </button>
+        <button
+          class="btn btn-round btn-border"
+          [class.active]="filterStatus === 'published'"
+          (click)="filterByPublished()"
+        >
+          Publier
+        </button>
+        <button
+          class="btn btn-round btn-border"
+          [class.active]="filterStatus === 'outOfStock'"
+          (click)="filterByOutOfStock()"
+        >
+          Stock épuisé
+        </button>
+        <button
+          class="btn btn-round btn-border"
+          [class.active]="filterStatus === 'inactive'"
+          (click)="filterByInactive()"
+        >
+          Inactifs
+        </button>
+      </div>
+    </div>
+    <div class="col-md-3 ms-auto d-flex justify-content-end">
+      <button
+        class="btn btn-primary btn-border btn-round btn-add"
+        style="width: 70%; min-width: 200px; max-height: 40px"
+        routerLink="/produits/add"
+      >
+        Ajouter un produit
+      </button>
+    </div>
+  </div>
+
+  <div
+    class="pt-2 px-3"
+    style="
+      height: 70vh !important;
+      background-color: #f8f9fd;
+      overflow-y: auto;
+      overflow-x: hidden;
+    "
+  >
+    <div class="row mt-1 p-2">
+      <div
+        class="col-12 d-flex justify-content-between align-items-center pt-2 pb-2"
+        style="background-color: #f8f8fb; border-bottom: 1px solid #c4c4c4"
+      >
+        <div class="col-4">
+          <p class="mb-0">Total: {{ listProducts.length }}</p>
+        </div>
+        <div class="col-8 d-flex justify-content-end align-items-center">
+          <div class="input-group me-2" style="width: 50%">
+            <div class="input-group search-bar">
+              <input type="text" placeholder="Recherche" class="form-control" />
+              <div class="input-group-append">
+                <span class="input-group-text">
+                  <i class="fa fa-search search-icon"></i>
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="dropdown">
+            <button
+              class="btn btn-round dropdown-toggle btn-tri"
+              type="button"
+              id="dropdownMenuButton1"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+              style="padding-right: 1.5rem; position: relative"
+            >
+              Trier
+              <span class="visually-hidden">Toggle Dropdown</span>
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+              <li><a class="dropdown-item">Action</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Loader -->
+    <div *ngIf="isLoading" class="loader-container">
+      <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+    </div>
+
+    <!-- Content -->
+    <div *ngIf="!isLoading">
+      <div class="row mt-3">
+        <div
+          *ngFor="let product of filteredProducts"
+          class="col-md-3 col-sm-6 mb-4"
+          [routerLink]="'/produits/detail/' + product.id"
+          style="min-width: 300px"
+        >
+          <div class="card product-card">
+            <span
+              class="badge py-2 px-4 badge-round"
+              [ngClass]="{
+                'bg-success': product.stock > 0,
+                'bg-danger': product.stock <= 0
+              }"
+            >
+              {{ product.stock > 0 ? "En vente" : "Hors stock" }}
+            </span>
+
+            <div class="p-2">
+              <img
+                *ngIf="product.images.length > 0"
+                [src]="product.images[0] || 'assets/img/placeholder.png'"
+                class="card-img-top"
+                alt="{{ product.name }}"
+              />
+            </div>
+
+            <div class="card-body">
+              <h5 class="card-title mt-0">
+                {{ product.name | truncate : 23 }}
+              </h5>
+              <p class="card-price">
+                {{ product.price.price | currency : "CFA" }}
+              </p>
+              <div class="d-flex justify-content-between">
+                <small class="text-muted">
+                  Stock <span class="stock-number">{{ product.stock }}</span> /
+                  {{ product.views }} Pièces
+                </small>
+                <img
+                  [src]="product.shop.business.logo"
+                  alt=""
+                  height="30"
+                  width="30"
+                  style="border-radius: 50%"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Vide -->
+    <div
+      *ngIf="!isLoading && filteredProducts.length === 0"
+      class="d-flex justify-content-center align-items-center"
+      style="height: 50vh"
+    >
+      <p class="text-center">Aucun produit trouvé</p>
+    </div>
+
+    <!-- Pagination -->
+    <nav
+      aria-label="Page navigation"
+      *ngIf="!isLoading && totalPages! > 1"
+      style="margin-top: 20px"
+    >
+      <ul class="pagination">
+        <!-- Bouton pour page précédente -->
+        <li class="page-item" [class.disabled]="currentPage === 1">
+          <a
+            class="page-link"
+            (click)="goToPage(currentPage! - 1)"
+            aria-label="Previous"
+          >
+            <img
+              src="assets/img/left.png"
+              alt="Previous"
+              width="10"
+              height="10"
+            />
+          </a>
+        </li>
+
+        <!-- Pages -->
+        <li
+          *ngFor="let page of [].constructor(totalPages); let i = index"
+          class="page-item"
+          [class.active]="currentPage === i + 1"
+        >
+          <a class="page-link" (click)="goToPage(i + 1)">{{ i + 1 }}</a>
+        </li>
+
+        <!-- Bouton pour page suivante -->
+        <li class="page-item" [class.disabled]="currentPage === totalPages">
+          <a
+            class="page-link"
+            (click)="goToPage(currentPage! + 1)"
+            aria-label="Next"
+          >
+            <img src="assets/img/right.png" alt="Next" width="10" height="10" />
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</div>

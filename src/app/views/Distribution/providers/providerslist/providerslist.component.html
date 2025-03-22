@@ -1,0 +1,321 @@
+<!-- Loader -->
+<div *ngIf="isLoading" class="loader-container">
+  <div class="spinner-border text-primary" role="status">
+    <span class="visually-hidden">Loading...</span>
+  </div>
+</div>
+
+<div *ngIf="!isLoading" class="container-fluid mt-5 p-3">
+  <!-- Button Group -->
+  <div class="row d-flex p-3 box-1">
+    <div class="col-md-6 d-flex justify-content-between mb-3 mb-md-0">
+      <div class="nav" id="nav-tab">
+        <button
+          class="btn btn-round btn-border"
+          [class.active]="filterStatus === 'active'"
+          (click)="changeFilter('active')"
+          style="width: auto"
+          id="nav-home-tab"
+          type="button"
+        >
+          Fornisseur Actif
+        </button>
+        <button
+          class="btn btn-round btn-border"
+          [class.active]="filterStatus === 'inactive'"
+          (click)="changeFilter('inactive')"
+          id="nav-profile-tab"
+          type="button"
+        >
+          Inactifs
+        </button>
+      </div>
+    </div>
+    <div class="col-md-4 ms-auto d-flex justify-content-end">
+      <button
+        class="btn btn-border btn-round button_style"
+        style="
+          width: 70%;
+          max-height: 40px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          min-width: 200px;
+          background-color: white;
+        "
+        routerLink="/providers/add"
+      >
+        Ajouter un fournisseur
+      </button>
+    </div>
+  </div>
+
+  <div>
+    <!-- Tout -->
+    <div
+      class=""
+      id="nav-home"
+      style="
+        height: 70vh !important;
+        background-color: #f8f9fd;
+        overflow-y: auto;
+        overflow-x: hidden;
+      "
+    >
+      <!-- on boucle ceci -->
+      <div class="row box-2">
+        <!-- flitre -->
+        <div
+          class="row mt-1"
+          style="
+            margin-right: 0;
+            margin: 0 auto;
+            padding-left: 0;
+            padding-right: 0;
+            padding-bottom: 30px;
+          "
+        >
+          <div
+            class="col-12 d-flex justify-content-between align-items-center pt-2 pb-2"
+            style="background-color: white; border-bottom: 1px solid #c4c4c4"
+          >
+            <div class="col-4">
+              <p class="mb-0" *ngIf="dataGlobal?.meta">
+                Total: {{ dataGlobal.meta?.total }}
+              </p>
+              <p class="mb-0" *ngIf="!dataGlobal?.meta">Total indisponible</p>
+            </div>
+            <div class="col-8 d-flex justify-content-end align-items-center">
+              <div class="input-group search-bar">
+                <input
+                  type="text"
+                  placeholder="Recherche"
+                  class="form-control"
+                />
+
+                <div class="input-group-append">
+                  <span class="input-group-text">
+                    <span class="input-group-bar"></span>
+                    <i class="fa fa-search search-icon"></i>
+                  </span>
+                </div>
+              </div>
+
+              <div class="dropdown">
+                <button
+                  class="btn btn-round dropdown-toggle btn-tri"
+                  type="button"
+                  id="dropdownMenuButton1"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                  style="padding-right: 1.5rem; position: relative"
+                >
+                  Trier
+                  <span class="visually-hidden">Toggle Dropdown</span>
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                  <li><a class="dropdown-item" href="#">Action</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Loader -->
+        <div *ngIf="isLoading" class="loader-container">
+          <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+        </div>
+
+        <!-- Contenu lorsque les données sont prêtes -->
+        <div *ngIf="!isLoading" style="padding-left: 0; padding-right: 0">
+          <div
+            [routerLink]="['/providers/details/', business.id]"
+            class="col-12 d-flex flex-wrap order-row align-items-center"
+            style="cursor: pointer;"
+            *ngFor="let business of filteredBusiness"
+          >
+            <!-- Logo et informations principales -->
+            <div
+              class="order-item d-flex align-items-center order-item-large"
+              style="justify-content: start"
+              [routerLink]="['/providers/details/', business.id]"
+            >
+              <img
+                class="rounded-circle"
+                [src]="business.logo"
+                alt="{{ business.name }}"
+                [routerLink]="['/providers/details/', business.id]"
+                style="width: 50px; height: 50px; margin-right: 10px"
+              />
+              <div class="product-info">
+                <p>
+                  <small style="font-size: 1rem">{{
+                    business.name.toUpperCase()
+                  }}</small>
+                </p>
+                <small style="font-size: 0.7rem"
+                  >Fournisseur: {{ business.ncc }}</small
+                >
+                <small style="font-size: 0.7rem"
+                  >Inscrit le :
+                  {{ business.created_at | date : "dd/MM/yyyy HH:mm" }}</small
+                >
+              </div>
+            </div>
+
+            <!-- Type produit -->
+            <div
+              class="order-item"
+              style="
+                border-left: 1px solid #ccc;
+                padding-left: 30px;
+                height: 70px;
+              "
+            >
+              <p style="font-size: 1rem; padding-top: 10px">TYPE PRODUIT</p>
+              <p
+                cllass="colore"
+                style="font-size: 1.1rem; color: #0055ff; font-weight: 800"
+              >
+                RAS
+              </p>
+            </div>
+
+            <!-- Localisation -->
+            <div
+              class="order-item"
+              style="
+                border-left: 1px solid #ccc;
+                padding-left: 30px;
+                height: 70px;
+              "
+            >
+              <p style="font-size: 1rem; padding-top: 10px">LOCALISATION</p>
+              <p
+                class="colore"
+                style="font-size: 1.1rem; color: #0055ff; font-weight: 800"
+              >
+                {{ business.address }}
+              </p>
+            </div>
+
+            <!-- Stock (exemple) -->
+            <div
+              class="order-item"
+              style="
+                border-left: 1px solid #ccc;
+                padding-left: 30px;
+                height: 70px;
+              "
+            >
+              <p style="font-size: 1rem; padding-top: 10px">STOCK</p>
+              <p
+                class="colore"
+                style="font-size: 1.1rem; color: #0055ff; font-weight: 800"
+              >
+                RAS
+              </p>
+            </div>
+
+            <!-- Produits vendus (exemple) -->
+            <div
+              class="order-item"
+              style="
+                border-left: 1px solid #ccc;
+                padding-left: 30px;
+                height: 70px;
+              "
+            >
+              <p style="font-size: 1rem; padding-top: 10px">PRODUITS VENDUS</p>
+              <p
+                class="colore"
+                style="font-size: 1.1rem; color: #0055ff; font-weight: 800"
+              >
+                RAS
+              </p>
+            </div>
+
+            <!-- À solder -->
+            <div
+              class="order-item"
+              style="
+                border-left: 1px solid #ccc;
+                padding-left: 30px;
+                height: 70px;
+              "
+            >
+              <p style="font-size: 1rem; padding-top: 10px">À SOLDER</p>
+              <p
+                class="colore"
+                style="font-size: 1.1rem; color: #0055ff; font-weight: 800"
+              >
+                RAS
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Vide -->
+        <div
+          *ngIf="!isLoading && filteredBusiness.length === 0"
+          class="d-flex justify-content-center align-items-center"
+          style="height: 50vh"
+        >
+          <p class="text-center">Aucun fournisseur trouvé</p>
+        </div>
+
+        <!-- Pagination -->
+        <nav
+          aria-label="Page navigation"
+          *ngIf="!isLoading && totalPages > 1"
+          style="margin-top: 20px"
+        >
+          <ul class="pagination">
+            <!-- Bouton pour page précédente -->
+            <li class="page-item" [class.disabled]="currentPage === 1">
+              <a
+                class="page-link"
+                (click)="goToPage(currentPage - 1)"
+                aria-label="Previous"
+              >
+                <img
+                  src="assets/img/left.png"
+                  alt="Previous"
+                  width="10"
+                  height="10"
+                />
+              </a>
+            </li>
+
+            <!-- Pages -->
+            <li
+              *ngFor="let page of [].constructor(totalPages); let i = index"
+              class="page-item"
+              [class.active]="currentPage === i + 1"
+            >
+              <a class="page-link" (click)="goToPage(i + 1)">{{ i + 1 }}</a>
+            </li>
+
+            <!-- Bouton pour page suivante -->
+            <li class="page-item" [class.disabled]="currentPage === totalPages">
+              <a
+                class="page-link"
+                (click)="goToPage(currentPage + 1)"
+                aria-label="Next"
+              >
+                <img
+                  src="assets/img/right.png"
+                  alt="Next"
+                  width="10"
+                  height="10"
+                />
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </div>
+</div>
