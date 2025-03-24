@@ -5,40 +5,39 @@
       <div class="d-flex justify-content-between mb-3 mb-md-0 col-md-9" id="moedp">
         <button
           class="btn btn-primary btn-border btn-round w-50 me-3"
-
+          (click)="handleFilter('')"
+          [class.active]="filterStatus === ''"
         >
           Tout
         </button>
-        <button
-          class="btn btn-primary btn-border btn-round w-50 me-3"
-
-
-        >
-          Commande
-        </button>
+        
         <button
           class="btn btn-primary btn-border btn-round w-50"
-
+          (click)="handleFilter('pending')"
+          [class.active]="filterStatus === 'pending'"
 
         >
           Attente
         </button>
         <button
           class="btn btn-primary btn-border btn-round w-50 me-3"
-
+          (click)="handleFilter('in_progress')"
+          [class.active]="filterStatus === 'in_progress'"
 
         >
           En cours
         </button>
         <button
           class="btn btn-primary btn-border btn-round w-50 me-3"
-
+          (click)="handleFilter('validated')"
+          [class.active]="filterStatus === 'validated'"
         >
           Livrée
         </button>
         <button
           class="btn btn-primary btn-border btn-round w-50"
-
+          (click)="handleFilter('canceled')"
+          [class.active]="filterStatus === 'canceled'"
         >
           Annulées
         </button>
@@ -125,7 +124,7 @@
                 <div class="order-item">
                   <p class="label">Total à payer</p>
                   <p class="value" style="color: #0055ff">
-                    {{order?.items[0]?.total}}
+                    {{order?.items[0]?.total | currency : "XOF"}}
                   </p>
                 </div>
                 <!-- livraison -->
@@ -141,6 +140,12 @@
                     <!-- non solder -->
                     <div
                       class="cersle"
+                      [ngStyle]="{
+                        'background-image': order?.items[0]?.product?.shop?.business?.logo ? 'url(' + order.items[0].product.shop.business.logo + ')' : 'none',
+                        'background-size': 'cover',
+                        'background-repeat': 'no-repeat',
+                        'background-color': order?.items[0]?.product?.shop?.business?.logo ? 'transparent' : 'red'
+                      }"
                       style="
                         background-color: transparent;
                         margin: 0px !important;background-color: red;
@@ -150,7 +155,7 @@
                     </div>
                     <div class="cersle2" style="margin-left: 20px">
                       <small style="font-weight: bolder; font-size: 0.7rem"
-                        >dlld
+                        >{{order?.items[0]?.product?.shop?.name}}
                       </small>
                       <p
                         class="value text-danger"
@@ -161,7 +166,7 @@
                           color: #0055ff;
                         "
                       >
-                        dzez
+                      {{order?.items[0]?.product?.shop?.business?.name}}
                       </p>
                       <p
                         class="value"
@@ -172,7 +177,7 @@
                           color: #0055ff;
                         "
                       >
-                        eorjkr
+                      {{order?.items[0]?.product?.shop?.address}} {{order?.items[0]?.product?.shop?.city?.name}}
                       </p>
                     </div>
                   </div>

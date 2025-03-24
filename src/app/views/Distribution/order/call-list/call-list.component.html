@@ -118,18 +118,18 @@
                   </div>
                   <div class="order-item" >
                     <p class="label">Prix de vente</p>
-                    <p class="value">{{order?.items[0]?.product?.price.price}} FCFA</p>
+                    <p class="value">{{order?.items[0]?.product?.price.price | currency : "XOF"}}</p>
                   </div>
                   <div class="order-item">
                     <p class="label">Frais de livraison</p>
                     <p class="value">
-                      {{order?.delivery?.city?.name?.startsWith("Abidjan") ? order?.items[0]?.product?.price_delivery.city : order?.items[0]?.product?.price_delivery.no_city }}
-                       FCFA
+                      {{order?.delivery?.city?.name?.startsWith("Abidjan") ? (order?.items[0]?.product?.price_delivery.city | currency : "XOF" ) : (order?.items[0]?.product?.price_delivery.no_city | currency : "XOF") }}
+                       
                     </p>
                   </div>
                   <div class="order-item">
                     <p class="label">Total à payer</p>
-                    <p class="value mb-0 colore">{{order?.items[0].total}} FCFA</p>
+                    <p class="value mb-0 colore">{{order?.items[0].total | currency : "XOF"}}</p>
                     <small>À la livraison</small>
                   </div>
                   <div class="order-item">

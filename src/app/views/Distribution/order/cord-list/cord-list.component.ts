@@ -15,6 +15,7 @@ export class sCordListComponent {
   // Component logic (to be implemented)
   dataset:any=[]
   ladata:any
+  filterStatus:any=''
     constructor(
       public utilisService: UtilisService,
       private orderService : OrderService,
@@ -76,6 +77,11 @@ export class sCordListComponent {
         default:
           return 'gray';
       }
+    }
+
+    handleFilter(status:any){
+      this.filterStatus=status
+      this.getProd({size:10,page:0,status:status})
     }
 
     openDialog(data?:any) {

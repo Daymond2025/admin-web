@@ -1,7 +1,7 @@
 
   <ng-container>
     
-    <div class="container-fluid mt-5 p-3">
+    <div [style]="{'margin-bottom':'25px'}" class="container-fluid mb-8 mt-5 p-3">
       
       <div class="row box-2" style="background-color: #ffffff; border-bottom: 1px solid #c4c4c4">
         <div style="width: 30%">
@@ -15,31 +15,68 @@
         </div>
   
         <div class="d-flex justify-content-end align-items-center gap-3" style="width: 70%; flex-wrap: wrap">
-          <button type="button" class="btn btn-light text-warning border-warning"  data-bs-toggle="modal" data-bs-target="#exampleModal">
-            APPELER
-          </button>
+        
 
          
-            <button class="btn btn-ligth dropdown-toggle" style="border: 1px solid gainsboro;background-color: rgba(246, 246, 246, 0.509);" type="button"
-              data-bs-toggle="dropdown" aria-expanded="false">
-              MARQUER
-            </button>
-            <ul class="dropdown-menu" style="z-index: 99999999999999999;position: absolute;">
-              <li>
-                <a class="dropdown-item btn btn-primary text-white mb-1">En cours de traitement</a>
-              </li>
-              <li>
-                <a class="dropdown-item btn btn-warning text-white mb-1">Décroche pas</a>
-              </li>
-              <li>
-                <a class="dropdown-item btn btn-success text-white mb-1">Reporter</a>
-              </li>
-              <li>
-                <a class="dropdown-item btn btn-danger text-white mb-1" data-bs-toggle="modal"
-                  data-bs-target="#annuleModal">Annuler</a>
-              </li>
-            </ul>
-
+          
+          <div class="forue112" style="border: none">
+            <!-- <div class="cersle" style="height: 30px;width: 30px;">
+              <img src="assets/img/icons/croi.png"   height="100%" width="100%">
+            </div> -->
+            <div
+              *ngIf="order.status !== 'canceled'; else croixTemplate"
+              class="cersle"
+              style="height: 30px; width: 30px; background-color: transparent"
+            >
+              <img src="assets/img/check.png" height="100%" width="100%" />
+            </div>
+            <ng-template #croixTemplate>
+              <div class="cersle" style="height: 30px; width: 30px">
+                <img
+                  src="assets/img/croi.png"
+                  style="height: 30px; width: 30px; background-color: transparent"
+                  alt=""
+                />
+              </div>
+            </ng-template>
+            <div class="cersle2">
+              <p
+                style="
+                  font-size: 0.5rem;
+                  padding-top: 10px;
+                  width: 200px !important;
+                "
+              >
+                Il y'a quelques minutes <br />
+                <small
+                  *ngIf="order.status !== 'canceled'; else valide"
+                  style="
+                    font-weight: bolder;
+                    font-size: 0.7rem;
+                    color: rgb(0, 221, 0);
+                  "
+                  >SOLDER
+                </small>
+                <ng-template #valide>
+                  <small
+                    style="font-weight: bolder; font-size: 0.7rem; color: red"
+                    >NON SOLDER
+                  </small>
+                </ng-template>
+              </p>
+              <!-- style="font-weight: bolder;font-size: 0.7rem;color: red;">NON SOLDER </small></p> -->
+            </div>
+          </div>
+          <div class="forue11"></div>
+          <small
+            *ngIf="order.status === 'canceled'; else valide"
+            style="color: red"
+          >
+            Marquer annulé pour le vendeur
+          </small>
+          <ng-template #valide>
+            <small style="color: green">Marquer validé pour le vendeur</small>
+          </ng-template>
           <button *ngIf="order?.commission_applied == 0" type="button" class="btn btn-warning text-light" data-bs-toggle="modal" data-bs-target="#exampleModal">
             Valider la commande
           </button>
@@ -47,26 +84,38 @@
       </div>
   
       <div class="row box-3">
-        <div class="col-xl-4" style="
-            background-color: white;
-            margin-bottom: 10px;
-            border-radius: 10px;
-          ">
-          <div class="comman12">
-            <div class="omdm1" >
-              <img src="assets/img/lp1.png" alt="Product Image" height="100%" width="100%"
-                style="border-radius: 20px" />
-            </div>
-            <div class="omdm2">
-              <h5 class="card-title mt-0">sdfghjkl</h5>
-              <small>sdfghjkl</small>
-              <div style="padding-top: 50px">
-                <small>Stock 89/1 Pieces</small>
-                <p>N°sdfghjkl</p>
-              </div>
+        <div
+        class="col-xl-4"
+        style="
+          background-color: white;
+          margin-bottom: 10px;
+          border-radius: 10px;
+        "
+      >
+        <div class="comman12">
+          <div class="omdm1">
+            <img
+              [src]="order.items[0].product.images[0]"
+              alt="Product Image"
+              height="100%"
+              width="100%"
+              style="border-radius: 20px"
+            />
+          </div>
+          <div class="omdm2">
+            <h5 class="card-title mt-0">
+              {{ order.items[0].product.name  }}
+            </h5>
+            <small>{{ order.items[0].product.sub_title }}</small>
+            <div style="padding-top: 50px">
+              <small>
+                {{ order.items[0].product.stock }}
+              </small>
+              <p>N°{{ order.reference }}</p>
             </div>
           </div>
         </div>
+      </div>
   
         <!-- bloc top right -->
         <div class="col-xl-8" style="height: 200px; margin-bottom: 10px">
@@ -82,13 +131,13 @@
                   <small style="font-size: 0.8rem; color: black">TYPE DE LIVRAISON</small>
                   <div>
                     <small style="font-size: 0.6rem">A Domicile</small>
-                    <p style="font-size: 0.7rem">N°234567890</p>
+                    <p style="font-size: 0.7rem">N°{{ order.reference }}</p>
                   </div>
                 </div>
               </div>
               <div class="cartond2">
                 <small style="font-size: 0.8rem; color: black; padding-top: 10px;padding-right: 10px;">
-                  Boutique Lenovo
+                  {{order?.items[0]?.product?.shop?.name}}
                 </small>
               </div>
             </div>
@@ -179,149 +228,234 @@
           </div>
         </div>
   
-        <div class="col-md-6" style="
+        <div
+        class="col-md-6"
+        style="
+          background-color: white;
+          height: 350px;
+          margin-bottom: 10px;
+          border-radius: 10px;
+        "
+      >
+        <p style="text-align: center; padding-top: 10px">
+          DETAIL DE LA COMMANDE
+        </p>
+        <hr />
+        <div
+          style="
+            display: flex;
+            height: 40px;
+            width: 100%;
             background-color: white;
-            height: 350px;
-            margin-bottom: 10px;
+            align-items: center;
+            justify-content: space-between;
+          "
+        >
+          <small>Taille du produit</small>
+          <small style="text-align: center; padding-top: 10px">{{
+            order.items[0].size || "RAS"
+          }}</small>
+        </div>
+        <div
+          style="
+            display: flex;
+            height: 40px;
+            width: 100%;
+            background-color: white;
+            align-items: center;
+            justify-content: space-between;
+          "
+        >
+          <small>Couleur du produit</small>
+          <small style="text-align: center; padding-top: 10px">{{
+            order.items[0].color || "RAS"
+          }}</small>
+        </div>
+        <div
+          style="
+            display: flex;
+            height: 40px;
+            width: 100%;
+            background-color: white;
+            align-items: center;
+            justify-content: space-between;
+          "
+        >
+          <small>Quantité</small>
+          <small style="text-align: center; padding-top: 10px"
+            >{{ order.items[0].quantity }} Pieces</small
+          >
+        </div>
+        <div
+          style="
+            display: flex;
+            height: 40px;
+            width: 100%;
+            background-color: white;
+            align-items: center;
+            justify-content: space-between;
+          "
+        >
+          <small>Prix de vente</small>
+          <small style="text-align: center; padding-top: 10px">{{
+            order.items[0].normal | currency : "XOF"
+          }}</small>
+        </div>
+        <div
+          style="
+            display: flex;
+            height: 40px;
+            width: 100%;
+            background-color: white;
+            align-items: center;
+            justify-content: space-between;
+          "
+        >
+          <small>Prix d'achat</small>
+          <small style="text-align: center; padding-top: 10px">{{
+            order.items[0].supplier | currency : "XOF"
+          }}</small>
+        </div>
+        <div
+          style="
+            display: flex;
+            height: 40px;
+            width: 100%;
+            background-color: white;
+            align-items: center;
+            justify-content: space-between;
+          "
+        >
+          <small>Prix Fournisseur</small>
+          <small style="text-align: center; padding-top: 10px">{{
+            order.items[0].total_product  | currency : "XOF"
+          }}</small>
+        </div>
+        <div
+          style="
+            display: flex;
+            height: 40px;
+            width: 100%;
+            background-color: white;
+            align-items: center;
+            justify-content: space-between;
+          "
+        >
+          <small>Livraison {{ order.delivery.city.name }}</small>
+          <small style="text-align: center; padding-top: 10px">{{
+            order.items[0].total_fees | currency : "XOF"
+          }}</small>
+        </div>
+        <hr />
+        <div
+          style="
+            display: flex;
+            height: 40px;
+            width: 100%;
+            background-color: white;
+            align-items: center;
+            justify-content: space-between;
+          "
+        >
+          <small style="color: black; font-weight: bolder"
+            >MONTANT A PAYER</small
+          >
+          <small
+            style="
+              text-align: center;
+              padding-top: 10px;
+              color: blue;
+              font-weight: bolder;
+            "
+            >{{ order.items[0].total | currency : "XOF" }}</small
+          >
+        </div>
+      </div>
+
+      <div class="col-md-6" style="height: 350px; margin-bottom: 10px">
+        <div
+          style="
+            width: 100%;
+            background-color: white;
+            height: 100%;
+            padding-left: 10px;
+            padding-right: 10px;
             border-radius: 10px;
-          ">
+          "
+        >
           <p style="text-align: center; padding-top: 10px">
-            DETAIL DE LA COMMANDE
+            DETAIL DE LA LIVRAISON
           </p>
           <hr />
-          <div style="
+          <div
+            style="
               display: flex;
               height: 40px;
               width: 100%;
               background-color: white;
               align-items: center;
               justify-content: space-between;
-            ">
-            <small>Taille du produit</small>
-            <small style="text-align: center; padding-top: 10px">sdfghjkl</small>
+            "
+          >
+            <small>Nom </small>
+            <small style="text-align: center; padding-top: 10px">{{
+              order.client.name || "RAS"
+            }}</small>
           </div>
-          <div style="
+          <div
+            style="
               display: flex;
               height: 40px;
               width: 100%;
               background-color: white;
               align-items: center;
               justify-content: space-between;
-            ">
-            <small>Couleur du produit</small>
-            <small style="text-align: center; padding-top: 10px">sdfghjkl</small>
+            "
+          >
+            <small>Contact</small>
+            <small style="text-align: center; padding-top: 10px">
+              <a
+                [href]="'tel:' + order.client.phone_number"
+                style="color: blue; text-decoration: none"
+              >
+                {{ order.client.phone_number || "RAS" }}
+              </a>
+            </small>
           </div>
-          <div style="
+          <div
+            style="
               display: flex;
               height: 40px;
               width: 100%;
               background-color: white;
               align-items: center;
               justify-content: space-between;
-            ">
-            <small>Quantité</small>
-            <small style="text-align: center; padding-top: 10px">sdfghjkl</small>
+            "
+          >
+            <small>Lieu de livraison</small>
+            <small style="text-align: center; padding-top: 10px"
+              >{{ order.delivery.city.name }} ({{
+                order.delivery.city.country.code
+              }})</small
+            >
           </div>
-          <div style="
+          <div
+            style="
               display: flex;
               height: 40px;
               width: 100%;
               background-color: white;
               align-items: center;
               justify-content: space-between;
-            ">
-            <small>Prix d'achat</small>
-            <small style="text-align: center; padding-top: 10px">sdfghjkl</small>
-          </div>
-          <div style="
-              display: flex;
-              height: 40px;
-              width: 100%;
-              background-color: white;
-              align-items: center;
-              justify-content: space-between;
-            ">
-            <small>Livraison YAMOUSSOUKRO</small>
-            <small style="text-align: center; padding-top: 10px">sdfghjkl</small>
-          </div>
-          <hr />
-          <div style="
-              display: flex;
-              height: 40px;
-              width: 100%;
-              background-color: white;
-              align-items: center;
-              justify-content: space-between;
-            ">
-            <small style="color: black; font-weight: bolder">MONTANT A PAYER</small>
-            <small style="
-                text-align: center;
-                padding-top: 10px;
-                color: blue;
-                font-weight: bolder;
-              ">sdfghjkl</small>
+            "
+          >
+            <small>Date de livraison</small>
+            <small style="text-align: center; padding-top: 10px"
+              >{{ order.delivery.date }} {{ order.delivery.time }}</small
+            >
           </div>
         </div>
-  
-        <div class="col-md-6" style="height: 350px; margin-bottom: 10px">
-          <div style="
-              width: 100%;
-              background-color: white;
-              height: 100%;
-              padding-left: 10px;
-              padding-right: 10px;
-              border-radius: 10px;
-            ">
-            <p style="text-align: center; padding-top: 10px">
-              DETAIL DE LA LIVRAISON
-            </p>
-            <hr />
-            <div style="
-                display: flex;
-                height: 40px;
-                width: 100%;
-                background-color: white;
-                align-items: center;
-                justify-content: space-between;
-              ">
-              <small>Nom </small>
-              <small style="text-align: center; padding-top: 10px">sdfghjkl</small>
-            </div>
-            <div style="
-                display: flex;
-                height: 40px;
-                width: 100%;
-                background-color: white;
-                align-items: center;
-                justify-content: space-between;
-              ">
-              <small>Contact</small>
-              <small style="text-align: center; padding-top: 10px">sdfghjkl</small>
-            </div>
-            <div style="
-                display: flex;
-                height: 40px;
-                width: 100%;
-                background-color: white;
-                align-items: center;
-                justify-content: space-between;
-              ">
-              <small>Lieu de livraison</small>
-              <small style="text-align: center; padding-top: 10px">sdfghjkl</small>
-            </div>
-            <div style="
-                display: flex;
-                height: 40px;
-                width: 100%;
-                background-color: white;
-                align-items: center;
-                justify-content: space-between;
-              ">
-              <small>Date de livraison</small>
-              <small style="text-align: center; padding-top: 10px">sdfghjkl</small>
-            </div>
-          </div>
-        </div>
+      </div>
       </div>
     </div>
   
@@ -334,22 +468,23 @@
         </div>
         <div class="forue112">
           <div class="cersle">
-            <img src="assets/img/tex.png" style="border-radius: 100%" height="100%" width="100%" />
+            <img [src]="order?.seller?.user?.picture_path ? order?.seller?.user?.picture_path : 'assets/img/tex.png'" style="border-radius: 100%" height="100%" width="100%" />
           </div>
           <div class="cersle2">
-            <small style="font-weight: bolder; font-size: 0.7rem">Lamine </small>
+            <small style="font-weight: bolder; font-size: 0.7rem">{{order?.seller?.first_name}} {{order?.seller?.last_name}}</small>
+            <div style="font-weight: bold; font-size: 0.7rem">{{order?.seller?.user?.phone_number}} </div>
   
-            <p style="font-size: 0.5rem">Il y'a 4 minutes <br />ghjk</p>
+            <p style="font-size: 0.5rem">VENDEUR : #{{order?.seller?.id}} <br />{{order?.seller?.city}} {{order?.seller?.country}}</p>
           </div>
         </div>
         <div class="forue112">
           <div class="cersle">
-            <img src="assets/img/tex.png" style="border-radius: 100%" height="100%" width="100%" />
+            <img [src]="order?.items[0]?.product?.shop?.business?.logo" style="border-radius: 100%" height="100%" width="100%" />
           </div>
           <div class="cersle2">
-            <small style="font-weight: bolder; font-size: 0.7rem">Lenovo </small>
+            <small style="font-weight: bolder; font-size: 0.7rem">{{order?.items[0]?.product?.shop?.name}} </small>
   
-            <p style="font-size: 0.5rem">Il y'a 4 minutes <br />ghjk</p>
+            <p style="font-size: 0.5rem">{{order?.items[0]?.product?.shop?.business?.name}} <br />{{order?.items[0]?.product?.shop?.address}} {{order?.items[0]?.product?.shop?.city?.name}}</p>
           </div>
         </div>
        

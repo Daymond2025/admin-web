@@ -265,3 +265,8 @@
     color: white;
   }
   
+  button.btn.active {
+    background-color: #3688fa !important;
+    border-color: 1px solid #3ca2ff !important;
+    color: #ffffff !important;
+  }
