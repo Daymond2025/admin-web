@@ -197,13 +197,13 @@
             <div class="order-item d-flex align-items-center order-item-large">
               <img
                 class="product-image"
-                [src]="order.items[0].product.images[0]"
-                [alt]="order.items[0].product.name"
+                [src]="order?.items[0].product.images[0]"
+                [alt]="order?.items[0].product.name"
                 routerLink="commandes"
               />
               <div class="product-info">
                 <span class="product-name" routerLink="commandes">{{
-                  order.items[0].product.name | truncate : 15
+                  order?.items[0].product.name | truncate : 15
                 }}</span>
                 <p>
                   <small class="">#{{ order.reference }}</small>

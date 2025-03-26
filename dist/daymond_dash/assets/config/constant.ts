@@ -17,7 +17,7 @@ export const menu : navItem[] = [
         label:"Dashboard",
         disabled:false,
         visible:true,
-        // routerLink:"/administration",
+        routerLink:"/dashboard",
         iconDesactive:"assets/img/daydash2.png",
     },
     {
@@ -32,22 +32,36 @@ export const menu : navItem[] = [
                 label:"Commandes",
                 disabled:false,
                 visible:true,
-                routerLink:"/distribution/orders",
+                routerLink:"/distribution/commandes",
                 iconDesactive:"assets/img/daydash3.png",
                 iconActive:"assets/img/cart.png",
-                children:[]
+                children:[
+                    {
+                        label:"Call center",
+                        iconActive:"assets/img/product.png",
+                        routerLink:"/distribution/commandes/list_call",
+                    },
+                    {
+                        label:"Coordinateur",
+                        iconActive:"assets/img/product.png",
+                        routerLink:"/distribution/commandes/list_cord",
+                    },
+                ]
             },
             {
                 label:"Produits",
                 iconActive:"assets/img/product.png",
+                routerLink:"/distribution/produits",
             },
             {
                 label:"Paiements",
                 iconActive:"assets/img/paye.png",
+                routerLink:"/distribution/paiements",
             },
             {
-                label:"Comptabilité",
+                label:"Comptabilite",
                 iconActive:"assets/img/comptable.png",
+                routerLink:"/distribution/comptabilite",
             },
             {
                 label:"7 étoiles",
@@ -61,20 +75,24 @@ export const menu : navItem[] = [
         ],
         options:[
             {
-                label:"Réglage",
+                label:"Reglages",
                 iconActive:"assets/img/parametre.png",
+                routerLink:"/distribution/reglages",
             },
             {
                 label:"Annonces",
                 iconActive:"assets/img/iconz4.png",
+                routerLink:"/distribution/annonces",
             },
             {
-                label:"Les utilisateurs",
+                label:"Utilisateurs",
                 iconActive:"assets/img/pm1.png",
+                routerLink:"/distribution/utilisateurs",
             },
             {
-                label:"Les fournisseurs",
+                label:"Fournisseurs",
                 iconActive:"assets/img/pm5.png",
+                routerLink:"/distribution/fournisseurs",
             },
             {
                 label:"Statistiques",
@@ -106,14 +124,14 @@ export const menu : navItem[] = [
         iconDesactive:"assets/img/daydash4.png",
     },
     {
-        label:"Recruteurs vendeurs",
+        label:"Recruteurs",
         disabled:false,
         visible:true,
-        routerLink:"/recruteur",
+        routerLink:"/recruteurs",
         iconDesactive:"assets/img/daydash5.png",
         iconActive:"assets/img/daydash51.png",
         children:[
-            {label:"Les recruteurs",iconActive:"assets/img/product.png",},
+            {label:"Les recruteurs",iconActive:"assets/img/product.png",routerLink:"/recruteurs",},
             {label:"Les vendeurs",iconActive:"assets/img/vebd.png",},
             {label:"Statistiques",iconActive:"assets/img/pm7.png",},
             {label:"Commande badges",iconActive:"assets/img/certif.png",},
@@ -121,7 +139,7 @@ export const menu : navItem[] = [
         ],
         options:[
             {label:"Portefeuille",iconActive:"assets/img/parametre.png",},
-            {label:"Annonces",iconActive:"assets/img/iconz4.png",},
+            {label:"Annonces",iconActive:"assets/img/iconz4.png",routerLink:"/recruteurs/annonces",},
             {label:"Bases de données",iconActive:"assets/img/pm2.png",},
         ]
     },

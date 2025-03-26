@@ -24,7 +24,7 @@
               <img src="assets/img/icons/croi.png"   height="100%" width="100%">
             </div> -->
             <div
-              *ngIf="order.status !== 'canceled'; else croixTemplate"
+              *ngIf="order?.status !== 'canceled'; else croixTemplate"
               class="cersle"
               style="height: 30px; width: 30px; background-color: transparent"
             >
@@ -49,7 +49,7 @@
               >
                 Il y'a quelques minutes <br />
                 <small
-                  *ngIf="order.status !== 'canceled'; else valide"
+                  *ngIf="order?.status !== 'canceled'; else valide"
                   style="
                     font-weight: bolder;
                     font-size: 0.7rem;
@@ -69,7 +69,7 @@
           </div>
           <div class="forue11"></div>
           <small
-            *ngIf="order.status === 'canceled'; else valide"
+            *ngIf="order?.status === 'canceled'; else valide"
             style="color: red"
           >
             Marquer annulé pour le vendeur
@@ -95,7 +95,7 @@
         <div class=" row" >
           <div class=" col-md-6">
             <img
-              [src]="order.items[0].product.images[0]"
+              [src]="order?.items[0].product.images[0]"
               alt="Product Image"
               height="150"
               width="100%"
@@ -105,14 +105,14 @@
           </div>
           <div class="omdm2 col-md-6">
             <h5 class="card-title mt-0" style="font-size: 18px;">
-              {{ order.items[0].product.name  }}
+              {{ order?.items[0].product.name  }}
             </h5>
-            <small>{{ order.items[0].product.sub_title }}</small>
+            <small>{{ order?.items[0].product.sub_title }}</small>
             <div >
               <small>
-                {{ order.items[0].product.stock }}
+                {{ order?.items[0].product.stock }}
               </small>
-              <p>N°{{ order.reference }}</p>
+              <p>N°{{ order?.reference }}</p>
             </div>
           </div>
         </div>
@@ -132,7 +132,7 @@
                   <small style="font-size: 0.8rem; color: black">TYPE DE LIVRAISON</small>
                   <div>
                     <small style="font-size: 0.6rem">A Domicile</small>
-                    <p style="font-size: 0.7rem">N°{{ order.reference }}</p>
+                    <p style="font-size: 0.7rem">N°{{ order?.reference }}</p>
                   </div>
                 </div>
               </div>
@@ -171,7 +171,7 @@
                     "
                   >
                     <img
-                    (click)="handleChangeStatus(step.status, step.label)"
+                    (click)="handleChangeStatus(step?.status, step.label)"
                       [src]="
                         step.completed
                           ? 'assets/img/vrasi.png'
@@ -254,7 +254,7 @@
         >
           <small>Taille du produit</small>
           <small style="text-align: center; padding-top: 10px">{{
-            order.items[0].size || "RAS"
+            order?.items[0].size || "RAS"
           }}</small>
         </div>
         <div
@@ -269,7 +269,7 @@
         >
           <small>Couleur du produit</small>
           <small style="text-align: center; padding-top: 10px">{{
-            order.items[0].color || "RAS"
+            order?.items[0].color || "RAS"
           }}</small>
         </div>
         <div
@@ -284,7 +284,7 @@
         >
           <small>Quantité</small>
           <small style="text-align: center; padding-top: 10px"
-            >{{ order.items[0].quantity }} Pieces</small
+            >{{ order?.items[0].quantity }} Pieces</small
           >
         </div>
         <div
@@ -299,7 +299,7 @@
         >
           <small>Prix de vente</small>
           <small style="text-align: center; padding-top: 10px">{{
-            order.items[0].normal | currency : "XOF"
+            order?.items[0].normal | currency : "XOF"
           }}</small>
         </div>
         <div
@@ -314,7 +314,7 @@
         >
           <small>Prix d'achat</small>
           <small style="text-align: center; padding-top: 10px">{{
-            order.items[0].supplier | currency : "XOF"
+            order?.items[0].supplier | currency : "XOF"
           }}</small>
         </div>
         <div
@@ -329,7 +329,7 @@
         >
           <small>Prix Fournisseur</small>
           <small style="text-align: center; padding-top: 10px">{{
-            order.items[0].total_product  | currency : "XOF"
+            order?.items[0].total_product  | currency : "XOF"
           }}</small>
         </div>
         <div
@@ -344,7 +344,7 @@
         >
           <small>Livraison {{ order.delivery.city.name }}</small>
           <small style="text-align: center; padding-top: 10px">{{
-            order.items[0].total_fees | currency : "XOF"
+            order?.items[0].total_fees | currency : "XOF"
           }}</small>
         </div>
         <hr />
@@ -368,7 +368,7 @@
               color: blue;
               font-weight: bolder;
             "
-            >{{ order.items[0].total | currency : "XOF" }}</small
+            >{{ order?.items[0].total | currency : "XOF" }}</small
           >
         </div>
       </div>
@@ -399,9 +399,7 @@
             "
           >
             <small>Nom </small>
-            <small style="text-align: center; padding-top: 10px">{{
-              order.client.name || "RAS"
-            }}</small>
+            <small style="text-align: center; padding-top: 10px">{{order.client.name || "RAS"}}</small>
           </div>
           <div
             style="

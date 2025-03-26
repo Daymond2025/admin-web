@@ -16,7 +16,7 @@ describe('ProvidersproductsComponent', () => {
                           {
                             provide: ActivatedRoute,
                             useValue: {
-                              queryParamMap: of({ get: (key: string) => '123' }) // Simule queryParamMap
+                             queryParamMap: of({ get: (key: string) => '123' }) // Simule queryParamMap
                   
                             }
                           }

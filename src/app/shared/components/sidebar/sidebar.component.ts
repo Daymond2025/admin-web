@@ -1,5 +1,6 @@
 import { Component, Input, OnChanges } from '@angular/core';
-import { Router , Event, NavigationStart, NavigationEnd, NavigationError} from '@angular/router';
+import { Router , Event, NavigationStart, NavigationEnd, NavigationError, RouterLink} from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 import { menu } from 'src/assets/config/constant';
 @Component({
@@ -7,6 +8,7 @@ import { menu } from 'src/assets/config/constant';
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.css'],
   standalone:true,
+  imports:[CommonModule,RouterLink]
 })
 export class SidebarComponent implements OnChanges{
   @Input()

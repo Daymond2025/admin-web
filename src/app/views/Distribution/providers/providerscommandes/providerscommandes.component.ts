@@ -41,7 +41,7 @@ export class ProviderscommandesComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.businessId = parseInt(this.route.snapshot.paramMap.get("id")!, 10);
+    this.businessId = parseInt(this.route.snapshot?.paramMap.get("id")!, 10);
     this.loadOrdersBusiness(this.businessId);
     this.loadBusiness(this.businessId);
   }
@@ -79,7 +79,7 @@ export class ProviderscommandesComponent implements OnInit {
     let totalFees = 0;
 
     this.listOrders.forEach((order) => {
-      order.items.forEach((item:any) => {
+      order?.items.forEach((item:any) => {
         // Vérification si item.total et item.total_fees existent et sont des nombres
         totalAmount += item.total ? Number(item.total) : 0;
         totalFees += item.total_fees ? Number(item.total_fees) : 0;

@@ -55,7 +55,7 @@ export class DetailComponent implements OnInit {
   // }
 
   loadProductDetail(): void {
-    const productId = this.route.snapshot.paramMap.get("id");
+    const productId = this.route.snapshot?.paramMap.get("id");
     if (productId) {
       this.produitsService.getById(`${productId}`).subscribe({
        next: (data) => {

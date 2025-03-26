@@ -26,7 +26,7 @@
           <p class="label" style="color: white">Chiffres d'affaires</p>
           <small class="">Janvier 2024</small>
           <p class="value" style="font-size: 2rem; color: white">
-            {{ dataComptable.total_amount }} <span> <small>FCFA </small> </span>
+            {{ dataComptable?.total_amount }} <span> <small>FCFA </small> </span>
           </p>
         </div>
         <div
@@ -47,7 +47,7 @@
               SOLDE DES FOURNISSEURS
             </p>
             <p class="value" style="font-size: 2rem; color: white">
-              {{ dataComptable.supplier_amount }}
+              {{ dataComptable?.supplier_amount }}
               <span> <small>FCFA </small> </span>
             </p>
           </div>
@@ -74,7 +74,7 @@
           <p class="label" style="color: white">REVENUE DAYMOND</p>
           <small class="">Janvier 2024</small>
           <p class="value" style="font-size: 2rem; color: white">
-            {{ dataComptable.income }} <span> <small>FCFA </small> </span>
+            {{ dataComptable?.income }} <span> <small>FCFA </small> </span>
           </p>
         </div>
       </div>
@@ -145,7 +145,7 @@
         <div class="order-item" style="padding-left: 30px">
           <p class="label" style="color: white">Total reçu aujourd'hui</p>
           <p class="value" style="font-size: 2rem; color: white">
-            + {{ dataComptable.income_today }}
+            + {{ dataComptable?.income_today }}
             <span> <small>FCFA </small> </span>
           </p>
         </div>
@@ -164,7 +164,7 @@
         >
           <p class="label" style="color: white">Recharge aujourd'hui</p>
           <p class="value" style="font-size: 2rem; color: white">
-            {{ dataComptable.recharge_today }}
+            {{ dataComptable?.recharge_today }}
             <span> <small>FCFA </small> </span>
           </p>
         </div>
@@ -231,7 +231,7 @@
         <p><small style="color: #ff527a" class="">TOTAL A SAVOIR</small></p>
         <p>
           <small style="color: #ff5f84; font-weight: bold"
-            >{{ dataComptable.to_be_sold }} FCFA</small
+            >{{ dataComptable?.to_be_sold }} FCFA</small
           >
         </p>
         <div style="border-left: 1px solid #ccc; padding-left: 20px">

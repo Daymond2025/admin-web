@@ -42,7 +42,7 @@ export class ProvidersproductsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.businessId = parseInt(this.route.snapshot.paramMap.get("id")!, 10);
+    this.businessId = parseInt(this.route.snapshot?.paramMap.get("id")!, 10);
     this.loadDetailsBusiness(this.businessId);
     this.loadProducts();
   }

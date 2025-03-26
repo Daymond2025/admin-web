@@ -43,7 +43,7 @@ export class ProviderscomptablesComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.businessId = parseInt(this.route.snapshot.paramMap.get("id")!, 10);
+    this.businessId = parseInt(this.route.snapshot?.paramMap.get("id")!, 10);
     this.loadBusiness(this.businessId);
     // this.loadTransactionByBusiness(this.businessId);
   }

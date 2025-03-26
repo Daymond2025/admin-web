@@ -38,7 +38,7 @@ export class ProvidersdetailsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    const businessId = parseInt(this.route.snapshot.paramMap.get('id')!);
+    const businessId = parseInt(this.route.snapshot?.paramMap.get('id')!);
     this.loadBusinessDetails(businessId);
   }
 

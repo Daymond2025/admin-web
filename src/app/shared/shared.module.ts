@@ -26,12 +26,13 @@ const modules = [
   ReactiveFormsModule,
   FormsModule,
   MatDialogModule,
+  SidebarComponent
 ];
 
 @NgModule({
   declarations: [
     HeaderComponent,
-    SidebarComponent,
+    
 ]
 ,
   imports: [...modules, CommonModule, MatDialogModule],

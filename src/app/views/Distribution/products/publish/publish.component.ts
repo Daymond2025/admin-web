@@ -249,7 +249,7 @@ export class PublishComponent implements OnInit {
   }
   ngOnInit(): void {
     this.initLoad();
-    this.productId = this.route.snapshot.paramMap.get("id") || "";
+    this.productId = this.route.snapshot?.paramMap.get("id") || "";
     this.loadShops();
     this.loadCategories();
     this.loadStateProduct();

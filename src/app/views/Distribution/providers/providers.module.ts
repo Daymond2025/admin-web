@@ -59,7 +59,7 @@ const routes: Routes = [
     // ProviderscomptablesComponent,
     // ProvidersdetailsComponent,
     // AddProvidersComponent,
-    AddAdminComponent,
+    // AddAdminComponent,
     // AddShopComponent,
     // AddManagerComponent,
   ],

@@ -102,7 +102,7 @@ export class AddShopComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.businessId = parseInt(this.route.snapshot.paramMap.get("id")!);
+    this.businessId = parseInt(this.route.snapshot?.paramMap.get("id")!);
     this.loadCities();
     this.loadBusinessDetails(this.businessId!);
     this.boutiqueForm.patchValue({

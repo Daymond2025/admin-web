@@ -108,7 +108,7 @@ export class AddManagerComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.shopId = parseInt(this.route.snapshot.paramMap.get("id")!);
+    this.shopId = parseInt(this.route.snapshot?.paramMap.get("id")!);
     this.loadCities();
     this.loadShopDetails(this.shopId!);
   }

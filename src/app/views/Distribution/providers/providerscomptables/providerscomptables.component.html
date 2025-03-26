@@ -305,7 +305,7 @@
             <img
               class="product-image"
               [src]="
-                order.items[0].product.images[0] || 'assets/img/placeholder.png'
+                order?.items[0].product.images[0] || 'assets/img/placeholder.png'
               "
               alt="Product Image"
               [routerLink]="['distribution/commandes/details_coord', order.id]"
@@ -313,7 +313,7 @@
             <div class="rounded-circle"></div>
             <div class="product-info">
               <p class="value">
-                {{ order.items[0].product.name | truncate : 20 }}
+                {{ order?.items[0].product.name | truncate : 20 }}
               </p>
               <small>#{{ order.reference }}</small>
               <small
@@ -326,7 +326,7 @@
             style="border-left: 1px solid #ccc; padding-left: 30px"
           >
             <p class="label">Prix de partenaire</p>
-            <p class="value">{{ order.items[0].total | currency : "XOF" }}</p>
+            <p class="value">{{ order?.items[0].total | currency : "XOF" }}</p>
           </div>
           <div
             class="order-item"
@@ -334,7 +334,7 @@
           >
             <p class="label">Total à payer</p>
             <p class="value text-info">
-              {{ order.items[0].product.price.partner | currency : "XOF" }}
+              {{ order?.items[0].product.price.partner | currency : "XOF" }}
             </p>
           </div>
           <div
@@ -343,7 +343,7 @@
           >
             <p class="label">Commission Daymond</p>
             <p class="value text-warning">
-              {{ order.items[0].order_commission | currency : "XOF" }}
+              {{ order?.items[0].order_commission | currency : "XOF" }}
             </p>
           </div>
         </div>
@@ -440,7 +440,7 @@
             <img
               class="product-image"
               [src]="
-                order.items[0].product.images[0] || 'assets/img/placeholder.png'
+                order?.items[0].product.images[0] || 'assets/img/placeholder.png'
               "
               alt="Product Image"
               [routerLink]="['distribution/commandes/details_coord', order.id]"
@@ -448,7 +448,7 @@
             <div class="rounded-circle"></div>
             <div class="product-info">
               <p class="value">
-                {{ order.items[0].product.name | truncate : 20 }}
+                {{ order?.items[0].product.name | truncate : 20 }}
               </p>
               <small>#{{ order.reference }}</small>
               <small
@@ -461,7 +461,7 @@
             style="border-left: 1px solid #ccc; padding-left: 30px"
           >
             <p class="label">Prix de partenaire</p>
-            <p class="value">{{ order.items[0].total | currency : "XOF" }}</p>
+            <p class="value">{{ order?.items[0].total | currency : "XOF" }}</p>
           </div>
           <div
             class="order-item"
@@ -469,7 +469,7 @@
           >
             <p class="label">Total à payer</p>
             <p class="value text-info">
-              {{ order.items[0].product.price.partner | currency : "XOF" }}
+              {{ order?.items[0].product.price.partner | currency : "XOF" }}
             </p>
           </div>
           <div
@@ -478,7 +478,7 @@
           >
             <p class="label">Commission Daymond</p>
             <p class="value text-warning">
-              {{ order.items[0].order_commission | currency : "XOF" }}
+              {{ order?.items[0].order_commission | currency : "XOF" }}
             </p>
           </div>
         </div>
