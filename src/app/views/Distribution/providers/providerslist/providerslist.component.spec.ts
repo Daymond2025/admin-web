@@ -1,6 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ProviderslistComponent } from './providerslist.component';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { ActivatedRoute } from '@angular/router';
+import { of } from 'rxjs';
 
 describe('ProviderslistComponent', () => {
   let component: ProviderslistComponent;
@@ -8,7 +11,16 @@ describe('ProviderslistComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [ProviderslistComponent]
+      imports: [ProviderslistComponent,HttpClientTestingModule],
+      providers:[
+                          {
+                            provide: ActivatedRoute,
+                            useValue: {
+                              queryParamMap: of({ get: (key: string) => '123' }) // Simule queryParamMap
+                  
+                            }
+                          }
+                        ]
     });
     fixture = TestBed.createComponent(ProviderslistComponent);
     component = fixture.componentInstance;

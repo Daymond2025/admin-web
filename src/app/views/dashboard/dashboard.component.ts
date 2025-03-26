@@ -46,7 +46,7 @@ export class DashboardComponent {
   }
 
   goToOrder(): void {
-    this.router.navigate(["/orders/list_coord"]);
+    this.router.navigate(["distribution/commandes/list_coord"]);
   }
 
   ngOnInit(): void {

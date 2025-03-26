@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { NotsolderComponent } from './notsolder.component';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('NotsolderComponent', () => {
   let component: NotsolderComponent;
@@ -8,7 +9,7 @@ describe('NotsolderComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [NotsolderComponent]
+      imports: [NotsolderComponent,HttpClientTestingModule]
     });
     fixture = TestBed.createComponent(NotsolderComponent);
     component = fixture.componentInstance;

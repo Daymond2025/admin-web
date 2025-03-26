@@ -3,6 +3,8 @@ import { CommonModule } from "@angular/common";
 import { RouterModule, Routes } from "@angular/router";
 import { SharedModule } from "src/app/shared/shared.module";
 import { ProductsComponent } from "./products_prev/products.component";
+import { PaymentComponent } from "./payment/payment.component";
+import { SettingsComponent } from "./settings/settings.component";
 
 const routes: Routes = [
     {
@@ -10,14 +12,43 @@ const routes: Routes = [
         loadChildren: () => import('./order/order.module').then(m => m.OrderModule),
     },
       {
-        path: 'orders',
+        path: 'commandes',
         loadChildren: () => import('./order/order.module').then(m => m.OrderModule),
     
       },
-      {
-          path: 'produits',
-          component: ProductsComponent,
-        },
+    {
+      path: 'produits',
+      loadChildren: () => import('./products/products.module').then(m => m.ProductsModule),
+
+    },
+    {
+      path: 'paiements',
+      component: PaymentComponent,
+    },
+    {
+      path: 'reglages',
+      component: SettingsComponent,
+    },
+    {
+      path: 'utilisateurs',
+      loadChildren: () => import('./users/users.module').then(m => m.UsersModule),
+  
+    },
+    {
+      path: 'annonces',
+      loadChildren: () => import('./announcements/announcements.module').then(m => m.AnnouncementsModule),
+  
+    },
+    {
+      path: 'comptabilite',
+      loadChildren: () => import('./accountant/accountant.module').then(m => m.AccountantModule),
+      // canActivate: [AuthGuard]
+    },
+    {
+      path: 'fournisseurs',
+      loadChildren: () => import('./providers/providers.module').then(m => m.ProvidersModule),
+      // canActivate: [AuthGuard]
+    },
 ];
 
 @NgModule({

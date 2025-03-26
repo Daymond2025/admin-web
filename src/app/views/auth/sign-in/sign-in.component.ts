@@ -113,7 +113,7 @@ export class SignInComponent {
             }
             else{
               localStorage.setItem('user_info',JSON.stringify(d.data))
-              this.router.navigate(['/orders'])
+              this.router.navigate(['/dashboard'])
             }
         });
       },

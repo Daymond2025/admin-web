@@ -7,7 +7,7 @@
         <div style="width: 30%">
           <div class="form-check">
             <img src="assets/img/fleche.png" style="margin-right: 10px" alt="" width="10" height="10"
-              routerLink="/orders/list_coord" />
+              routerLink="distribution/commandes/list_coord" />
             <label class="form-check-label custom-label" style="text-transform: uppercase;" for="flexRadioDefault1">
               Nouvelle commande <span style="color: orange;text-transform: lowercase;font-weight: bolder;">( Achat personnel )</span>
             </label>
@@ -92,22 +92,23 @@
           border-radius: 10px;
         "
       >
-        <div class="comman12">
-          <div class="omdm1">
+        <div class=" row" >
+          <div class=" col-md-6">
             <img
               [src]="order.items[0].product.images[0]"
               alt="Product Image"
-              height="100%"
+              height="150"
               width="100%"
-              style="border-radius: 20px"
+              style="border-radius: 20px;border: 1px solid #c4c4c4;
+    border-radius: 20px; margin-top: 10px;"
             />
           </div>
-          <div class="omdm2">
-            <h5 class="card-title mt-0">
+          <div class="omdm2 col-md-6">
+            <h5 class="card-title mt-0" style="font-size: 18px;">
               {{ order.items[0].product.name  }}
             </h5>
             <small>{{ order.items[0].product.sub_title }}</small>
-            <div style="padding-top: 50px">
+            <div >
               <small>
                 {{ order.items[0].product.stock }}
               </small>
@@ -232,7 +233,7 @@
         class="col-md-6"
         style="
           background-color: white;
-          height: 350px;
+          
           margin-bottom: 10px;
           border-radius: 10px;
         "

@@ -85,6 +85,6 @@ export class sCordListComponent {
     }
 
     openDialog(data?:any) {
-      this.router.navigate(['/orders/details_coord'] , { state: data })
+      this.router.navigate(['distribution/commandes/details_coord'] , { state: data })
     }
 }
