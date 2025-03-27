@@ -53,6 +53,16 @@ export class OrderService {
     });
   }
 
+  public updateCall(lePost: any) {
+    // let data = {label: lePost.label}
+    let id = lePost.id
+    delete lePost.id
+    return this.http.put(this.configService.getApi('GETALL_CALLCENTER_ORDER')+"/"+id,lePost, {
+      observe: 'response',
+      // params:lePost
+    });
+  }
+
 //   public delete(lePost: any) {
 //     return this.http.delete(this.configService.getApi('ALL_USER'), {
 //       observe: 'response',

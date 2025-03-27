@@ -111,7 +111,7 @@
                         <small class="">#{{order?.items[0]?.reference}}</small>
                       </p>
                       <small
-                        >{{order?.items[0]?.product?.created_at | date}}
+                        >{{order?.created_at | date}}
                         </small
                       >
                     </div>
@@ -197,21 +197,23 @@
                             <li>
                               <a
                                 class="dropdown-item btn btn-primary text-white mb-1"
-
+                                (click)="changeOrderStatus(order.id, 'confirm')"
                                 >En cours de traitement</a
                               >
                             </li>
                             <li>
                               <a
                                 class="dropdown-item btn btn-warning text-white mb-1"
-                                
+                                (click)="
+                                  changeOrderStatus(order.id, 'dont_pick_up')
+                                "
                                 >Décroche pas</a
                               >
                             </li>
                             <li>
                               <a
                                 class="dropdown-item btn btn-success text-white mb-1"
-
+                                (click)="changeOrderStatus(order.id, 'postpone')"
                                 >Reporter</a
                               >
                             </li>
@@ -219,7 +221,7 @@
                               <a
                                 class="dropdown-item btn btn-danger text-white mb-1"
                                 data-bs-toggle="modal"
-
+                                (click)="selectOrderForCancellation(order)"
                                 data-bs-target="#exampModal"
                                 >Annuler</a
                               >
@@ -332,6 +334,7 @@
                         >
                           <!-- tags new -->
                           <img
+                          (click)="test()"
                             class="product-image"
                             src="assets/img/nouveau.png"
                             alt="Product Image"
@@ -353,7 +356,7 @@
                             data-bs-toggle="dropdown"
                             aria-expanded="false"
                           >
-                            <span style="color: black; margin-right: 10px">MARQUER</span>
+                            <span style="color: black; margin-right: 10px">MARQUERA</span>
     
                             <img
                               class="product-image"
@@ -365,21 +368,21 @@
                             <li>
                               <a
                                 class="dropdown-item btn btn-primary text-white mb-1"
-
+                                (click)="changeOrderStatus(dataset.id, 'confirm')"
                                 >En cours de traitement</a
                               >
                             </li>
                             <li>
                               <a
                                 class="dropdown-item btn btn-warning text-white mb-1"
-                                
+                                (click)="changeOrderStatus(dataset.id, 'dont_pick_up')"
                                 >Décroche pas</a
                               >
                             </li>
                             <li>
                               <a
                                 class="dropdown-item btn btn-success text-white mb-1"
-
+                                (click)="changeOrderStatus(dataset.id, 'postpone')"
                                 >Reporter</a
                               >
                             </li>
@@ -387,7 +390,7 @@
                               <a
                                 class="dropdown-item btn btn-danger text-white mb-1"
                                 data-bs-toggle="modal"
-
+                                (click)="selectOrderForCancellation(dataset)"
                                 data-bs-target="#exampModal"
                                 >Annuler</a
                               >

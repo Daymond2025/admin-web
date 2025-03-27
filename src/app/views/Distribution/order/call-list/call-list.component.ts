@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { TruncatePipe } from 'src/app/shared/pipes/truncate.pipe';
 import { OrderService } from 'src/app/shared/services/Order.service';
 import { UtilisService } from 'src/app/shared/services/Utilis.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-call-list',
@@ -58,6 +59,7 @@ export class sCallListComponent {
   loadOrders(page: number = 1, status: string = this.filterStatus): void {
     this.isLoading = true;
     // Simulate an API call for loading orders (to be implemented)
+    this.getProd({page:1,status:'new'})
   }
 
   filterByNewOrders(): void {
@@ -88,6 +90,13 @@ export class sCallListComponent {
     }
     this.isLoading = true;
     // API call to change order status (to be implemented)
+    console.log("==UPDATE==")
+    this.updateOrder({
+      id: orderId,status:newStatus})
+  }
+
+  test(){
+    console.log("test")
   }
 
   submitCancellation(): void {
@@ -110,4 +119,40 @@ export class sCallListComponent {
   openDialog(data?:any) {
     this.router.navigate(['distribution/commandes/details_coord'] , { state: data })
   }
+
+    updateOrder(annonce: any){
+          console.log(annonce)
+         
+            this.orderService.updateCall(annonce).subscribe({
+              next: (data) => {
+                this.utilisService.response(data, (d: any) => {
+                  this.isLoading=false
+                 Swal.fire({
+                          position: 'center',
+                          icon: 'success',
+                          title: 'La commande a bien été mise a jour',
+                          showConfirmButton: false,
+                          timer: 1500,
+                        });
+                setTimeout(() => {
+                  window.location.reload();
+                }, 2000); // 2000 ms = 2 secondes
+                });
+              },
+              error: (error) => {
+            this.utilisService.response(error,(d:any)=>{
+              this.isLoading=false
+              Swal.fire({
+                                position: 'center',
+                                icon: 'warning',
+                                title: d?.error?.message,
+                                showConfirmButton: false,
+                                timer: 1500,
+                              });
+         
+            })
+          },
+            })
+         
+        }
 }

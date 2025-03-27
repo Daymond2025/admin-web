@@ -57,7 +57,7 @@
 
                         <div  *ngFor="let opt of menuDroite?.children" >
                             <li
-                            *ngIf="opt?.routerLink && !opt?.children"
+                            *ngIf="opt?.routerLink"
                             ngClass="{{opt?.routerLink == urlActuelle ? 'active' : ''}}" class="nav-item" style="padding-left: 0;margin-left: 10px;">
                                 <a [routerLink]="opt?.routerLink" 
                                 style="padding-left: 0;margin-left: 0; display: flex;align-items: center;text-align: center;">
@@ -65,8 +65,19 @@
                                     <p style="margin-bottom: 0;margin-top: 0.1rem;">{{opt?.label}}</p>
                                 </a>
                             </li>
+                            
+                            <ul  *ngIf="opt?.children">
+                                <ng-container *ngFor="let opt2 of opt?.children">
+                                    <li
+                                    ngClass="{{opt2?.routerLink == urlActuelle ? 'active' : ''}}" class="nav-item"
+                                        style="padding-top: 5px;padding-bottom: 5px; margin-top: 5px;margin-bottom: 5px; display: flex;align-items: center;justify-content: center;gap: 20px;padding-left: 10px;padding-left: 0;margin-left: 0;">
+                                        <img [src]="opt2.iconActive" height="20" style="margin-left: 10px;" />
+                                        <a class="dropdown-item" [routerLink]="opt2?.routerLink">{{opt2?.label}}</a>
+                                    </li>
+                                </ng-container>
+                            </ul>
 
-                            <div class="dropdown" style="padding-left: 0;margin-left: 0;height:2.8rem;" *ngIf="opt?.children">
+                            <!-- <div class="dropdown" style="padding-left: 0;margin-left: 0;height:2.8rem;" *ngIf="opt?.children">
                                 <button class="btn btn-default dropdown-toggle " type="button"
                                     data-bs-toggle="dropdown" aria-expanded="false"
                                     style="font-size: 15px; border: none;font-weight: bolder;margin-left: 0;">
@@ -86,7 +97,7 @@
                                     </div>
 
                                 </ul>
-                            </div>
+                            </div> -->
 
                         </div>
                        

@@ -171,6 +171,7 @@
                     "
                   >
                     <img
+                    style="z-index: 1;"
                     (click)="handleChangeStatus(step?.status, step.label)"
                       [src]="
                         step.completed
@@ -193,6 +194,8 @@
               </ul>
             </div>
           </ng-container>
+
+          
             <!-- Template when order is canceled -->
           <ng-template #canceledTemplate>
             <div

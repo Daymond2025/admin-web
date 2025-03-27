@@ -47,6 +47,7 @@ export class CordDetailComponent {
       else{
         this.order=orderData;
         this.total = this.order?.items[0]?.total
+        this.updateSteps();
       }
       
     
@@ -122,6 +123,9 @@ export class CordDetailComponent {
                                  showConfirmButton: false,
                                  timer: 1500,
                                });
+                               setTimeout(() => {
+                                 window.location.reload();
+                               }, 2000); // 2000 ms = 2 secondes
               });
             },
             error: (error) => {
