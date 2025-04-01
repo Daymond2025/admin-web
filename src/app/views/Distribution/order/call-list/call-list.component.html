@@ -87,8 +87,8 @@
             <!-- on boucle ceci -->
             <ng-container  *ngFor="let order of dataset; let i = index" >
               <div
-              [style]="{'cursor':'pointer'}"
-              (click)="openDialog(order)"
+             
+              
                 class="row box-2"
                 style="padding-bottom: 0;"
               >
@@ -101,6 +101,8 @@
                     
                   >
                     <img
+                    [style]="{'cursor':'pointer'}"
+                    (click)="openDialog(order)"
                       class="product-image"
                       [src]="order?.items[0]?.product?.images[0]"
                       alt="Product Image"

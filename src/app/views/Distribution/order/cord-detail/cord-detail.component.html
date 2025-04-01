@@ -95,6 +95,9 @@
         <div class=" row" >
           <div class=" col-md-6">
             <img
+            [style]="{'cursor':'pointer'}"
+            (click)="detailProduits(order?.items[0]?.product.id)"
+             
               [src]="order?.items[0].product.images[0]"
               alt="Product Image"
               height="150"

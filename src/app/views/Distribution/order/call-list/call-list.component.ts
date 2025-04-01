@@ -120,6 +120,10 @@ export class sCallListComponent {
     this.router.navigate(['distribution/commandes/details_coord'] , { state: data })
   }
 
+  detailProduits(data?:any) {
+    this.router.navigate(['distribution/produits/detail/'+data])
+  }
+
     updateOrder(annonce: any){
           console.log(annonce)
          
