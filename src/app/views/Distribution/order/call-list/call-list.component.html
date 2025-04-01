@@ -87,7 +87,7 @@
             <!-- on boucle ceci -->
             <ng-container  *ngFor="let order of dataset; let i = index" >
               <div
-              
+              (click)="openDialog(order)"
                 class="row box-2"
                 style="padding-bottom: 0;"
               >
