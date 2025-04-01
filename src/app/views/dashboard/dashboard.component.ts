@@ -130,4 +130,8 @@ export class DashboardComponent {
     this.currentQueryParams = {unavailable:''}; // Save query params
     this.loadProducts({page:1, ...this.currentQueryParams});
   }
+
+  detailProduits(data?:any) {
+    this.router.navigate(['distribution/produits/detail/'+data])
+  }
 }

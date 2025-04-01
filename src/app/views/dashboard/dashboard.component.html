@@ -217,7 +217,9 @@
             <div
               class="col-md-3 col-sm-6 mb-4"
               *ngFor="let product of filteredProducts"
-              [routerLink]="['/products/detail', product.id]"
+              (click)="detailProduits(product.id)"
+             
+              [style]="{'cursor':'pointer'}"
             >
               <div class="card product-card">
                 <!-- Badge -->
