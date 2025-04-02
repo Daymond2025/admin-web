@@ -134,4 +134,11 @@ export class DashboardComponent {
   detailProduits(data?:any) {
     this.router.navigate(['distribution/produits/detail/'+data])
   }
+
+  addProd(data?:any) {
+    this.router.navigate(['distribution/produits/add/'])
+  }
+
+  
+
 }
