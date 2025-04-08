@@ -56,14 +56,14 @@
             "
           >
             <img
-              src="assets/img/logoAdm.png"
+              [src]="product?.shop?.business?.logo"
               style="margin-right: 10px"
               alt=""
               width="30"
               height="30"
             />
             <p class="mb-0" style="font-size: 0.8rem; color: black">
-              BOUTIQUE LENOVO <br /><span style="font-size: 0.8rem; color: gray"
+              {{product?.shop?.business?.name}} <br /><span style="font-size: 0.8rem; color: gray"
                 >Fournisseur : 26789</span
               >
             </p>
@@ -395,6 +395,7 @@
             id="changsep1"
           >
             <div id="titre2">
+             
               <input
                 formControlName="price_supplier"
                 type="number"
@@ -427,6 +428,8 @@
               >
                 <option value="">Type</option>
                 <option value="grossiste">Grossiste</option>
+                <option value="vente">Vente</option>
+                <option value="location">Location</option>
 
               </select>
             </div>
@@ -466,7 +469,7 @@
             <div id="titre2">
               <input
                 formControlName="brand_id"
-                type="number"
+                type="text"
                 class="titre1"
                 style="
                   height: 100%;
@@ -911,7 +914,7 @@
             </select>
           </div>
           <input
-            formControlName="shopId"
+            formControlName="shop_id"
             id="shop_id"
             type="number"
             placeholder="Identifiant de la boutique"
@@ -1011,7 +1014,7 @@
           >
             <!-- Afficher chaque image téléchargée -->
             <div
-              *ngFor="let image of product.images; let i = index"
+              *ngFor="let image of product?.images; let i = index"
               class="image-container"
               style="
                 position: relative;

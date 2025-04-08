@@ -348,7 +348,7 @@
             justify-content: space-between;
           "
         >
-          <small>Livraison {{ order.delivery.city.name }}</small>
+          <small>Livraison {{ order?.delivery?.city?.name }}</small>
           <small style="text-align: center; padding-top: 10px">{{
             order?.items[0].total_fees | currency : "XOF"
           }}</small>
@@ -405,7 +405,7 @@
             "
           >
             <small>Nom </small>
-            <small style="text-align: center; padding-top: 10px">{{order.client.name || "RAS"}}</small>
+            <small style="text-align: center; padding-top: 10px">{{order?.client?.name || "RAS"}}</small>
           </div>
           <div
             style="
@@ -420,10 +420,10 @@
             <small>Contact</small>
             <small style="text-align: center; padding-top: 10px">
               <a
-                [href]="'tel:' + order.client.phone_number"
+                [href]="'tel:' + order?.client?.phone_number"
                 style="color: blue; text-decoration: none"
               >
-                {{ order.client.phone_number || "RAS" }}
+                {{ order?.client?.phone_number || "RAS" }}
               </a>
             </small>
           </div>
@@ -439,8 +439,8 @@
           >
             <small>Lieu de livraison</small>
             <small style="text-align: center; padding-top: 10px"
-              >{{ order.delivery.city.name }} ({{
-                order.delivery.city.country.code
+              >{{ order?.delivery?.city?.name }} ({{
+                order?.delivery?.city?.country?.code
               }})</small
             >
           </div>
@@ -456,7 +456,7 @@
           >
             <small>Date de livraison</small>
             <small style="text-align: center; padding-top: 10px"
-              >{{ order.delivery.date }} {{ order.delivery.time }}</small
+              >{{ order?.delivery?.date }} {{ order?.delivery?.time }}</small
             >
           </div>
         </div>

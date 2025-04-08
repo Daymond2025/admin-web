@@ -60,106 +60,119 @@ export class PublishComponent implements OnInit {
     "17 pouces",
     "19 pouces",
   ];
-  colors: { name: string; value: string }[] = [
-      { name: "Noir", value: "#000000" },
-      { name: "Bleu", value: "#0000FF" },
-      { name: "Rouge", value: "#FF0000" },
-      { name: "Orange", value: "#FFA500" },
-      { name: "Rose", value: "#FFC0CB" },
-      { name: "Violet", value: "#800080" },
-      { name: "Vert", value: "#008000" },
-      { name: "Jaune", value: "#FFFF00" },
-      { name: "Blanc", value: "#FFFFFF" },
-      { name: "Abricot", value: "#E67E30" },
-      { name: "Acajou", value: "#88421D" },
-      { name: "Aigue-marine", value: "#79F8F8" },
-      { name: "Amande", value: "#82C46C" },
-      { name: "Amarante", value: "#91283B" },
-      { name: "Ambre", value: "#F0C300" },
-      { name: "Améthyste", value: "#884DA7" },
-      { name: "Anthracite", value: "#303030" },
-      { name: "Argent", value: "#B1B1B1" },
-      { name: "Asperge", value: "#8B9467" },
-      { name: "Aubergine", value: "#5C005C" },
-      { name: "Azur", value: "#007FFF" },
-      { name: "Bambou", value: "#788B4B" },
-      { name: "Bleu-ciel", value: "#87CEEB" },
-      { name: "Bleu-gris", value: "#708090" },
-      { name: "Bleu-marine", value: "#032B44" },
-      { name: "Bleu-pastel", value: "#A1C9F2" },
-      { name: "Bleu-turquoise", value: "#00BFFF" },
-      { name: "Bourbon", value: "#8B4513" },
-      { name: "Bronze", value: "#CD7F32" },
-      { name: "Brun", value: "#786C3B" },
-      { name: "Café", value: "#964B00" },
-      { name: "Cannelle", value: "#F5DEB3" },
-      { name: "Cendre", value: "#666666" },
-      { name: "Cerise", value: "#FF0033" },
-      { name: "Champagne", value: "#F7E2CE" },
-      { name: "Chocolat", value: "#964B00" },
-      { name: "Ciel", value: "#87CEEB" },
-      { name: "Cinabre", value: "#E41B23" },
-      { name: "Citron", value: "#FFFF00" },
-      { name: "Cobalt", value: "#0047AB" },
-      { name: "Cognac", value: "#F5DEB3" },
-      { name: "Corail", value: "#FFC67D" },
-      { name: "Crema", value: "#F5F5F5" },
-      { name: "Cyan", value: "#00FFFF" },
-      { name: "Doré", value: "#FFD700" },
-      { name: "Ecru", value: "#F5F5F5" },
-      { name: "Emeraude", value: "#008000" },
-      { name: "Etain", value: "#B1B1B1" },
-      { name: "Feuille", value: "#008000" },
-      { name: "Fuchsia", value: "#FF00FF" },
-      { name: "Gamboge", value: "#F2C464" },
-      { name: "Gris", value: "#808080" },
-      { name: "Gris-bleu", value: "#87A2B5" },
-      { name: "Gris-foncé", value: "#333333" },
-      { name: "Gris-taupe", value: "#A8D7F5" },
-      { name: "Héliotrope", value: "#E6DAC3" },
-      { name: "Indigo", value: "#4B0082" },
-      { name: "Ivoire", value: "#FFFFF0" },
-      { name: "Jade", value: "#00A86B" },
-      { name: "Jaune-doré", value: "#F2C464" },
-      { name: "Jaune-vert", value: "#C6F4D6" },
-      { name: "Kaki", value: "#C3B091" },
-      { name: "Lavande", value: "#C7B8EA" },
-      { name: "Lierre", value: "#3E8E41" },
-      { name: "Lilas", value: "#C9C3E6" },
-      { name: "Limon", value: "#FFFF00" },
-      { name: "Marron", value: "#786C3B" },
-      { name: "Mauve", value: "#E0B0FF" },
-      { name: "Miel", value: "#FFD700" },
-      { name: "Moka", value: "#A52A2A" },
-      { name: "Nacre", value: "#F5F5F5" },
-      { name: "Nuit", value: "#000000" },
-      { name: "Ocre", value: "#FF9900" },
-      { name: "Olivier", value: "#3E8E41" },
-      { name: "Orange-brun", value: "#FF9900" },
-      { name: "Orange-foncé", value: "#FF4500" },
-      { name: "Orange-pastel", value: "#FFC67D" },
-      { name: "Paprika", value: "#FFC080" },
-      { name: "Pêche", value: "#FFD7BE" },
-      { name: "Perle", value: "#F5F5F5" },
-      { name: "Pistache", value: "#C6F4D6" },
-      { name: "Plomb", value: "#666666" },
-      { name: "Plum", value: "#660066" },
-      { name: "Raisin", value: "#5C005C" },
-      { name: "Rouge-brun", value: "#8B0000" },
-      { name: "Rouge-tomate", value: "#FF3737" },
-      { name: "Rubis", value: "#E0115F" },
-      { name: "Saphir", value: "#0065BD" },
-      { name: "Sauge", value: "#BCE3C5" },
-      { name: "Saumon", value: "#FFA07A" },
-      { name: "Sépia", value: "#704214" },
-      { name: "Sienna", value: "#A0522D" },
-      { name: "Tournesol", value: "#FFD700" },
-      { name: "Turquoise", value: "#00BFFF" },
-      { name: "Violet-brun", value: "#7A00E6" },
-      { name: "Violet-clair", value: "#C7B8EA" },
-      { name: "Violet-foncé", value: "#6c5ce7" },
-      { name: "Violet-pâle", value: "#C39BD3" },
-      { name: "Violet-rose", value: "#E6DAC3" },
+  // colors: { name: string; value: string }[] = [
+  //     { name: "Noir", value: "#000000" },
+  //     { name: "Bleu", value: "#0000FF" },
+  //     { name: "Rouge", value: "#FF0000" },
+  //     { name: "Orange", value: "#FFA500" },
+  //     { name: "Rose", value: "#FFC0CB" },
+  //     { name: "Violet", value: "#800080" },
+  //     { name: "Vert", value: "#008000" },
+  //     { name: "Jaune", value: "#FFFF00" },
+  //     { name: "Blanc", value: "#FFFFFF" },
+  //     { name: "Abricot", value: "#E67E30" },
+  //     { name: "Acajou", value: "#88421D" },
+  //     { name: "Aigue-marine", value: "#79F8F8" },
+  //     { name: "Amande", value: "#82C46C" },
+  //     { name: "Amarante", value: "#91283B" },
+  //     { name: "Ambre", value: "#F0C300" },
+  //     { name: "Améthyste", value: "#884DA7" },
+  //     { name: "Anthracite", value: "#303030" },
+  //     { name: "Argent", value: "#B1B1B1" },
+  //     { name: "Asperge", value: "#8B9467" },
+  //     { name: "Aubergine", value: "#5C005C" },
+  //     { name: "Azur", value: "#007FFF" },
+  //     { name: "Bambou", value: "#788B4B" },
+  //     { name: "Bleu-ciel", value: "#87CEEB" },
+  //     { name: "Bleu-gris", value: "#708090" },
+  //     { name: "Bleu-marine", value: "#032B44" },
+  //     { name: "Bleu-pastel", value: "#A1C9F2" },
+  //     { name: "Bleu-turquoise", value: "#00BFFF" },
+  //     { name: "Bourbon", value: "#8B4513" },
+  //     { name: "Bronze", value: "#CD7F32" },
+  //     { name: "Brun", value: "#786C3B" },
+  //     { name: "Café", value: "#964B00" },
+  //     { name: "Cannelle", value: "#F5DEB3" },
+  //     { name: "Cendre", value: "#666666" },
+  //     { name: "Cerise", value: "#FF0033" },
+  //     { name: "Champagne", value: "#F7E2CE" },
+  //     { name: "Chocolat", value: "#964B00" },
+  //     { name: "Ciel", value: "#87CEEB" },
+  //     { name: "Cinabre", value: "#E41B23" },
+  //     { name: "Citron", value: "#FFFF00" },
+  //     { name: "Cobalt", value: "#0047AB" },
+  //     { name: "Cognac", value: "#F5DEB3" },
+  //     { name: "Corail", value: "#FFC67D" },
+  //     { name: "Crema", value: "#F5F5F5" },
+  //     { name: "Cyan", value: "#00FFFF" },
+  //     { name: "Doré", value: "#FFD700" },
+  //     { name: "Ecru", value: "#F5F5F5" },
+  //     { name: "Emeraude", value: "#008000" },
+  //     { name: "Etain", value: "#B1B1B1" },
+  //     { name: "Feuille", value: "#008000" },
+  //     { name: "Fuchsia", value: "#FF00FF" },
+  //     { name: "Gamboge", value: "#F2C464" },
+  //     { name: "Gris", value: "#808080" },
+  //     { name: "Gris-bleu", value: "#87A2B5" },
+  //     { name: "Gris-foncé", value: "#333333" },
+  //     { name: "Gris-taupe", value: "#A8D7F5" },
+  //     { name: "Héliotrope", value: "#E6DAC3" },
+  //     { name: "Indigo", value: "#4B0082" },
+  //     { name: "Ivoire", value: "#FFFFF0" },
+  //     { name: "Jade", value: "#00A86B" },
+  //     { name: "Jaune-doré", value: "#F2C464" },
+  //     { name: "Jaune-vert", value: "#C6F4D6" },
+  //     { name: "Kaki", value: "#C3B091" },
+  //     { name: "Lavande", value: "#C7B8EA" },
+  //     { name: "Lierre", value: "#3E8E41" },
+  //     { name: "Lilas", value: "#C9C3E6" },
+  //     { name: "Limon", value: "#FFFF00" },
+  //     { name: "Marron", value: "#786C3B" },
+  //     { name: "Mauve", value: "#E0B0FF" },
+  //     { name: "Miel", value: "#FFD700" },
+  //     { name: "Moka", value: "#A52A2A" },
+  //     { name: "Nacre", value: "#F5F5F5" },
+  //     { name: "Nuit", value: "#000000" },
+  //     { name: "Ocre", value: "#FF9900" },
+  //     { name: "Olivier", value: "#3E8E41" },
+  //     { name: "Orange-brun", value: "#FF9900" },
+  //     { name: "Orange-foncé", value: "#FF4500" },
+  //     { name: "Orange-pastel", value: "#FFC67D" },
+  //     { name: "Paprika", value: "#FFC080" },
+  //     { name: "Pêche", value: "#FFD7BE" },
+  //     { name: "Perle", value: "#F5F5F5" },
+  //     { name: "Pistache", value: "#C6F4D6" },
+  //     { name: "Plomb", value: "#666666" },
+  //     { name: "Plum", value: "#660066" },
+  //     { name: "Raisin", value: "#5C005C" },
+  //     { name: "Rouge-brun", value: "#8B0000" },
+  //     { name: "Rouge-tomate", value: "#FF3737" },
+  //     { name: "Rubis", value: "#E0115F" },
+  //     { name: "Saphir", value: "#0065BD" },
+  //     { name: "Sauge", value: "#BCE3C5" },
+  //     { name: "Saumon", value: "#FFA07A" },
+  //     { name: "Sépia", value: "#704214" },
+  //     { name: "Sienna", value: "#A0522D" },
+  //     { name: "Tournesol", value: "#FFD700" },
+  //     { name: "Turquoise", value: "#00BFFF" },
+  //     { name: "Violet-brun", value: "#7A00E6" },
+  //     { name: "Violet-clair", value: "#C7B8EA" },
+  //     { name: "Violet-foncé", value: "#6c5ce7" },
+  //     { name: "Violet-pâle", value: "#C39BD3" },
+  //     { name: "Violet-rose", value: "#E6DAC3" },
+  // ];
+
+  colors:{name:string;value:string}[] = [
+    {'name': 'Rouge',  'value': '#FF0000'},
+    {'name': 'Bleu',  'value': '#0000FF'},
+    {'name': 'Vert',  'value': '#008000'},
+    {'name': 'Jaune',  'value': '#FFFF00'},
+    {'name': 'Noir',  'value': '#000000'},
+    {'name': 'Blanc',  'value': '#FFFFFF'},
+    {'name': 'Gris',  'value': '#808080'},
+    {'name': 'Orange',  'value': '#FFA500'},
+    {'name': 'Violet',  'value': '#800080'},
+    {'name': 'Rose',  'value': '#FFC0CB'},
   ];
   // Liste des tailles et couleurs sélectionnées
   productForm!: FormGroup;
@@ -201,15 +214,17 @@ export class PublishComponent implements OnInit {
       sub_title: [""],
       description: [""],
       price: ["", Validators.min(0)],
+      price_partner: ["", Validators.min(0)],
       price_supplier: ["", Validators.min(0)],
       price_city_delivery: ["",  Validators.min(0)],
       price_no_city_delivery: ["", Validators.min(0)],
-      price_seller: ["", Validators.min(0)],
-      price_max: ["", Validators.min(0)],
-      price_min: ["", Validators.min(0)],
-      price_normal: ["", Validators.min(0)],
-      commission: ["", Validators.min(0)],
+      price_seller: [""],
+      price_max: [""],
+      price_min: [""],
+      price_normal: [""],
+      commission: [""],
       brand_id: [""],
+      sizes:[""],
       category: ["grossiste"],
       sub_category_id: [""],
       stock: [""],
@@ -226,26 +241,26 @@ export class PublishComponent implements OnInit {
     });
   }
   private updatePriceValidators(): void {
-    const priceMaxControl = this.productForm.get("price_max");
-    const priceMinControl = this.productForm.get("price_min");
-    const commissionControl = this.productForm.get("commission");
+    // const priceMaxControl = this.productForm.get("price_max");
+    // const priceMinControl = this.productForm.get("price_min");
+    // const commissionControl = this.productForm.get("commission");
 
     if (this.selectedType === "grossiste") {
-      priceMaxControl?.setValidators([Validators.required, Validators.min(0)]);
-      priceMinControl?.setValidators([Validators.required, Validators.min(0)]);
-      commissionControl?.clearValidators();
+      // priceMaxControl?.setValidators([Validators.required, Validators.min(0)]);
+      // priceMinControl?.setValidators([Validators.required, Validators.min(0)]);
+      // commissionControl?.clearValidators();
     } else {
-      priceMaxControl?.clearValidators();
-      priceMinControl?.clearValidators();
-      commissionControl?.setValidators([
-        Validators.required,
-        Validators.min(0),
-      ]);
+      // priceMaxControl?.clearValidators();
+      // priceMinControl?.clearValidators();
+      // commissionControl?.setValidators([
+      //   Validators.required,
+      //   Validators.min(0),
+      // ]);
     }
 
-    priceMaxControl?.updateValueAndValidity();
-    priceMinControl?.updateValueAndValidity();
-    commissionControl?.updateValueAndValidity();
+    // priceMaxControl?.updateValueAndValidity();
+    // priceMinControl?.updateValueAndValidity();
+    // commissionControl?.updateValueAndValidity();
   }
   ngOnInit(): void {
     this.initLoad();
@@ -399,10 +414,10 @@ export class PublishComponent implements OnInit {
   // }
   validateForm() {
     let isValid = true;
-    Object.keys(this.productForm.controls).forEach((key) => {
+    Object.keys(this.productForm?.controls).forEach((key) => {
       const control = this.productForm.get(key);
       if (control?.invalid) {
-        console.log(`Le champ '${key}' est invalide. Erreurs :`, control.errors);
+        console.log(`Le champ '${key}' est invalide. Erreurs :`, control?.errors);
         isValid = false;
       }
     });
@@ -519,15 +534,16 @@ export class PublishComponent implements OnInit {
         console.log("Produit AAAAA:", d.data);
 
         this.isLoading = false;
+        this.selectedColors = this.product.colors
 
         // Utilisation de patchValue() pour pré-remplir le formulaire
         this.productForm.patchValue({
-          name: this.product.name,
+          name: this.product?.name,
           state_id: this.product.state.id,
           sub_title: this.product.sub_title,
           description: this.product.description,
           price: this.product.price.price,
-          price_partner: this.product.price.partner,
+          price_partner: this.product.price?.partner ?? null,
           price_supplier: this.product.price.supplier,
           price_city_delivery: this.product.price_delivery.city,
           price_no_city_delivery: this.product.price_delivery.no_city,
@@ -538,14 +554,14 @@ export class PublishComponent implements OnInit {
           commission: this.product.price.commission,
           product_id: this.product.code,
           brand_id: this.product.brand,
-          category: this.product.category.name,
+          category: this.product?.category?.name,
           sub_category_id: this.product.sub_category?.name,
           category_id: this.product.category?.id,
           stock: this.product.stock,
           shop_id: this.product.shop.id || "2", // Valeur par défaut si manquante
           publish: this.product.publish,
           colors: this.product.colors,
-          sizes: this.product.sizes,
+          sizes: this.product?.sizes,
           popular: this.product.popular,
           star: this.product.star,
           images: this.product.images,
@@ -589,19 +605,27 @@ export class PublishComponent implements OnInit {
       });
     }
 
+    let res =  this.productForm.value
+    res.colors = this.selectedColors
+    res.publish=1
+    res.sizes=this.sizes
+    res.brand_id=1
+
     const payload = {
       shop_id: this.productForm.get("shop_id")?.value,
       sub_category_id: this.productForm.get("sub_category_id")?.value,
       category: this.productForm.get("category")?.value, // Ajout de category
       // Ajoutez d'autres champs nécessaires ici
     };
+    res.sub_category_id = this.productForm.get("sub_category_id")?.value
+    
 
     console.log("Payload avant publication:", payload); // Ajout de log
     console.log("Catégories disponibles:", this.listCategories); // Log des catégories
     console.log("Sous-catégories disponibles:", this.listSubCategories); // Log des sous-catégories
 
     this.produitsService
-      .publish(payload,this.productId)
+      .publish(this.productForm.value,this.productId)
       .subscribe(
        {next : (response: any) => {
           console.log("Produit publié avec succès", response);
@@ -641,7 +665,7 @@ export class PublishComponent implements OnInit {
     const formData = new FormData();
 
     // Ajouter les données du formulaire au FormData seulement si elles ne sont pas vides
-    Object.keys(this.productForm.controls).forEach((key) => {
+    Object.keys(this.productForm?.controls).forEach((key) => {
       const value = this.productForm.get(key)?.value;
       if (value) {
         formData.append(key, value);

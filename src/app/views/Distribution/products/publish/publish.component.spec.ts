@@ -4,6 +4,7 @@ import { PublishComponent } from './publish.component';
 import { ActivatedRoute } from '@angular/router';
 import { of } from 'rxjs';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { ReactiveFormsModule } from '@angular/forms';
 
 describe('PublishComponent', () => {
   let component: PublishComponent;
@@ -11,7 +12,7 @@ describe('PublishComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [PublishComponent,HttpClientTestingModule],
+      imports: [PublishComponent,HttpClientTestingModule,ReactiveFormsModule],
       providers:[
                     {
                       provide: ActivatedRoute,
