@@ -8,26 +8,25 @@
           <button
             class="btn btn-primary btn-border btn-round w-50"
             id="nav-home-tab" data-bs-toggle="tab"
-            data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true"
-
+          
+            (click)="handleFilter('')"
+            [class.active]="filterStatus === ''"
           >
             Centre commande
           </button>
           <button
             class="btn btn-primary btn-border btn-round w-50 me-3"
-            id="nav-profile-tab" data-bs-toggle="tab"
-            data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile"
-            aria-selected="false"
-
+            id="nav-profile-tab"
+            (click)="handleFilter('postpone')"
+            [class.active]="filterStatus === 'postpone'"
           >
             Reporté
           </button>
           <button
             class="btn btn-primary btn-border btn-round w-50"
-
-            id="nav-contact-tab" data-bs-toggle="tab"
-            data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact"
-            aria-selected="false"
+            (click)="handleFilter('canceled')"
+            [class.active]="filterStatus === 'canceled'"
+       
           >
             Annulées
           </button>
@@ -132,7 +131,7 @@
                   </div>
                   <div class="order-item">
                     <p class="label">Total à payer</p>
-                    <p class="value mb-0 colore">{{order?.items[0].total | currency : "XOF"}}</p>
+                    <p class="value mb-0 colore">{{order?.items[0]?.total | currency : "XOF"}}</p>
                     <small>À la livraison</small>
                   </div>
                   <div class="order-item">
@@ -153,10 +152,10 @@
                     <!-- <small class="m-0"
                       >Client en attente de votre appel depuis 3 min</small
                     > -->
-                    <div class="row d-flex justify-content-center mt-3">
+                    <div class="row d-flex justify-content-center mt-3" *ngIf="order?.status === 'new'">
                       <!-- change status -->
                       <div class="col-6">
-                        <div
+                        <div 
                           style="
                             height: 40px;
                             width: 40px;

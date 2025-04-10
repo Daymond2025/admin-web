@@ -104,12 +104,13 @@ export class sCallListComponent {
       alert("Veuillez sélectionner un motif.");
       return;
     }
-    this.changeOrderStatus(this.selectedOrder.id, "canceled_by_admin", this.reason);
+    this.changeOrderStatus(this.selectedOrder.id, "canceled", this.reason);
   }
 
   selectOrderForCancellation(order: any): void {
     this.selectedOrder = order;
     this.reason = ""; // Reset reason
+    this.changeOrderStatus(this.selectedOrder.id, "canceled", this.reason);
   }
 
   selectReason(selectedReason: string): void {
@@ -159,4 +160,9 @@ export class sCallListComponent {
             })
          
         }
+
+  handleFilter(status:any){
+    this.filterStatus=status
+    this.getProd({size:10,page:0,status:status})
+  }
 }

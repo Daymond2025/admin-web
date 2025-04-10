@@ -323,6 +323,27 @@
               </select>
             </div>
             <div id="titre2">
+              
+              <select 
+                class="titre1"
+                formControlName="brand_id"
+                [ngClass]="{'is-invalid': productForm.get('name')?.touched && productForm.get('name')?.invalid}"
+                style="
+                  height: 100%;
+                  width: 100%;
+                  border: 1px solid #ccc;
+                  border-radius: 5px;
+                  height: 40px;
+                  padding-left: 10px;
+                "
+              >
+                <option value="" disabled selected>Marque</option>
+                <option *ngFor="let brand of listBrand" [value]="brand.id">
+                  {{ brand.name }}
+                </option>
+              </select>
+            </div>
+            <div id="titre2">
               <input
                 formControlName="stock"
                 type="number"
@@ -339,6 +360,204 @@
                 placeholder="Quantité"
                 required
               />
+            </div>
+          </div>
+          <div style="display: flex;gap:10px">
+            <!-- Taille du produit -->
+            <div id="titre2" style="height: auto">
+              <div
+                style="
+                  height: auto !important;
+                  width: 100%;
+                  border: 1px solid #ccc;
+                  border-radius: 5px;
+                  padding-left: 10px;
+                  padding-top: 40px;
+                  display: flex;
+                  align-items: center;
+                  padding-right: 10px;
+                  flex-wrap: wrap;
+                  gap: 10px;
+                "
+              >
+                <!-- Sélection d'une seule taille à la fois -->
+                <select
+                  (change)="onSizeChange($event)"
+                  [ngClass]="{'is-invalid': productForm.get('name')?.touched && productForm.get('name')?.invalid}"
+                  style="
+                    width: 100%;
+                    padding: 10px;
+                    border: 1px solid #ccc;
+                    border-radius: 5px;
+                  "
+                >
+                  <option value="" disabled selected>
+                    Sélectionnez vos tailles
+                  </option>
+                  <option *ngFor="let size of sizes" [value]="size">
+                    {{ size }}
+                  </option>
+                </select>
+
+                
+                <!-- <div
+                [ngClass]="{'is-invalid': productForm.get('name')?.touched && productForm.get('name')?.invalid}"
+                  style="
+                    display: flex;
+                    padding-bottom: 10px !important;
+                    flex-wrap: wrap;
+                    gap: 10px;
+                  "
+                >
+                  <div
+                    *ngFor="let size of selectedSizes"
+                    [ngClass]="{'is-invalid': productForm.get('name')?.touched && productForm.get('name')?.invalid}"
+                    style="
+                      padding: 1px 10px;
+                      color: white;
+                      background-color: rgb(0, 217, 255);
+                      border-radius: 20px;
+                      text-align: center;
+                      width: fit-content;
+                    "
+                  >
+                    {{ size }}
+                  </div>
+                </div> -->
+                <div
+  *ngFor="let color of selectedColors"
+  [ngStyle]="{ 'background-color': color.value }"
+  style="
+    padding: 1px 10px;
+    color: white;
+    border-radius: 20px;
+    text-align: center;
+    width: fit-content;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 5px;
+  "
+>
+  {{ color.name }}
+  <button
+    type="button"
+    (click)="removeColor(color.value)"
+    style="
+      background: none;
+      border: none;
+      color: white;
+      cursor: pointer;
+      font-size: 16px;
+    "
+  >
+    ×
+  </button>
+</div>
+
+              </div>
+
+              <label
+                id="titre"
+                style="
+                  display: flex;
+                  justify-content: space-between;
+                  width: 100%;
+                  padding-right: 20px;
+                "
+              >
+                <span>Taille du produit</span>
+              </label>
+            </div>
+            <div id="titre2" style="height: auto">
+              <div [ngClass]="{'is-invalid': productForm.get('name')?.touched && productForm.get('name')?.invalid}"
+                   style="height: auto !important; width: 100%; border: 1px solid #ccc; border-radius: 5px; padding-left: 10px; display: flex; align-items: center; padding-right: 10px; flex-wrap: wrap; gap: 10px; padding-top: 40px;">
+                
+                <select (change)="onColorChange($event)"
+                        style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px;" required>
+                  <option value="" disabled selected>Sélectionnez vos couleurs</option>
+                  <option *ngFor="let color of colors" [value]="color.value">{{ color.name }}</option>
+                </select>
+            
+                <div *ngFor="let color of selectedColors">
+                  <span>{{ color.name }}</span>
+                </div>
+            
+                <div style="display: flex; padding-bottom: 10px !important; flex-wrap: wrap; gap: 10px;">
+                  <div *ngFor="let color of selectedColors"
+                       [ngStyle]="{ 'background-color': color.value }"
+                       style="padding: 1px 10px; color: white; border-radius: 20px; text-align: center; width: fit-content;">
+                    {{ color.name }}
+                  </div>
+                </div>
+              </div>
+            
+              <label id="titre" style="display: flex; justify-content: space-between; width: 100%; padding-right: 20px;">
+                <span>Couleur du produit</span>
+              </label>
+            </div>
+          </div>
+
+          
+          <div id="titre2" style="height: auto;width: 100%;">
+            <div
+              class="titre1"
+              style="
+                height: 150px;
+                width: 100%;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+                padding-left: 10px;
+                display: flex;
+                align-items: center;
+                padding-right: 10px;
+                flex-wrap: wrap;
+                gap: 10px;
+                padding-bottom: 10px;
+              "
+            >
+              <div class="titre212">
+                <p>Prix livraison</p>
+                <!-- <select
+                  name=""
+                  id=""
+                  [ngClass]="{'is-invalid': productForm.get('name')?.touched && productForm.get('name')?.invalid}"
+                  style="width: 50%; border: 1px solid #ccc; padding: 7px"
+                >
+                  <option value="">Localisation</option>
+                  <option *ngFor="let city of listCities" [value]="city.id">
+                    {{ city.name }}
+                  </option>
+                </select> -->
+              </div>
+              <div class="titre212" style="gap: 10px">
+                <input
+                  type="number"
+                  [ngClass]="{'is-invalid': productForm.get('name')?.touched && productForm.get('name')?.invalid}"
+                  style="
+                    width: 50%;
+                    border: 1px solid #ccc;
+                    padding: 7px;
+                    background-color: white;
+                  "
+                  formControlName="price_city_delivery"
+                  [placeholder]="'Dans la ville'"
+                  required
+                />
+                <input
+                  type="number"
+                  [ngClass]="{'is-invalid': productForm.get('name')?.touched && productForm.get('name')?.invalid}"
+                  style="
+                    width: 50%;
+                    border: 1px solid #ccc;
+                    padding: 7px;
+                    background-color: white;
+                  "
+                  formControlName="price_no_city_delivery"
+                  [placeholder]="'Hors de ville'"
+                  required
+                />
+              </div>
             </div>
           </div>
           <!-- ligne 2 -->
@@ -463,27 +682,7 @@
               </div>
             </div>
            
-            <div id="titre2">
-              
-              <select 
-                class="titre1"
-                formControlName="brand_id"
-                [ngClass]="{'is-invalid': productForm.get('name')?.touched && productForm.get('name')?.invalid}"
-                style="
-                  height: 100%;
-                  width: 100%;
-                  border: 1px solid #ccc;
-                  border-radius: 5px;
-                  height: 40px;
-                  padding-left: 10px;
-                "
-              >
-                <option value="" disabled selected>Marque</option>
-                <option *ngFor="let brand of listBrand" [value]="brand.id">
-                  {{ brand.name }}
-                </option>
-              </select>
-            </div>
+            
           </div>
           <div
             style="
@@ -649,67 +848,6 @@
               </div>
             </div>
 
-            <div id="titre2" style="height: auto">
-              <div
-                class="titre1"
-                style="
-                  height: 150px;
-                  width: 100%;
-                  border: 1px solid #ccc;
-                  border-radius: 5px;
-                  padding-left: 10px;
-                  display: flex;
-                  align-items: center;
-                  padding-right: 10px;
-                  flex-wrap: wrap;
-                  gap: 10px;
-                  padding-bottom: 10px;
-                "
-              >
-                <div class="titre212">
-                  <p>Prix livraison</p>
-                  <select
-                    name=""
-                    id=""
-                    [ngClass]="{'is-invalid': productForm.get('name')?.touched && productForm.get('name')?.invalid}"
-                    style="width: 50%; border: 1px solid #ccc; padding: 7px"
-                  >
-                    <option value="">Localisation</option>
-                    <option *ngFor="let city of listCities" [value]="city.id">
-                      {{ city.name }}
-                    </option>
-                  </select>
-                </div>
-                <div class="titre212" style="gap: 10px">
-                  <input
-                    type="number"
-                    [ngClass]="{'is-invalid': productForm.get('name')?.touched && productForm.get('name')?.invalid}"
-                    style="
-                      width: 50%;
-                      border: 1px solid #ccc;
-                      padding: 7px;
-                      background-color: white;
-                    "
-                    formControlName="price_city_delivery"
-                    [placeholder]="'Dans la ville'"
-                    required
-                  />
-                  <input
-                    type="number"
-                    [ngClass]="{'is-invalid': productForm.get('name')?.touched && productForm.get('name')?.invalid}"
-                    style="
-                      width: 50%;
-                      border: 1px solid #ccc;
-                      padding: 7px;
-                      background-color: white;
-                    "
-                    formControlName="price_no_city_delivery"
-                    [placeholder]="'Hors de ville'"
-                    required
-                  />
-                </div>
-              </div>
-            </div>
           </div>
           <div
             style="
@@ -721,139 +859,7 @@
             "
             id="changsep1"
           >
-            <!-- Taille du produit -->
-            <div id="titre2" style="height: auto">
-              <div
-                style="
-                  height: auto !important;
-                  width: 100%;
-                  border: 1px solid #ccc;
-                  border-radius: 5px;
-                  padding-left: 10px;
-                  padding-top: 40px;
-                  display: flex;
-                  align-items: center;
-                  padding-right: 10px;
-                  flex-wrap: wrap;
-                  gap: 10px;
-                "
-              >
-                <!-- Sélection d'une seule taille à la fois -->
-                <select
-                  (change)="onSizeChange($event)"
-                  [ngClass]="{'is-invalid': productForm.get('name')?.touched && productForm.get('name')?.invalid}"
-                  style="
-                    width: 100%;
-                    padding: 10px;
-                    border: 1px solid #ccc;
-                    border-radius: 5px;
-                  "
-                >
-                  <option value="" disabled selected>
-                    Sélectionnez vos tailles
-                  </option>
-                  <option *ngFor="let size of sizes" [value]="size">
-                    {{ size }}
-                  </option>
-                </select>
-
-                
-                <!-- <div
-                [ngClass]="{'is-invalid': productForm.get('name')?.touched && productForm.get('name')?.invalid}"
-                  style="
-                    display: flex;
-                    padding-bottom: 10px !important;
-                    flex-wrap: wrap;
-                    gap: 10px;
-                  "
-                >
-                  <div
-                    *ngFor="let size of selectedSizes"
-                    [ngClass]="{'is-invalid': productForm.get('name')?.touched && productForm.get('name')?.invalid}"
-                    style="
-                      padding: 1px 10px;
-                      color: white;
-                      background-color: rgb(0, 217, 255);
-                      border-radius: 20px;
-                      text-align: center;
-                      width: fit-content;
-                    "
-                  >
-                    {{ size }}
-                  </div>
-                </div> -->
-                <div
-  *ngFor="let color of selectedColors"
-  [ngStyle]="{ 'background-color': color.value }"
-  style="
-    padding: 1px 10px;
-    color: white;
-    border-radius: 20px;
-    text-align: center;
-    width: fit-content;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 5px;
-  "
->
-  {{ color.name }}
-  <button
-    type="button"
-    (click)="removeColor(color.value)"
-    style="
-      background: none;
-      border: none;
-      color: white;
-      cursor: pointer;
-      font-size: 16px;
-    "
-  >
-    ×
-  </button>
-</div>
-
-              </div>
-
-              <label
-                id="titre"
-                style="
-                  display: flex;
-                  justify-content: space-between;
-                  width: 100%;
-                  padding-right: 20px;
-                "
-              >
-                <span>Taille du produit</span>
-              </label>
-            </div>
-            <div id="titre2" style="height: auto">
-              <div [ngClass]="{'is-invalid': productForm.get('name')?.touched && productForm.get('name')?.invalid}"
-                   style="height: auto !important; width: 100%; border: 1px solid #ccc; border-radius: 5px; padding-left: 10px; display: flex; align-items: center; padding-right: 10px; flex-wrap: wrap; gap: 10px; padding-top: 40px;">
-                
-                <select (change)="onColorChange($event)"
-                        style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px;" required>
-                  <option value="" disabled selected>Sélectionnez vos couleurs</option>
-                  <option *ngFor="let color of colors" [value]="color.value">{{ color.name }}</option>
-                </select>
-            
-                <div *ngFor="let color of selectedColors">
-                  <span>{{ color.name }}</span>
-                </div>
-            
-                <div style="display: flex; padding-bottom: 10px !important; flex-wrap: wrap; gap: 10px;">
-                  <div *ngFor="let color of selectedColors"
-                       [ngStyle]="{ 'background-color': color.value }"
-                       style="padding: 1px 10px; color: white; border-radius: 20px; text-align: center; width: fit-content;">
-                    {{ color.name }}
-                  </div>
-                </div>
-              </div>
-            
-              <label id="titre" style="display: flex; justify-content: space-between; width: 100%; padding-right: 20px;">
-                <span>Couleur du produit</span>
-              </label>
-            </div>
+          
             
             
             
