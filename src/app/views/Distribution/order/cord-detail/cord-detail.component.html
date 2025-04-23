@@ -6,8 +6,7 @@
       <div class="row box-2" style="background-color: #ffffff; border-bottom: 1px solid #c4c4c4">
         <div style="width: 30%">
           <div class="form-check">
-            <img src="assets/img/fleche.png" style="margin-right: 10px" alt="" width="10" height="10"
-              routerLink="distribution/commandes/list_coord" />
+            <app-back-button></app-back-button>
             <label class="form-check-label custom-label" style="text-transform: uppercase;" for="flexRadioDefault1">
               Nouvelle commande <span style="color: orange;text-transform: lowercase;font-weight: bolder;">( Achat personnel )</span>
             </label>
@@ -520,8 +519,7 @@
           <form [formGroup]="itemForm" action="" method="post" class="formu_fourn">
             <div class="nominf">
               <p style="padding-top: 10px">Détail du marché</p>
-              <img src="assets/img/fleche.png" alt="Product Image" height="15px"
-                style="position: absolute; left: 20px" />
+              <app-back-button></app-back-button>
             </div>
             <div class="nominf1">
               <div class="nominf12">

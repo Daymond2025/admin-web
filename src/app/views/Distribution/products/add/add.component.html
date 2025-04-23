@@ -7,14 +7,7 @@
           class="col-md-12 d-flex justify-content-start align-items-center gap-3 flex-wrap"
         >
           <div class="d-flex align-items-center" style="min-width: 190px">
-            <img
-              src="assets/img/fleche.png"
-              style="margin-right: 10px; cursor: pointer"
-              alt=""
-              width="25"
-              height="25"
-              routerLink="/products/"
-            />
+           <app-back-button></app-back-button>
             <p class="mb-0">Ajouter un produit</p>
           </div>
 
@@ -56,30 +49,8 @@
           </select>
           </div>
 
-          <div
-            class="d-flex align-items-center"
-            style="
-              background-color: white;
-              padding-left: 10px;
-              padding-right: 15px;
-              border: 1px solid #ccc;
-              border-radius: 7px;
-              min-width: 190px;
-            "
-          >
-            <img
-              src="assets/img/logoAdm.png"
-              style="margin-right: 10px"
-              alt=""
-              width="30"
-              height="30"
-            />
-            <p class="mb-0" style="font-size: 0.8rem; color: black">
-              BOUTIQUE LENOVO <br /><span style="font-size: 0.8rem; color: gray"
-                >Fournisseur : 26789</span
-              >
-            </p>
-          </div>
+         
+  
           <!-- Select for "Plus recent" -->
           <div
             class="d-flex align-items-center"
@@ -327,7 +298,7 @@
               <select 
                 class="titre1"
                 formControlName="brand_id"
-                [ngClass]="{'is-invalid': productForm.get('name')?.touched && productForm.get('name')?.invalid}"
+               
                 style="
                   height: 100%;
                   width: 100%;
@@ -389,6 +360,7 @@
                     padding: 10px;
                     border: 1px solid #ccc;
                     border-radius: 5px;
+                    margin-bottom: 15px;
                   "
                 >
                   <option value="" disabled selected>
@@ -424,7 +396,7 @@
                     {{ size }}
                   </div>
                 </div> -->
-                <div
+                <!-- <div
   *ngFor="let color of selectedColors"
   [ngStyle]="{ 'background-color': color.value }"
   style="
@@ -453,7 +425,7 @@
   >
     ×
   </button>
-</div>
+</div> -->
 
               </div>
 
@@ -479,9 +451,9 @@
                   <option *ngFor="let color of colors" [value]="color.value">{{ color.name }}</option>
                 </select>
             
-                <div *ngFor="let color of selectedColors">
+                <!-- <div *ngFor="let color of selectedColors">
                   <span>{{ color.name }}</span>
-                </div>
+                </div> -->
             
                 <div style="display: flex; padding-bottom: 10px !important; flex-wrap: wrap; gap: 10px;">
                   <div *ngFor="let color of selectedColors"
@@ -561,7 +533,7 @@
             </div>
           </div>
           <!-- ligne 2 -->
-          <div
+          <!-- <div
             style="
               width: 100%;
               gap: 10px;
@@ -598,8 +570,8 @@
                 height: 1px;
               "
             ></div>
-          </div>
-          <div
+          </div> -->
+          <!-- <div
             style="
               width: 100%;
               background-color: white;
@@ -644,13 +616,13 @@
                 "
               >
                 <option value="" disabled>Type</option>
-                <!-- <option value="grossiste">grossiste</option> -->
+                <option value="grossiste">grossiste</option>
                 <option value="vente">Vente</option>
                 <option value="location">Location</option>
               </select>
             </div>
-          </div>
-          <div
+          </div> -->
+          <!-- <div
             style="
               width: 100%;
               background-color: white;
@@ -683,7 +655,7 @@
             </div>
            
             
-          </div>
+          </div> -->
           <div
             style="
               width: 100%;
@@ -697,9 +669,9 @@
               padding-bottom: 15px;
             "
           >
-            <p style="width: auto">Info des Prix Daymond</p>
-            <div
-              *ngIf="selectedType === 'grossiste'"
+            <!-- <p style="width: auto">Info des Prix Daymond</p> -->
+            <!-- <div
+            
               style="display: flex; width: 100%; gap: 10px"
               id="changsep1"
             >
@@ -708,7 +680,7 @@
                   formControlName="price"
                   type="number"
                   class="titre1"
-                  [ngClass]="{'is-invalid': productForm.get('name')?.touched && productForm.get('name')?.invalid}"
+                
                   style="
                     height: 100%;
                     width: 100%;
@@ -726,7 +698,7 @@
                   formControlName="price_min"
                   type="number"
                   class="titre1"
-                  [ngClass]="{'is-invalid': productForm.get('name')?.touched && productForm.get('name')?.invalid}"
+                 
                   style="
                     height: 100%;
                     width: 100%;
@@ -757,18 +729,37 @@
                   required
                 />
               </div>
+            </div> -->
+            <div id="titre2" style="width: auto;">
+              <input
+                formControlName="price"
+                type="number"
+                class="titre1"
+              
+                style="
+                  height: 100%;
+                  width: 100%;
+                  border: 1px solid #ccc;
+                  border-radius: 5px;
+                  height: 40px;
+                  padding-left: 10px;
+                "
+                placeholder="Prix de vente"
+                required
+              />
             </div>
             <div
-              *ngIf="selectedType === 'vente' || selectedType === 'location'"
+           
               style="display: flex; width: 100%; gap: 10px"
               id="changsep1"
             >
               <div id="titre2">
                 <input
-                  formControlName="price"
+                (input)="onDaymondChange($event)"
+                  
                   type="number"
                   class="titre1"
-                  [ngClass]="{'is-invalid': productForm.get('name')?.touched && productForm.get('name')?.invalid}"
+                  formControlName="price_partner"
                   style="
                     height: 100%;
                     width: 100%;
@@ -777,11 +768,16 @@
                     height: 40px;
                     padding-left: 10px;
                   "
-                  placeholder="Prix Daymond"
+                  placeholder="Commission daymond"
                   required
                 />
               </div>
-              <div id="titre2">
+              <div  style="display: flex;
+              justify-content: space-between;padding-left: 10px;padding-right: 10px;
+              align-items: center;margin-top: 10px;border:1px solid #FFC2C2; text-align: center; background-color: #FFF6F6;color:#FF5F84;border-radius: 5px;width: 25%;">
+                Le vendeur reçoit <span style="font-weight: bold;">{{this.commissionVendeur}}</span>  FCFA
+              </div>
+              <!-- <div id="titre2">
                 <input
                   formControlName="commission"
                   type="number"
@@ -798,10 +794,10 @@
                   placeholder="Commission"
                   required
                 />
-              </div>
+              </div> -->
             </div>
           </div>
-          <div
+          <!-- <div
             style="
               width: 100%;
               background-color: white;
@@ -848,7 +844,7 @@
               </div>
             </div>
 
-          </div>
+          </div> -->
           <div
             style="
               width: 100%;
@@ -945,6 +941,7 @@
             <input
               type="text"
               class="form-control"
+              formControlName="link"
               placeholder="Lien de la video du produit"
               aria-label="Recipient's username"
               aria-describedby="basic-addon2"

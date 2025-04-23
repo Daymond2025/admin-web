@@ -7,18 +7,11 @@
           class="col-md-12 d-flex justify-content-start align-items-center gap-3 flex-wrap"
         >
           <div class="d-flex align-items-center" style="min-width: 190px">
-            <img
-              src="assets/img/fleche.png"
-              style="margin-right: 10px; cursor: pointer"
-              alt=""
-              width="25"
-              height="25"
-              routerLink="/products/"
-            />
+            <app-back-button></app-back-button>
             <p class="mb-0">Publier un produit</p>
           </div>
 
-          <div
+          <!-- <div
             class="d-flex align-items-center"
             style="
               background-color: white;
@@ -42,7 +35,7 @@
                 Fournisseur:{{ business.name }}
               </option>
             </select>
-          </div>
+          </div> -->
 
           <div
             class="d-flex align-items-center"
@@ -128,7 +121,13 @@
           style="width: 70%; color: #ff9500"
           (click)="publishProduct()"
         >
-          PUBLIER
+        <span *ngIf="!isLoading">PUBLIER</span>
+        <!-- Texte par défaut -->
+        <span *ngIf="isLoading">
+          <i class="fa fa-spinner fa-spin"></i>
+          <!-- Indicateur de chargement -->
+          En cours...
+        </span>
         </button>
       </div>
     </div>
@@ -138,78 +137,38 @@
       <div class="row mt-3">
         <!-- bloc Info -->
         <div class="col-md-8 col-sm-6 mb-4" id="changsep">
+          
           <div
-            style="width: 100%; display: flex; padding-top: 5px"
+            style="width: 100%; gap: 10px; display: flex; padding-top: 10px"
             id="changsep1"
           >
-            <!-- <div id="titre2">
+            <div id="titre2">
               <input
-                formControlName="code"
+                formControlName="name"
                 type="text"
                 class="titre1"
-                placeholder="Scanner le code produit"
+                [ngClass]="{'is-invalid': productForm.get('name')?.touched && productForm.get('name')?.invalid}"
                 style="
                   height: 100%;
-                  width: 100% !important;
+                  width: 100%;
                   border: 1px solid #ccc;
                   border-radius: 5px;
                   height: 40px;
                   padding-left: 10px;
                 "
+                placeholder="Nom de l'article"
+                required
               />
-            </div> -->
-          </div>
-          <div
-            style="width: 100%; gap: 10px; display: flex; padding-top: 10px"
-            id="changsep1"
-          >
-
-            <div
-              style="width: 100%; gap: 10px; display: flex; padding-top: 10px"
-              id="changsep1"
-            >
-              <!-- <div id="titre2">
-                <input
-                  formControlName="name"
-                  type="text"
-                  class="titre1"
-                  style="
-                    height: 100%;
-                    width: 100%;
-                    border: 1px solid #ccc;
-                    border-radius: 5px;
-                    height: 40px;
-                    padding-left: 10px;
-                  "
-                  placeholder="Nom de l'article"
-                  value="{{ product.name | truncate : 23 }}"
-                  required
-                />
+              <div class="invalid-feedback" *ngIf="productForm.get('name')?.touched && productForm.get('name')?.invalid">
+                Ce champ est requis
               </div>
-              <div id="titre2">
-                <input
-                  formControlName="sub_title"
-                  type="text"
-                  class="titre1"
-                  value="{{ product.sub_title | truncate : 23 }}"
-                  style="
-                    height: 100%;
-                    width: 100%;
-                    border: 1px solid #ccc;
-                    border-radius: 5px;
-                    height: 40px;
-                    padding-left: 10px;
-                  "
-                  placeholder="Sous titre"
-                />
-              </div> -->
             </div>
-            <!-- <div id="titre2">
+            <div id="titre2">
               <input
                 formControlName="sub_title"
                 type="text"
                 class="titre1"
-                value="{{ product.sub_title | truncate : 23 }}"
+                [ngClass]="{'is-invalid': productForm.get('name')?.touched && productForm.get('name')?.invalid}"
                 style="
                   height: 100%;
                   width: 100%;
@@ -220,7 +179,7 @@
                 "
                 placeholder="Sous titre"
               />
-            </div> -->
+            </div>
           </div>
           <div
             style="
@@ -235,7 +194,8 @@
               <textarea
                 formControlName="description"
                 class="titre1"
-                [value]="product?.description"
+                type="text"
+                [ngClass]="{'is-invalid': productForm.get('name')?.touched && productForm.get('name')?.invalid}"
                 style="
                   height: 300px;
                   width: 100%;
@@ -245,6 +205,7 @@
                   resize: none;
                 "
                 placeholder="Description"
+                required
               ></textarea>
             </div>
           </div>
@@ -260,27 +221,10 @@
           >
             <div id="titre2">
               <select
-              formControlName="category_id"
-              (change)="onCategoryChange($event)"
-              style="
-                height: 100%;
-                width: 100%;
-                border: 1px solid #ccc;
-                border-radius: 5px;
-                height: 40px;
-                padding-left: 10px;
-              "
-            >
-              <option value="">Catégorie</option>
-              <option *ngFor="let category of listCategories" [value]="category.id" [selected]="category.id === product?.category?.id">
-                {{ category.name }}
-              </option>
-            </select>
-            
-            </div>
-            <div id="titre2">
-              <select
-                formControlName="sub_category_id"
+                (change)="onCategoryChange($event)"
+                class="titre1"
+                formControlName="category_id"
+                [ngClass]="{'is-invalid': productForm.get('name')?.touched && productForm.get('name')?.invalid}"
                 style="
                   height: 100%;
                   width: 100%;
@@ -289,13 +233,40 @@
                   height: 40px;
                   padding-left: 10px;
                 "
+                placeholder="Catégorie"
               >
-                <option value="">Sous-Catégorie</option>
-                <option *ngFor="let subCategory of listSubCategories" [value]="subCategory.id" [selected]="subCategory.id === product?.sub_category?.id">
-                  {{ subCategory.name }}
+                <option value="">Catégorie</option>
+                <option
+                  *ngFor="let category of listCategories"
+                  [value]="category.id"
+                >
+                  {{ category?.name }}
                 </option>
               </select>
-
+            </div>
+            <div id="titre2">
+              <select
+                formControlName="sub_category_id"
+                class="titre1"
+                [ngClass]="{'is-invalid': productForm.get('name')?.touched && productForm.get('name')?.invalid}"
+                style="
+                  height: 100%;
+                  width: 100%;
+                  border: 1px solid #ccc;
+                  border-radius: 5px;
+                  height: 40px;
+                  padding-left: 10px;
+                "
+                placeholder="Sous catégorie"
+              >
+                <option value="">Sous-Catégorie</option>
+                <option
+                  *ngFor="let subCategory of listSubCategories"
+                  [value]="subCategory.id"
+                >
+                  {{ subCategory?.name }}
+                </option>
+              </select>
             </div>
           </div>
           <div
@@ -309,30 +280,53 @@
             id="changsep1"
           >
             <div id="titre2">
-              <select
-  formControlName="state_id"
-  id="state_id"
-  style="
-    height: 100%;
-    width: 100%;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    height: 40px;
-    padding-left: 10px;
-  "
->
-  <option value="" *ngIf="product?.state?.id == null">État du produit</option>
-  <option *ngFor="let state of listStates" [value]="state.id" [selected]="state.id === product?.state?.id">
-    {{ state.name }}
-  </option>
-</select>
 
+              <select 
+                [ngClass]="{'is-invalid': productForm.get('name')?.touched && productForm.get('name')?.invalid}"
+                style="
+                    height: 100%;
+                    width: 100%;
+                    border: 1px solid blue;
+
+                    border-radius: 5px;
+                    height: 40px;
+                    padding-left: 10px;
+                  "
+                formControlName="state_id" required
+              >
+                <option value="" disabled selected>État du produit</option>
+                <option *ngFor="let state of listStates" [value]="state.id">
+                  {{ state.name }}
+                </option>
+              </select>
+            </div>
+            <div id="titre2">
+              
+              <select 
+                class="titre1"
+                formControlName="brand_id"
+               
+                style="
+                  height: 100%;
+                  width: 100%;
+                  border: 1px solid #ccc;
+                  border-radius: 5px;
+                  height: 40px;
+                  padding-left: 10px;
+                "
+              >
+                <option value="" disabled selected>Marque</option>
+                <option *ngFor="let brand of listBrand" [value]="brand.id">
+                  {{ brand.name }}
+                </option>
+              </select>
             </div>
             <div id="titre2">
               <input
                 formControlName="stock"
-                type=""
+                type="number"
                 class="titre1"
+                [ngClass]="{'is-invalid': productForm.get('name')?.touched && productForm.get('name')?.invalid}"
                 style="
                   height: 100%;
                   width: 100%;
@@ -342,11 +336,211 @@
                   padding-left: 10px;
                 "
                 placeholder="Quantité"
+                required
               />
             </div>
           </div>
+          <div style="display: flex;gap:10px">
+            <!-- Taille du produit -->
+            <div id="titre2" style="height: auto">
+              <div
+                style="
+                  height: auto !important;
+                  width: 100%;
+                  border: 1px solid #ccc;
+                  border-radius: 5px;
+                  padding-left: 10px;
+                  padding-top: 40px;
+                  display: flex;
+                  align-items: center;
+                  padding-right: 10px;
+                  flex-wrap: wrap;
+                  gap: 10px;
+                "
+              >
+                <!-- Sélection d'une seule taille à la fois -->
+                <select
+                  (change)="onSizeChange($event)"
+                  [ngClass]="{'is-invalid': productForm.get('name')?.touched && productForm.get('name')?.invalid}"
+                  style="
+                    width: 100%;
+                    padding: 10px;
+                    border: 1px solid #ccc;
+                    border-radius: 5px;
+                    margin-bottom: 15px;
+                  "
+                >
+                  <option value="" disabled selected>
+                    Sélectionnez vos tailles
+                  </option>
+                  <option *ngFor="let size of sizes" [value]="size">
+                    {{ size }}
+                  </option>
+                </select>
+
+                
+                <!-- <div
+                [ngClass]="{'is-invalid': productForm.get('name')?.touched && productForm.get('name')?.invalid}"
+                  style="
+                    display: flex;
+                    padding-bottom: 10px !important;
+                    flex-wrap: wrap;
+                    gap: 10px;
+                  "
+                >
+                  <div
+                    *ngFor="let size of selectedSizes"
+                    [ngClass]="{'is-invalid': productForm.get('name')?.touched && productForm.get('name')?.invalid}"
+                    style="
+                      padding: 1px 10px;
+                      color: white;
+                      background-color: rgb(0, 217, 255);
+                      border-radius: 20px;
+                      text-align: center;
+                      width: fit-content;
+                    "
+                  >
+                    {{ size }}
+                  </div>
+                </div> -->
+                <!-- <div
+  *ngFor="let color of selectedColors"
+  [ngStyle]="{ 'background-color': color.value }"
+  style="
+    padding: 1px 10px;
+    color: white;
+    border-radius: 20px;
+    text-align: center;
+    width: fit-content;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 5px;
+  "
+>
+  {{ color.name }}
+  <button
+    type="button"
+    (click)="removeColor(color.value)"
+    style="
+      background: none;
+      border: none;
+      color: white;
+      cursor: pointer;
+      font-size: 16px;
+    "
+  >
+    ×
+  </button>
+</div> -->
+
+              </div>
+
+              <label
+                id="titre"
+                style="
+                  display: flex;
+                  justify-content: space-between;
+                  width: 100%;
+                  padding-right: 20px;
+                "
+              >
+                <span>Taille du produit</span>
+              </label>
+            </div>
+            <div id="titre2" style="height: auto">
+              <div [ngClass]="{'is-invalid': productForm.get('name')?.touched && productForm.get('name')?.invalid}"
+                   style="height: auto !important; width: 100%; border: 1px solid #ccc; border-radius: 5px; padding-left: 10px; display: flex; align-items: center; padding-right: 10px; flex-wrap: wrap; gap: 10px; padding-top: 40px;">
+                
+                <select (change)="onColorChange($event)"
+                        style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px;" required>
+                  <option value="" disabled selected>Sélectionnez vos couleurs</option>
+                  <option *ngFor="let color of colors" [value]="color.value">{{ color.name }}</option>
+                </select>
+            
+                <!-- <div *ngFor="let color of selectedColors">
+                  <span>{{ color.name }}</span>
+                </div> -->
+            
+                <div style="display: flex; padding-bottom: 10px !important; flex-wrap: wrap; gap: 10px;">
+                  <div *ngFor="let color of selectedColors"
+                       [ngStyle]="{ 'background-color': color.value }"
+                       style="padding: 1px 10px; color: white; border-radius: 20px; text-align: center; width: fit-content;">
+                    {{ color.name }}
+                  </div>
+                </div>
+              </div>
+            
+              <label id="titre" style="display: flex; justify-content: space-between; width: 100%; padding-right: 20px;">
+                <span>Couleur du produit</span>
+              </label>
+            </div>
+          </div>
+
+          
+          <div id="titre2" style="height: auto;width: 100%;">
+            <div
+              class="titre1"
+              style="
+                height: 150px;
+                width: 100%;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+                padding-left: 10px;
+                display: flex;
+                align-items: center;
+                padding-right: 10px;
+                flex-wrap: wrap;
+                gap: 10px;
+                padding-bottom: 10px;
+              "
+            >
+              <div class="titre212">
+                <p>Prix livraison</p>
+                <!-- <select
+                  name=""
+                  id=""
+                  [ngClass]="{'is-invalid': productForm.get('name')?.touched && productForm.get('name')?.invalid}"
+                  style="width: 50%; border: 1px solid #ccc; padding: 7px"
+                >
+                  <option value="">Localisation</option>
+                  <option *ngFor="let city of listCities" [value]="city.id">
+                    {{ city.name }}
+                  </option>
+                </select> -->
+              </div>
+              <div class="titre212" style="gap: 10px">
+                <input
+                  type="number"
+                  [ngClass]="{'is-invalid': productForm.get('name')?.touched && productForm.get('name')?.invalid}"
+                  style="
+                    width: 50%;
+                    border: 1px solid #ccc;
+                    padding: 7px;
+                    background-color: white;
+                  "
+                  formControlName="price_city_delivery"
+                  [placeholder]="'Dans la ville'"
+                  required
+                />
+                <input
+                  type="number"
+                  [ngClass]="{'is-invalid': productForm.get('name')?.touched && productForm.get('name')?.invalid}"
+                  style="
+                    width: 50%;
+                    border: 1px solid #ccc;
+                    padding: 7px;
+                    background-color: white;
+                  "
+                  formControlName="price_no_city_delivery"
+                  [placeholder]="'Hors de ville'"
+                  required
+                />
+              </div>
+            </div>
+          </div>
           <!-- ligne 2 -->
-          <div
+          <!-- <div
             style="
               width: 100%;
               gap: 10px;
@@ -383,8 +577,8 @@
                 height: 1px;
               "
             ></div>
-          </div>
-          <div
+          </div> -->
+          <!-- <div
             style="
               width: 100%;
               background-color: white;
@@ -395,11 +589,11 @@
             id="changsep1"
           >
             <div id="titre2">
-             
               <input
                 formControlName="price_supplier"
                 type="number"
                 class="titre1"
+                [ngClass]="{'is-invalid': productForm.get('name')?.touched && productForm.get('name')?.invalid}"
                 style="
                   height: 100%;
                   width: 100%;
@@ -409,6 +603,7 @@
                   padding-left: 10px;
                 "
                 placeholder="Prix fournisseur"
+                required
               />
             </div>
             <div id="titre2">
@@ -417,6 +612,7 @@
                 formControlName="category"
                 name=""
                 id=""
+                [ngClass]="{'is-invalid': productForm.get('name')?.touched && productForm.get('name')?.invalid}"
                 style="
                   height: 100%;
                   width: 100%;
@@ -426,15 +622,14 @@
                   padding-left: 10px;
                 "
               >
-                <option value="">Type</option>
-                <option value="grossiste">Grossiste</option>
+                <option value="" disabled>Type</option>
+                <option value="grossiste">grossiste</option>
                 <option value="vente">Vente</option>
                 <option value="location">Location</option>
-
               </select>
             </div>
-          </div>
-          <div
+          </div> -->
+          <!-- <div
             style="
               width: 100%;
               background-color: white;
@@ -448,9 +643,8 @@
               <div class="input-group mb-3">
                 <input
                   formControlName="price_normal"
-                  type="text"
-                  class="titre1"
-                  class="form-control"
+                  type="number"
+                  class="form-control titre1"
                   style="border: 1px solid #ccc"
                   aria-label="Recipient's username"
                   aria-describedby="basic-addon2"
@@ -466,23 +660,9 @@
                 </div>
               </div>
             </div>
-            <div id="titre2">
-              <input
-                formControlName="brand_id"
-                type="text"
-                class="titre1"
-                style="
-                  height: 100%;
-                  width: 100%;
-                  border: 1px solid #ccc;
-                  border-radius: 5px;
-                  height: 40px;
-                  padding-left: 10px;
-                "
-                placeholder="Marque"
-              />
-            </div>
-          </div>
+           
+            
+          </div> -->
           <div
             style="
               width: 100%;
@@ -496,10 +676,9 @@
               padding-bottom: 15px;
             "
           >
-
-            <p style="width: 100px">Prix Daymond</p>
-            <div
-              *ngIf="selectedType === 'grossiste'"
+            <!-- <p style="width: auto">Info des Prix Daymond</p> -->
+            <!-- <div
+            
               style="display: flex; width: 100%; gap: 10px"
               id="changsep1"
             >
@@ -508,6 +687,7 @@
                   formControlName="price"
                   type="number"
                   class="titre1"
+                
                   style="
                     height: 100%;
                     width: 100%;
@@ -517,6 +697,7 @@
                     padding-left: 10px;
                   "
                   placeholder="Prix Daymond"
+                  required
                 />
               </div>
               <div id="titre2">
@@ -524,6 +705,7 @@
                   formControlName="price_min"
                   type="number"
                   class="titre1"
+                 
                   style="
                     height: 100%;
                     width: 100%;
@@ -533,6 +715,7 @@
                     padding-left: 10px;
                   "
                   placeholder="De :"
+                  required
                 />
               </div>
               <div id="titre2">
@@ -540,6 +723,7 @@
                   formControlName="price_max"
                   type="number"
                   class="titre1"
+                  [ngClass]="{'is-invalid': productForm.get('name')?.touched && productForm.get('name')?.invalid}"
                   style="
                     height: 100%;
                     width: 100%;
@@ -549,19 +733,40 @@
                     padding-left: 10px;
                   "
                   placeholder="A :"
+                  required
                 />
               </div>
+            </div> -->
+            <div id="titre2" style="width: auto;">
+              <input
+                formControlName="price"
+                type="number"
+                class="titre1"
+              
+                style="
+                  height: 100%;
+                  width: 100%;
+                  border: 1px solid #ccc;
+                  border-radius: 5px;
+                  height: 40px;
+                  padding-left: 10px;
+                "
+                placeholder="Prix de vente"
+                required
+              />
             </div>
             <div
-              *ngIf="selectedType === 'vente' || selectedType === 'location'"
+           
               style="display: flex; width: 100%; gap: 10px"
               id="changsep1"
             >
               <div id="titre2">
                 <input
-                  formControlName="price"
-                  type="text"
+                (input)="onDaymondChange($event)"
+                  
+                  type="number"
                   class="titre1"
+                  formControlName="price_partner"
                   style="
                     height: 100%;
                     width: 100%;
@@ -570,16 +775,23 @@
                     height: 40px;
                     padding-left: 10px;
                   "
-                  placeholder="Prix Daymond"
+                  placeholder="Commission daymond"
+                  required
                 />
               </div>
-              <div id="titre2">
+              <div  style="display: flex;
+              justify-content: space-between;padding-left: 10px;padding-right: 10px;
+              align-items: center;margin-top: 10px;border:1px solid #FFC2C2; text-align: center; background-color: #FFF6F6;color:#FF5F84;border-radius: 5px;width: 30%;">
+                Le vendeur reçoit <span style="margin-right : 2px;margin-left : 2px;font-weight: bold;">{{this.commissionVendeur}}</span>  FCFA
+              </div>
+              <!-- <div id="titre2">
                 <input
                   formControlName="commission"
                   type="number"
                   class="titre1"
+                  [ngClass]="{'is-invalid': productForm.get('name')?.touched && productForm.get('name')?.invalid}"
                   style="
-                    height: 300vh;
+                    height: 100%;
                     width: 100%;
                     border: 1px solid #ccc;
                     border-radius: 5px;
@@ -587,11 +799,12 @@
                     padding-left: 10px;
                   "
                   placeholder="Commission"
+                  required
                 />
-              </div>
+              </div> -->
             </div>
           </div>
-          <div
+          <!-- <div
             style="
               width: 100%;
               background-color: white;
@@ -622,8 +835,10 @@
                 </div>
                 <div class="titre212" style="gap: 10px">
                   <input
-                    formControlName="price_partner"
+                    formControlName="price_seller"
                     placeholder="12 000 FCFA"
+                    type="number"
+                    [ngClass]="{'is-invalid': productForm.get('name')?.touched && productForm.get('name')?.invalid}"
                     style="
                       width: 50%;
                       border: 1px solid #ccc;
@@ -636,63 +851,7 @@
               </div>
             </div>
 
-            <div id="titre2" style="height: auto">
-              <div
-                class="titre1"
-                style="
-                  height: 150px;
-                  width: 100%;
-                  border: 1px solid #ccc;
-                  border-radius: 5px;
-                  padding-left: 10px;
-                  display: flex;
-                  align-items: center;
-                  padding-right: 10px;
-                  flex-wrap: wrap;
-                  gap: 10px;
-                  padding-bottom: 10px;
-                "
-              >
-                <div class="titre212">
-                  <p>Prix livraison</p>
-                  <select
-                    name=""
-                    id=""
-                    style="width: 50%; border: 1px solid #ccc; padding: 7px"
-                  >
-                    <option value="">Localisation</option>
-                    <option *ngFor="let city of listCities" [value]="city.id">
-                      {{ city.name }}
-                    </option>
-                  </select>
-                </div>
-                <div class="titre212" style="gap: 10px">
-                  <input
-                    type="number"
-                    style="
-                      width: 50%;
-                      border: 1px solid #ccc;
-                      padding: 7px;
-                      background-color: white;
-                    "
-                    formControlName="price_city_delivery"
-                    [placeholder]="'A ville'"
-                  />
-                  <input
-                    type="number"
-                    style="
-                      width: 50%;
-                      border: 1px solid #ccc;
-                      padding: 7px;
-                      background-color: white;
-                    "
-                    formControlName="price_no_city_delivery"
-                    [placeholder]="'Hors ville'"
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
+          </div> -->
           <div
             style="
               width: 100%;
@@ -703,115 +862,46 @@
             "
             id="changsep1"
           >
-            <!-- Taille du produit -->
-            <div id="titre2" style="height: auto">
+          
+            
+            
+            
+            <!-- <div id="titre2" style="height: auto">
               <div
+              [ngClass]="{'is-invalid': productForm.get('name')?.touched && productForm.get('name')?.invalid}"
                 style="
                   height: auto !important;
                   width: 100%;
                   border: 1px solid #ccc;
                   border-radius: 5px;
                   padding-left: 10px;
-                  padding-top: 40px;
                   display: flex;
                   align-items: center;
                   padding-right: 10px;
                   flex-wrap: wrap;
                   gap: 10px;
+                  padding-top: 40px;
                 "
               >
-                
-                <select
-                  formControlName="sizes"
-                  (change)="onSizeChange($event)"
-                  style="
+              <select 
+                (change)="onColorChange($event)" 
+                style="
                     width: 100%;
                     padding: 10px;
                     border: 1px solid #ccc;
                     border-radius: 5px;
                   "
-                >
-                  <option value="" disabled selected>
-                    Sélectionnez vos tailles
-                  </option>
-                  <option *ngFor="let size of sizes" [value]="size">
-                    {{ size }}
-                  </option>
-                </select>
-
-                
-                <div
-                  style="
-                    display: flex;
-                    padding-bottom: 10px !important;
-                    flex-wrap: wrap;
-                    gap: 10px;
-                  "
-                >
-                  <div
-                    *ngFor="let size of selectedSizes"
-                    style="
-                      padding: 1px 10px;
-                      color: white;
-                      background-color: rgb(0, 217, 255);
-                      border-radius: 20px;
-                      text-align: center;
-                      width: fit-content;
-                    "
-                  >
-                    {{ size }}
-                  </div>
-                </div>
+                required>
+                <option value="" disabled selected>Sélectionnez vos couleurs</option>
+                <option *ngFor="let color of colors" [value]="color.value">
+                  {{ color.name }}
+                </option>
+              </select>
+            
+              <div *ngFor="let color of selectedColors">
+                <span>{{ color.name }}</span>
               </div>
-
-              <label
-                id="titre"
-                style="
-                  display: flex;
-                  justify-content: space-between;
-                  width: 100%;
-                  padding-right: 20px;
-                "
-              >
-                <span>Taille du produit</span>
-              </label>
-            </div> 
-
-            <!-- Couleur du produit -->
-            <div id="titre2" style="height: auto">
-              <div
-                style="
-                  height: auto !important;
-                  width: 100%;
-                  border: 1px solid #ccc;
-                  border-radius: 5px;
-                  padding-left: 10px;
-                  display: flex;
-                  align-items: center;
-                  padding-right: 10px;
-                  flex-wrap: wrap;
-                  gap: 10px;
-                  padding-top: 40px;
-                "
-              >
-                
-                <select
-                  formControlName="colors"
-                  (change)="onColorChange($event)"
-                  style="
-                    width: 100%;
-                    padding: 10px;
-                    border: 1px solid #ccc;
-                    border-radius: 5px;
-                  "
-                >
-                  <option value="" disabled selected>
-                    Sélectionnez vos couleurs
-                  </option>
-                  <option *ngFor="let color of colors" [value]="color.value">
-                    {{ color.name }}
-                  </option>
-                </select>
+            
 
                 
                 <div
@@ -849,7 +939,7 @@
               >
                 <span>Couleur du produit</span>
               </label>
-            </div>
+            </div> -->
           </div>
           <div
             class="input-group mb-3"
@@ -857,10 +947,12 @@
           >
             <input
               type="text"
+              formControlName="link"
               class="form-control"
               placeholder="Lien de la video du produit"
               aria-label="Recipient's username"
               aria-describedby="basic-addon2"
+              [ngClass]="{'is-invalid': productForm.get('name')?.touched && productForm.get('name')?.invalid}"
               style="
                 border: 1px solid #ccc;
                 border-radius: 5px;
@@ -888,64 +980,6 @@
                 Coller
               </button>
             </div>
-          </div>
-          <div id="titre2">
-            <select
-              (change)="onCategoryChange($event)"
-              class="titre1"
-              style="
-                height: 100%;
-                width: 100%;
-                border: 1px solid #ccc;
-                border-radius: 5px;
-                height: 40px;
-                padding-left: 10px;
-              "
-              placeholder="Catégorie"
-            >
-            
-              <option value="">Catégorie</option>
-              <option
-                *ngFor="let category of listCategories"
-                [value]="category.id"
-              >
-                {{ category.name }}
-              </option>
-            </select>
-          </div>
-          <input
-            formControlName="shop_id"
-            id="shop_id"
-            type="number"
-            placeholder="Identifiant de la boutique"
-          /> 
-          <div
-            class="d-flex align-items-center"
-            style="background-color: white"
-          >
-            <select
-              class="form-select"
-              style="
-                border: 1px solid #ccc;
-                border-radius: 7px;
-                padding: 10px;
-                width: 250px;
-              "
-              [(ngModel)]="selectedShop"
-              formControlName="shop_id"
-              required
-            >
-              <option value="" disabled selected>
-                Sélectionner une boutique
-              </option>
-              <option *ngFor="let shop of listShop" [value]="shop.id">
-                <div class="d-flex align-items-center">
-                  <p class="mb-0" style="font-size: 0.8rem; color: black">
-                    {{ shop.business.name }}: {{ shop.business.ncc }}<br />
-                  </p>
-                </div>
-              </option>
-            </select>
           </div>
         </div>
 

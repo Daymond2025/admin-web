@@ -39,18 +39,19 @@ export class sCallListComponent {
   }
 
   getProd(obj:any){
+    this.isLoading = true;
     this.orderService.getAllCallCenter(obj).subscribe({
       next: (data) => {
         this.utilisService.response(data, (d:any) => {
           console.log('order',d)
-          // this.loading = false
+          this.isLoading = false
           this.dataset=d.data;
           // this.total = d.totalItems
         });
       },
       error: (error) => {
         this.utilisService.response(error,(d:any)=>{
-    
+          this.isLoading = false
         })
       },
     });

@@ -8,6 +8,7 @@ import { HeaderComponent } from "./components/header/header.component";
 // import { ImageDialogComponent } from "./components/image-dialog/image-dialog.component";
 // import { ProgressBarComponent } from "./components/progress-bar/progress-bar.component";
 import { SidebarComponent } from "./components/sidebar/sidebar.component";
+import { BackButtonComponent } from "../back-button/back-button.component";
 // import { PhoneFormatPipe } from "./pipes/phone-format.pipe";
 // import { TruncatePipe } from "./pipes/truncate.pipe";
 
@@ -26,12 +27,14 @@ const modules = [
   ReactiveFormsModule,
   FormsModule,
   MatDialogModule,
-  SidebarComponent
+  SidebarComponent,
+  
 ];
 
 @NgModule({
   declarations: [
     HeaderComponent,
+    
     
 ]
 ,

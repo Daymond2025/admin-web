@@ -18,14 +18,7 @@
               "
             >
               <div class="col-4 d-flex align-items-center">
-                <img
-                  src="assets/img/fleche.png"
-                  style="margin-right: 10px; cursor: pointer"
-                  alt=""
-                  width="25"
-                  height="25"
-                  routerLink="/products/"
-                />
+                <app-back-button></app-back-button>
                 <p class="mb-0">Aperçu</p>
               </div>
               <div class="col-8 d-flex justify-content-end align-items-center">
@@ -524,7 +517,7 @@
                 border-radius: 20px;
                 color: white;
               "
-              routerLink="/products/publish/{{ product.id }}"
+               routerLink="/distribution/produits/publish/{{ product.id }}"
             >
               Publier
             </button>

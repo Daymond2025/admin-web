@@ -20,13 +20,14 @@ import { ProduitsService } from "src/app/shared/services/Produits.service";
 import { CommonModule } from "@angular/common";
 import { TruncatePipe } from "src/app/shared/pipes/truncate.pipe";
 import { UtilisService } from "src/app/shared/services/Utilis.service";
+import { BackButtonComponent } from "src/app/back-button/back-button.component";
 
 @Component({
   selector: "app-add",
   templateUrl: "./add.component.html",
   styleUrls: ["./add.component.css"],
   standalone: true, // Standalone component
-  imports:[CommonModule , TruncatePipe , RouterModule , FormsModule , ReactiveFormsModule]
+  imports:[CommonModule , TruncatePipe , RouterModule , FormsModule , ReactiveFormsModule , BackButtonComponent]
 })
 export class AddComponent implements OnInit {
   productForm!: FormGroup;
@@ -37,7 +38,7 @@ export class AddComponent implements OnInit {
   selectedCategoryId: number | null = null;
   listSubCategories: any[] = [];
   listBrand: any[] = [];
-  selectedType: string = "grossiste";
+  selectedType: string = "vente";
 
   @ViewChild("boutiquePopup") boutiquePopup!: TemplateRef<any>;
   popupVisible: boolean = false;
@@ -50,6 +51,8 @@ export class AddComponent implements OnInit {
   listBusiness: any[] = [];
   listShop: any[] = [];
   selectedShop: any;
+  commissionDaymond:any=0;
+  commissionVendeur:any=0;
 
 
   // Listes de tailles et dimensions
@@ -209,52 +212,63 @@ colors: { name: string; value: string }[] = [
       sub_title: [""],
       description: ["", Validators.required],
       price: ["", [Validators.required, Validators.min(0)]],
-      price_supplier: ["", [Validators.required, Validators.min(0)]],
+      //price_supplier: ["", [Validators.required, Validators.min(0)]],
       price_city_delivery: ["", [Validators.required, Validators.min(0)]],
       price_no_city_delivery: ["", [Validators.required, Validators.min(0)]],
-      price_seller: ["", Validators.min(0)],
-      price_max: ["", Validators.min(0)],
-      price_min: ["", Validators.min(0)],
+      price_partner: ["", Validators.min(0)],
+      // price_max: ["", Validators.min(0)],
+      // price_min: ["", Validators.min(0)],
       price_normal: ["", Validators.min(0)],
-      commission: ["", Validators.min(0)],
+      commission: [""],
       brand_id: [""],
-      category: ["grossiste", Validators.required],
+      category: ["vente", Validators.required],
       sub_category_id: ["", Validators.required],
       stock: ["", Validators.required],
       shop_id: ["", Validators.nullValidator],
       popular: [false],
       publish: [true],
+      link: [""],
       category_id: ["", Validators.required],
       // colors: [[], Validators.required], // Ajouté
       colors: this.fb.array([]), // Ajout du champ colors avec validation
     });
-    this.productForm.get("category")?.valueChanges.subscribe((category) => {
-      this.selectedType = category;
-      this.updatePriceValidators();
-    });
+    // this.productForm.get("category")?.valueChanges.subscribe((category) => {
+    //   this.selectedType = category;
+    //   this.updatePriceValidators();
+    // });
   }
 
-  private updatePriceValidators(): void {
-    const priceMaxControl = this.productForm.get("price_max");
-    const priceMinControl = this.productForm.get("price_min");
-    const commissionControl = this.productForm.get("commission");
+  // private updatePriceValidators(): void {
+  //   const priceMaxControl = this.productForm.get("price_max");
+  //   const priceMinControl = this.productForm.get("price_min");
+  //   const commissionControl = this.productForm.get("commission");
 
-    if (this.selectedType === "grossiste") {
-      priceMaxControl?.setValidators([Validators.required, Validators.min(0)]);
-      priceMinControl?.setValidators([Validators.required, Validators.min(0)]);
-      commissionControl?.clearValidators();
-    } else {
-      priceMaxControl?.clearValidators();
-      priceMinControl?.clearValidators();
-      commissionControl?.setValidators([
-        Validators.required,
-        Validators.min(0),
-      ]);
+  //   if (this.selectedType === "grossiste") {
+  //     priceMaxControl?.setValidators([Validators.required, Validators.min(0)]);
+  //     priceMinControl?.setValidators([Validators.required, Validators.min(0)]);
+  //     commissionControl?.clearValidators();
+  //   } else {
+  //     priceMaxControl?.clearValidators();
+  //     priceMinControl?.clearValidators();
+  //     commissionControl?.setValidators([
+  //       Validators.required,
+  //       Validators.min(0),
+  //     ]);
+  //   }
+
+  //   priceMaxControl?.updateValueAndValidity();
+  //   priceMinControl?.updateValueAndValidity();
+  //   commissionControl?.updateValueAndValidity();
+  // }
+
+  onDaymondChange(event: any): void {
+    if(event.target.value){
+      this.commissionVendeur = event.target.value*60/100;
     }
-
-    priceMaxControl?.updateValueAndValidity();
-    priceMinControl?.updateValueAndValidity();
-    commissionControl?.updateValueAndValidity();
+    else{
+      this.commissionVendeur = 0;}
+    
+    console.log(event.target.value)
   }
 
   onShopChange(event: any): void {
@@ -425,13 +439,25 @@ colors: { name: string; value: string }[] = [
 
   onSubmit(): void {
     console.log("Vérification du formulaire...");
+    this.isLoading = true;
 
     if (this.productForm.invalid) {
+      Object.keys(this.productForm.controls).forEach((key) => {
+        const control = this.productForm.get(key);
+        if (control?.invalid) {
+          console.log(`Le champ '${key}' est invalide. Erreurs :`, control.errors);
+        
+        }
+      });
+      console.log("Formulaire invalide");
+      this.isLoading = false;
       return;
     }
 
+
     const formDataFinal = new FormData();
     const formData = this.productForm.value;
+    formData.commission = this.commissionVendeur;
 
     // Ajout des autres champs du formulaire
     Object.keys(formData).forEach(key => {
@@ -480,7 +506,7 @@ colors: { name: string; value: string }[] = [
             showConfirmButton: false,
             timer: 2000,
           });
-          this.router.navigate(["/products"]);
+          this.router.navigate(["/distribution/produits"]);
         },
         error: (error: any) => {
           this.isLoading = false;

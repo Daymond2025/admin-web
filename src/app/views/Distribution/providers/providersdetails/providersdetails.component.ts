@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, RouterModule } from '@angular/router';
+import { BackButtonComponent } from 'src/app/back-button/back-button.component';
 // import { UrlConstant } from 'src/app/core/constants/url_constants';
 import { ensureArray } from 'src/app/core/utils/verif-data.utils';
 // import { IDetailsBusiness, IShop } from 'src/app/core/interfaces/business.interface';
@@ -16,7 +17,7 @@ import { UtilisService } from 'src/app/shared/services/Utilis.service';
   templateUrl: './providersdetails.component.html',
   styleUrls: ['./providersdetails.component.css'],
   standalone: true, // Standalone component
-  imports:[CommonModule , TruncatePipe , RouterModule , FormsModule , ReactiveFormsModule ]
+  imports:[CommonModule , TruncatePipe , RouterModule , FormsModule , ReactiveFormsModule, BackButtonComponent ]
 })
 export class ProvidersdetailsComponent implements OnInit {
   dataGlobal!: any;

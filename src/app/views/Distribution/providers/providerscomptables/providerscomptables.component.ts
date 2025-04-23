@@ -1,6 +1,7 @@
 import { CommonModule } from "@angular/common";
 import { Component, OnInit } from "@angular/core";
 import { Router, ActivatedRoute, RouterModule } from "@angular/router";
+import { BackButtonComponent } from "src/app/back-button/back-button.component";
 // import { UrlConstant } from "src/app/core/constants/url_constants";
 import { ensureArray } from "src/app/core/utils/verif-data.utils";
 // import { IDetailsBusiness } from "src/app/core/interfaces/business.interface";
@@ -18,7 +19,7 @@ import { UtilisService } from "src/app/shared/services/Utilis.service";
   templateUrl: "./providerscomptables.component.html",
   styleUrls: ["./providerscomptables.component.css"],
   standalone: true, // Standalone component
-  imports:[CommonModule , TruncatePipe , RouterModule ]
+  imports:[CommonModule , TruncatePipe , RouterModule , BackButtonComponent]
 })
 export class ProviderscomptablesComponent implements OnInit {
   businessId!: number;

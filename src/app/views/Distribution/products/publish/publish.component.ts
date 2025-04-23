@@ -3,6 +3,7 @@ import { Component, OnInit, TemplateRef, ViewChild } from "@angular/core";
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from "@angular/forms";
 import { MatDialog } from "@angular/material/dialog";
 import { ActivatedRoute, Router, RouterModule } from "@angular/router";
+import { BackButtonComponent } from "src/app/back-button/back-button.component";
 // import { UrlConstant } from "src/app/core/constants/url_constants";
 import { ensureArray } from "src/app/core/utils/verif-data.utils";
 // import { IBusiness } from "src/app/core/interfaces/business.interface";
@@ -25,7 +26,7 @@ import Swal from "sweetalert2";
   templateUrl: "./publish.component.html",
   styleUrls: ["./publish.component.css"],
   standalone: true, // Standalone component
-  imports:[CommonModule , TruncatePipe , RouterModule , FormsModule , ReactiveFormsModule]
+  imports:[CommonModule , TruncatePipe , RouterModule , FormsModule , ReactiveFormsModule,BackButtonComponent]
 })
 export class PublishComponent implements OnInit {
   productId!: string;
@@ -162,6 +163,8 @@ export class PublishComponent implements OnInit {
   //     { name: "Violet-rose", value: "#E6DAC3" },
   // ];
 
+  commissionVendeur:any=0;
+
   colors:{name:string;value:string}[] = [
     {'name': 'Rouge',  'value': '#FF0000'},
     {'name': 'Bleu',  'value': '#0000FF'},
@@ -183,7 +186,7 @@ export class PublishComponent implements OnInit {
   selectedCategoryId: number | null = null;
   listSubCategories: any[] = [];
   listBrand: any[] = [];
-  selectedType: string = "grossiste";
+  selectedType: string = "vente";
   @ViewChild("boutiquePopup") boutiquePopup!: TemplateRef<any>;
   popupVisible: boolean = false;
   isLoading: boolean = false;
@@ -215,17 +218,18 @@ export class PublishComponent implements OnInit {
       description: [""],
       price: ["", Validators.min(0)],
       price_partner: ["", Validators.min(0)],
-      price_supplier: ["", Validators.min(0)],
+     // price_supplier: ["", Validators.min(0)],
       price_city_delivery: ["",  Validators.min(0)],
       price_no_city_delivery: ["", Validators.min(0)],
       price_seller: [""],
-      price_max: [""],
-      price_min: [""],
+     // price_max: [""],
+     // price_min: [""],
       price_normal: [""],
       commission: [""],
       brand_id: [""],
+      link: [""],
       sizes:[""],
-      category: ["grossiste"],
+      category: ["vente"],
       sub_category_id: [""],
       stock: [""],
       shop_id: [""],
@@ -235,10 +239,10 @@ export class PublishComponent implements OnInit {
       // colors: [[], Validators.required], // Ajouté
       colors: this.fb.array([]), // Ajout du champ colors avec validation
     });
-    this.productForm.get("category")?.valueChanges.subscribe((category) => {
-      this.selectedType = category;
-      this.updatePriceValidators();
-    });
+    // this.productForm.get("category")?.valueChanges.subscribe((category) => {
+    //   this.selectedType = category;
+    //   this.updatePriceValidators();
+    // });
   }
   private updatePriceValidators(): void {
     // const priceMaxControl = this.productForm.get("price_max");
@@ -261,6 +265,16 @@ export class PublishComponent implements OnInit {
     // priceMaxControl?.updateValueAndValidity();
     // priceMinControl?.updateValueAndValidity();
     // commissionControl?.updateValueAndValidity();
+  }
+
+  onDaymondChange(event: any): void {
+    if(event.target.value){
+      this.commissionVendeur = event.target.value*60/100;
+    }
+    else{
+      this.commissionVendeur = 0;}
+    
+    console.log(event.target.value)
   }
   ngOnInit(): void {
     this.initLoad();
@@ -564,8 +578,10 @@ export class PublishComponent implements OnInit {
           sizes: this.product?.sizes,
           popular: this.product.popular,
           star: this.product.star,
+          link: this.product.link,
           images: this.product.images,
         });
+        this.commissionVendeur = this.product.price.commission;
         console.log("Form values", this.productForm.value);
       })
        
@@ -581,22 +597,22 @@ export class PublishComponent implements OnInit {
     this.isLoading = true;
 
     // Vérification de la validité du formulaire
-    if (this.productForm.invalid || !this.productForm.get("category")?.value) {
-      alert("Veuillez remplir tous les champs requis, y compris la catégorie.");
-      this.isLoading = false;
-      return; // Annuler la soumission si le formulaire est invalide
-    }
+    // if (this.productForm.invalid || !this.productForm.get("category")?.value) {
+    //   alert("Veuillez remplir tous les champs requis, y compris la catégorie.");
+    //   this.isLoading = false;
+    //   return; // Annuler la soumission si le formulaire est invalide
+    // }
 
     // Vérification spécifique pour la catégorie "grossiste"
-    if (this.productForm.get("category")?.value === "grossiste") {
-      if (!this.productForm.get("price_max")?.value) {
-        alert(
-          "Le champ 'Prix maximum' est requis pour la catégorie 'grossiste'."
-        );
-        this.isLoading = false;
-        return; // Annuler la soumission si le champ est vide
-      }
-    }
+    // if (this.productForm.get("category")?.value === "grossiste") {
+    //   if (!this.productForm.get("price_max")?.value) {
+    //     alert(
+    //       "Le champ 'Prix maximum' est requis pour la catégorie 'grossiste'."
+    //     );
+    //     this.isLoading = false;
+    //     return; // Annuler la soumission si le champ est vide
+    //   }
+    // }
 
     // Assurez-vous que sub_category_id est un nombre
     if (this.productForm.get("sub_category_id")?.value) {
@@ -610,15 +626,16 @@ export class PublishComponent implements OnInit {
     res.publish=1
     res.sizes=this.sizes
     res.brand_id=1
+    res.commission = this.commissionVendeur;
 
     const payload = {
       shop_id: this.productForm.get("shop_id")?.value,
       sub_category_id: this.productForm.get("sub_category_id")?.value,
-      category: this.productForm.get("category")?.value, // Ajout de category
+      category: 'vente', // Ajout de category
       // Ajoutez d'autres champs nécessaires ici
     };
     res.sub_category_id = this.productForm.get("sub_category_id")?.value
-    
+    res.category='vente'
 
     console.log("Payload avant publication:", payload); // Ajout de log
     console.log("Catégories disponibles:", this.listCategories); // Log des catégories
@@ -636,7 +653,7 @@ export class PublishComponent implements OnInit {
             title: "Produit publié avec succès",
             showConfirmButton: true,
           }).then(() => {
-            this.router.navigate(["/products"]);
+            this.router.navigate(["/distribution/produits"]);
           });
         },
        error : (error: any) => {

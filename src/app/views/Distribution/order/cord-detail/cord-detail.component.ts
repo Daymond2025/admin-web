@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
+import { BackButtonComponent } from 'src/app/back-button/back-button.component';
 import { OrderService } from 'src/app/shared/services/Order.service';
 import { UtilisService } from 'src/app/shared/services/Utilis.service';
 import Swal from 'sweetalert2';
@@ -12,7 +13,7 @@ import Swal from 'sweetalert2';
   templateUrl: './cord-detail.component.html',
   styleUrls: ['./cord-detail.component.css'],
   imports:[CommonModule ,ReactiveFormsModule,
-      FormsModule,RouterModule ]
+      FormsModule,RouterModule , BackButtonComponent ]
 })
 export class CordDetailComponent {
   // Logique du composant (à implémenter)

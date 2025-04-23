@@ -13,12 +13,13 @@ import { CommonModule } from "@angular/common";
 import { TruncatePipe } from "src/app/shared/pipes/truncate.pipe";
 import { UtilisService } from "src/app/shared/services/Utilis.service";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { BackButtonComponent } from "src/app/back-button/back-button.component";
 @Component({
   selector: "app-detail",
   templateUrl: "./detail.component.html",
   styleUrls: ["./detail.component.css"],
   standalone: true, // Standalone component
-  imports:[CommonModule , TruncatePipe , RouterModule , FormsModule , ReactiveFormsModule]
+  imports:[CommonModule , TruncatePipe , RouterModule , FormsModule , ReactiveFormsModule , BackButtonComponent]
 })
 export class DetailComponent implements OnInit {
   product!: any;
@@ -203,7 +204,7 @@ export class DetailComponent implements OnInit {
               confirmButtonText: 'OK'
             }).then(() => {
               // Redirection après que l'utilisateur a cliqué sur OK
-              this.router.navigate(['']);  // Redirection vers la page d'accueil
+              this.router.navigate(['distribution/produits']);  // Redirection vers la page d'accueil
             });
           },
           error:(error) => {

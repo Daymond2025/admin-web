@@ -2,6 +2,7 @@ import { CommonModule } from "@angular/common";
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from "@angular/forms";
 import { ActivatedRoute, Router, RouterModule } from "@angular/router";
+import { BackButtonComponent } from "src/app/back-button/back-button.component";
 // import { UrlConstant } from "src/app/core/constants/url_constants";
 import { ensureArray } from "src/app/core/utils/verif-data.utils";
 // import {
@@ -24,7 +25,7 @@ import Swal from "sweetalert2";
   templateUrl: "./add-shop.component.html",
   styleUrls: ["./add-shop.component.css"],
   standalone: true, // Standalone component
-  imports:[CommonModule , TruncatePipe , RouterModule , FormsModule , ReactiveFormsModule]
+  imports:[CommonModule , TruncatePipe , RouterModule , FormsModule , ReactiveFormsModule ,BackButtonComponent]
 })
 export class AddShopComponent implements OnInit {
   selectedTab: string = "boutique";
