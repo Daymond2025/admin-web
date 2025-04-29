@@ -581,7 +581,7 @@ export class PublishComponent implements OnInit {
           link: this.product.link,
           images: this.product.images,
         });
-        this.commissionVendeur = this.product.price.commission;
+        this.commissionVendeur = (this.product.price?.partner ?? 0)*60/100;
         console.log("Form values", this.productForm.value);
       })
        
