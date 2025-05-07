@@ -1,0 +1,40 @@
+<div class="container mt-4">
+  <h3>Liste des couleurs</h3>
+  <button
+    routerLink="/distribution/couleurs/create"
+    class="btn btn-success mb-3"
+  >
+    Ajouter une couleur
+  </button>
+
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Nom</th>
+        <th>Code Couleur</th>
+        <th>Affichage</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let color of colors">
+        <td>{{ color.name }}</td>
+        <td>{{ color}}</td>
+        <td>
+          <div
+            [style.background]="color.code"
+            style="width: 30px; height: 30px; border: 1px solid #ccc"
+          ></div>
+        </td>
+        <td>
+          <button class="btn btn-sm btn-primary" (click)="color.id && editColor(color.id)">
+            Modifier
+          </button>
+          <button class="btn btn-sm btn-danger" (click)="color.id && deleteColor(color.id)">
+            Supprimer
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

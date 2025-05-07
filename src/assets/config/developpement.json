@@ -1,56 +1,55 @@
 {
     "HOST:API": "https://v2.daymondboutique.com/api/v2/",
     "API_ENDPOINTS": {
-        "comment ": "------------ OPERATIONS USER---------------",
-        "GETALL_USER":"admin/users",
-        "GET_USER":"admin/usersbyid",
+        "comment_1": "------------ OPERATIONS USER---------------",
+        "GETALL_USER": "admin/users",
+        "GET_USER": "admin/usersbyid",
 
-        "comment ": "------------ OPERATIONS ORDER---------------",
-        "GETALL_ORDER":"admin/order",
-        "GETALL_CALLCENTER_ORDER":"admin/call_center",
-        "UPD_ORDER":"admin/order",
+        "comment_2": "------------ OPERATIONS ORDER---------------",
+        "GETALL_ORDER": "admin/order",
+        "GETALL_CALLCENTER_ORDER": "admin/call_center",
+        "UPD_ORDER": "admin/order",
 
-        "comment ": "------------ OPERATIONS RETRAITS---------------",
-        "GETALL_RETRAITS":"admin/retraits",
-        "VALID_RETRAITS":"admin/retraits/valider",
-        "REFUSE_RETRAITS":"admin/retraits/refuser",
-        
+        "comment_3": "------------ OPERATIONS RETRAITS---------------",
+        "GETALL_RETRAITS": "admin/retraits",
+        "VALID_RETRAITS": "admin/retraits/valider",
+        "REFUSE_RETRAITS": "admin/retraits/refuser",
 
-        "comment ": "------------ OPERATIONS ADMIN---------------",
-        "LOGIN_ADMIN":"auth/admin/login",
+        "comment_4": "------------ OPERATIONS ADMIN---------------",
+        "LOGIN_ADMIN": "auth/admin/login",
 
-        "comment ": "------------ OPERATIONS SLIDES---------------",
-        "GETALL_SLIDES":"admin/slide",
-        "CREATE_SLIDES":"admin/slide",
-        "UPD_SLIDES":"admin/slide",
-        "DEL_SLIDES":"admin/slide",
+        "comment_5": "------------ OPERATIONS SLIDES---------------",
+        "GETALL_SLIDES": "admin/slide",
+        "CREATE_SLIDES": "admin/slide",
+        "UPD_SLIDES": "admin/slide",
+        "DEL_SLIDES": "admin/slide",
 
-        "comment ": "------------ OPERATIONS ADS---------------",
-        "OPE_ADS":"admin/ad",
+        "comment_6": "------------ OPERATIONS ADS---------------",
+        "OPE_ADS": "admin/ad",
 
-        "comment ": "------------ OPERATIONS PRODUITS---------------",
-        "ALL_PRODUITS":"admin/product",
+        "comment_7": "------------ OPERATIONS PRODUITS---------------",
+        "ALL_PRODUITS": "admin/product",
 
-        "comment ": "------------ OPERATIONS TRANSACTIONS---------------",
-        "ALL_TRANSACTIONS":"admin/transactions",
+        "comment_8": "------------ OPERATIONS TRANSACTIONS---------------",
+        "ALL_TRANSACTIONS": "admin/transactions",
 
-        "comment ": "------------ OPERATIONS SHOP---------------",
-        "ALL_SHOP":"admin/shop",
+        "comment_9": "------------ OPERATIONS SHOP---------------",
+        "ALL_SHOP": "admin/shop",
 
-        "comment ": "------------ OPERATIONS MANAGER---------------",
-        "ALL_MANAGER":"admin/supplier",
+        "comment_10": "------------ OPERATIONS MANAGER---------------",
+        "ALL_MANAGER": "admin/supplier",
 
-        "comment ": "------------ OPERATIONS BUSINESS---------------",
-        "ALL_BUSINESS":"admin/business",
-        "ALL_BUSINESS_ORDER":"admin/order/business",
+        "comment_11": "------------ OPERATIONS BUSINESS---------------",
+        "ALL_BUSINESS": "admin/business",
+        "ALL_BUSINESS_ORDER": "admin/order/business",
 
-        "comment ": "------------ OPERATIONS GLOBAL---------------",
-        "ALL_GLOBAL":"params/data",
+        "comment_12": "------------ OPERATIONS GLOBAL---------------",
+        "ALL_GLOBAL": "params/data",
 
-        "comment ": "------------ OPERATIONS DASHBOARD---------------",
-        "ALL_DASHBOARD":"admin/dashboard",
+        "comment_13": "------------ OPERATIONS DASHBOARD---------------",
+        "ALL_DASHBOARD": "admin/dashboard",
 
-        "comment ": "------------ OPERATIONS PAIEMENT---------------",
-        "GETALL_PAIEMENT":"admin/payement"
+        "comment_14": "------------ OPERATIONS PAIEMENT---------------",
+        "GETALL_PAIEMENT": "admin/payement"
     }
 }

@@ -1,0 +1,16 @@
+<div class="container">
+    <h2>{{ id ? 'Modifier' : 'Ajouter' }} une Marque</h2>
+    <form [formGroup]="brandForm" (ngSubmit)="submit()">
+      <div>
+        <label>Nom</label>
+        <input type="text" formControlName="name" />
+      </div>
+      <div>
+        <label>Image</label>
+        <input type="file" (change)="onFileChange($event)" />
+        <img *ngIf="imagePreview" [src]="imagePreview" width="100" />
+      </div>
+      <button type="submit">Valider</button>
+    </form>
+  </div>
+  

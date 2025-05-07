@@ -1,0 +1,27 @@
+<div class="container">
+    <h2>Liste des Marques</h2>
+    <button (click)="addBrand()">Ajouter une Marque</button>
+  
+    <table>
+      <thead>
+        <tr>
+          <th>Nom</th>
+          <th>Image</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let brand of brands">
+          <td>{{ brand.name }}</td>
+          <td>
+            <img *ngIf="brand.picture_path" [src]="brand.picture_path" width="50" />
+          </td>
+          <td>
+            <button (click)="editBrand(brand.id)">Modifier</button>
+            <button (click)="deleteBrand(brand.id)">Supprimer</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  

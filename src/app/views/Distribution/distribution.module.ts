@@ -49,6 +49,14 @@ const routes: Routes = [
       loadChildren: () => import('./providers/providers.module').then(m => m.ProvidersModule),
       // canActivate: [AuthGuard]
     },
+    {
+      path: 'marques',
+      loadChildren: () =>  import('./brand-management/brand-management.module').then(m => m.BrandManagementModule),
+    },
+    {
+      path: 'couleurs',
+      loadChildren: () => import('./color-management/color-management.module').then(m => m.ColorManagementModule),
+    },
 ];
 
 @NgModule({

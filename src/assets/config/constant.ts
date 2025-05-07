@@ -90,6 +90,18 @@ export const menu : navItem[] = [
                 routerLink:"/distribution/utilisateurs",
             },
             {
+                label:"Marques",
+                iconActive:"assets/img/brand.png",
+                routerLink:"/distribution/marques",
+                visible: true
+            },
+            {
+                label:"Couleurs",
+                iconActive:"assets/img/color.jpg",
+                routerLink:"/distribution/couleurs",
+                visible: true
+            },
+            {
                 label:"Fournisseurs",
                 iconActive:"assets/img/pm5.png",
                 routerLink:"/distribution/fournisseurs",

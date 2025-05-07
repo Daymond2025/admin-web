@@ -1,0 +1,57 @@
+<div class="container mt-4">
+  <div class="card shadow-sm">
+    <div class="card-header bg-primary text-white">
+      <h5 class="mb-0">
+        {{ id ? "Modifier la couleur" : "Ajouter une couleur" }}
+      </h5>
+    </div>
+    <div class="card-body">
+      <form [formGroup]="colorForm" (ngSubmit)="submit()">
+        <div class="mb-3">
+          <label for="name" class="form-label">Nom de la couleur</label>
+          <input
+            type="text"
+            id="name"
+            class="form-control"
+            formControlName="name"
+            placeholder="Ex: Bleu ciel"
+          />
+          <div
+            *ngIf="
+              colorForm.get('name')?.invalid && colorForm.get('name')?.touched
+            "
+            class="text-danger"
+          >
+            Le nom est requis.
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="code" class="form-label">Code couleur</label>
+          <input
+            type="color"
+            id="code"
+            class="form-control form-control-color"
+            formControlName="code"
+          />
+          <div
+            *ngIf="
+              colorForm.get('code')?.invalid && colorForm.get('code')?.touched
+            "
+            class="text-danger"
+          >
+            Le code est requis.
+          </div>
+        </div>
+
+        <button
+          type="submit"
+          class="btn btn-success"
+          [disabled]="colorForm.invalid"
+        >
+          {{ id ? "Mettre à jour" : "Ajouter" }}
+        </button>
+      </form>
+    </div>
+  </div>
+</div>

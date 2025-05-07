@@ -23,6 +23,6 @@ export class ManagerService {
       observe: 'response',
     //   params:data
     });
-  }
+  } 
 
 }
