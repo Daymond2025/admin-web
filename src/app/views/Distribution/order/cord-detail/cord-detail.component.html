@@ -349,8 +349,8 @@
         >
           <small>Livraison {{ order?.delivery?.city?.name }}</small>
           <small style="text-align: center; padding-top: 10px">{{
-            order?.items[0].fees | currency : "XOF"
-          }}</small>
+            order?.items[0].total_fees | currency : "XOF"
+          }}</small> <!-- recupère ici les frais de livraison -->
         </div>
         <hr />
         <div
