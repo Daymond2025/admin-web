@@ -25,6 +25,7 @@ export class OrderService {
     });
   }
 
+
   public getAllCallCenter(data:any) {
     return this.http.get(this.configService.getApi('GETALL_CALLCENTER_ORDER'), {
       observe: 'response',
@@ -63,11 +64,20 @@ export class OrderService {
     });
   }
 
-//   public delete(lePost: any) {
-//     return this.http.delete(this.configService.getApi('ALL_USER'), {
-//       observe: 'response',
-//       params:lePost
-//     });
-//   }
+  //   public delete(lePost: any) {
+  //     return this.http.delete(this.configService.getApi('ALL_USER'), {
+  //       observe: 'response',
+  //       params:lePost
+  //     });
+  //   }
+
+  // AJOUT POUR LES STATUTS DU VENDEUR SELLER
+  public syncStatusToSeller(orderId: number): Observable<any> {
+    return this.http.put(this.configService.getApi('SYNC_STATUS_TO_SELLER') + '/' + orderId, {}, {
+      observe: 'response',
+    });
+  }
+  
+  
 
 }

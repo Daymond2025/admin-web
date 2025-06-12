@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { OrderService } from 'src/app/shared/services/Order.service';
 import { UtilisService } from 'src/app/shared/services/Utilis.service';
+import Swal from 'sweetalert2'; // ⬅️ En haut du fichier
 
 @Component({
   selector: 'app-cord-list',
@@ -13,6 +14,7 @@ import { UtilisService } from 'src/app/shared/services/Utilis.service';
 })
 export class sCordListComponent {
   // Component logic (to be implemented)
+  isLoading: boolean = false; //
   dataset:any=[]
   ladata:any
   filterStatus:any=''
@@ -87,4 +89,37 @@ export class sCordListComponent {
     openDialog(data?:any) {
       this.router.navigate(['distribution/commandes/details_coord'] , { state: data })
     }
+
+    syncStatusToSellerFromList(orderId: number): void {
+      this.isLoading = true;
+    
+      this.orderService.syncStatusToSeller(orderId).subscribe({
+        next: (data) => {
+          this.utilisService.response(data, (d: any) => {
+            this.isLoading = false;
+            Swal.fire({
+              position: 'center',
+              icon: 'success',
+              title: 'Statut propagé au vendeur avec succès.',
+              showConfirmButton: false,
+              timer: 1500,
+            });
+            this.getProd({ page: 1, status: this.filterStatus });
+          });
+        },
+        error: (error) => {
+          this.utilisService.response(error, (d: any) => {
+            this.isLoading = false;
+            Swal.fire({
+              position: 'center',
+              icon: 'error',
+              title: d?.error?.message || "Erreur lors de la propagation",
+              showConfirmButton: false,
+              timer: 1500,
+            });
+          });
+        }
+      });
+    }
+    
 }

@@ -9,6 +9,7 @@
         "GETALL_ORDER": "admin/order",
         "GETALL_CALLCENTER_ORDER": "admin/call_center",
         "UPD_ORDER": "admin/order",
+        "SYNC_SELLER_ORDER_STATUS": "admin/orders/sync-seller-status",
 
         "comment_3": "------------ OPERATIONS RETRAITS---------------",
         "GETALL_RETRAITS": "admin/retraits",

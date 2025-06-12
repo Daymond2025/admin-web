@@ -11,6 +11,10 @@ import { JwtHelperService, JwtInterceptor, JWT_OPTIONS } from '@auth0/angular-jw
 // import { ErrorInterceptor } from './core/interceptors/error.interceptor';
 import { TokenInterceptorService } from './shared/interceptors/auth.interceptor';
 import localeFr from '@angular/common/locales/fr';
+// AJOUT MARC_DEV
+import {environment} from 'src/environements/environement';
+import {initializeApp} from 'firebase/app';
+initializeApp(environment.firebase);  
 
 registerLocaleData(localeFr);
 @NgModule({

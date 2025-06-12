@@ -15,7 +15,6 @@
           class="btn btn-primary btn-border btn-round w-50"
           (click)="handleFilter('pending')"
           [class.active]="filterStatus === 'pending'"
-
         >
           Attente
         </button>
@@ -23,7 +22,6 @@
           class="btn btn-primary btn-border btn-round w-50 me-3"
           (click)="handleFilter('in_progress')"
           [class.active]="filterStatus === 'in_progress'"
-
         >
           En cours
         </button>
@@ -41,7 +39,18 @@
         >
           Annulées
         </button>
+      
+        <div *ngFor="let order of dataset">
+          <button *ngIf="order.status === 'IN_PROGRESS' && order.status_seller !== 'IN_PROGRESS'"
+            class="btn btn-primary btn-border btn-round w-50 me-3 mt-2"
+            (click)="syncStatusToSellerFromList(order.id)">
+            Propager au vendeur
+          </button>
+        </div>
+        
+
       </div>
+      
       <div class="col-md-3 ms-auto d-flex justify-content-end">
           
         <div class="dropdown">

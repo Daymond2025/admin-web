@@ -27,6 +27,7 @@
     "bootstrap": "^5.3.3",
     "crypto-js": "^4.2.0",
     "date-fns": "^4.1.0",
+    "firebase": "^11.9.0",
     "i": "^0.3.7",
     "jwt-decode": "^4.0.0",
     "rxjs": "~7.8.1",
