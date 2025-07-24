@@ -30,6 +30,10 @@ const routes: Routes = [
     loadChildren: () => import('./views/Recruiters/recruiter.module').then(m => m.DistributionModule), // Chargement paresseux, mais semble contenir une erreur (DistributionModule au lieu de RecruiterModule)
   },
   {
+    path: 'admin/notifications',
+    loadChildren: () => import('./views/Distribution/notifications/notifications.module').then(m => m.NotificationsModule)
+  },
+  {
     path: '', // Route par défaut (racine de l'application)
     redirectTo: 'auth', // Redirige vers la route 'auth'
     pathMatch: 'full' // Assure que la redirection s'applique uniquement à l'URL vide

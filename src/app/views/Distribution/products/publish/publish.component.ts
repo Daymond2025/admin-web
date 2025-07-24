@@ -1,7 +1,12 @@
-
 import { CommonModule } from "@angular/common";
 import { Component, OnInit, TemplateRef, ViewChild } from "@angular/core";
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from "@angular/forms";
+import {
+  FormBuilder,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
+} from "@angular/forms";
 import { MatDialog } from "@angular/material/dialog";
 import { ActivatedRoute, Router, RouterModule } from "@angular/router";
 import { BackButtonComponent } from "src/app/back-button/back-button.component";
@@ -27,7 +32,14 @@ import Swal from "sweetalert2";
   templateUrl: "./publish.component.html",
   styleUrls: ["./publish.component.css"],
   standalone: true, // Standalone component
-  imports:[CommonModule , TruncatePipe , RouterModule , FormsModule , ReactiveFormsModule,BackButtonComponent]
+  imports: [
+    CommonModule,
+    TruncatePipe,
+    RouterModule,
+    FormsModule,
+    ReactiveFormsModule,
+    BackButtonComponent,
+  ],
 })
 export class PublishComponent implements OnInit {
   productId!: string;
@@ -164,19 +176,19 @@ export class PublishComponent implements OnInit {
   //     { name: "Violet-rose", value: "#E6DAC3" },
   // ];
 
-  commissionVendeur:any=0;
+  commissionVendeur: any = 0;
 
-  colors:{name:string;value:string}[] = [
-    {'name': 'Rouge',  'value': '#FF0000'},
-    {'name': 'Bleu',  'value': '#0000FF'},
-    {'name': 'Vert',  'value': '#008000'},
-    {'name': 'Jaune',  'value': '#FFFF00'},
-    {'name': 'Noir',  'value': '#000000'},
-    {'name': 'Blanc',  'value': '#FFFFFF'},
-    {'name': 'Gris',  'value': '#808080'},
-    {'name': 'Orange',  'value': '#FFA500'},
-    {'name': 'Violet',  'value': '#800080'},
-    {'name': 'Rose',  'value': '#FFC0CB'},
+  colors: { name: string; value: string }[] = [
+    { name: "Rouge", value: "#FF0000" },
+    { name: "Bleu", value: "#0000FF" },
+    { name: "Vert", value: "#008000" },
+    { name: "Jaune", value: "#FFFF00" },
+    { name: "Noir", value: "#000000" },
+    { name: "Blanc", value: "#FFFFFF" },
+    { name: "Gris", value: "#808080" },
+    { name: "Orange", value: "#FFA500" },
+    { name: "Violet", value: "#800080" },
+    { name: "Rose", value: "#FFC0CB" },
   ];
   // Liste des tailles et couleurs sélectionnées
   productForm!: FormGroup;
@@ -200,7 +212,7 @@ export class PublishComponent implements OnInit {
 
   // Liste des tailles et couleurs sélectionnées
   selectedSizes: string[] = [];
-  selectedColors: Array<{name: string, value: string}> = [];
+  selectedColors: Array<{ name: string; value: string }> = [];
 
   constructor(
     private readonly fb: FormBuilder,
@@ -209,27 +221,27 @@ export class PublishComponent implements OnInit {
     private router: Router,
     private dialog: MatDialog,
     private readonly globalService: GlobalService,
-    private readonly shopService : ShopService,
+    private readonly shopService: ShopService,
     public utilisService: UtilisService
   ) {
     this.productForm = this.fb.group({
-      name: ["" ],
+      name: [""],
       state_id: [""],
       sub_title: [""],
       description: [""],
       price: ["", Validators.min(0)],
       price_partner: ["", Validators.min(0)],
-     // price_supplier: ["", Validators.min(0)],
-      price_city_delivery: ["",  Validators.min(0)],
+      // price_supplier: ["", Validators.min(0)],
+      price_city_delivery: ["", Validators.min(0)],
       price_no_city_delivery: ["", Validators.min(0)],
       price_seller: [""],
-     // price_max: [""],
-     // price_min: [""],
+      // price_max: [""],
+      // price_min: [""],
       price_normal: [""],
       commission: [""],
       brand_id: [""],
       link: [""],
-      sizes:[""],
+      sizes: [""],
       category: ["vente"],
       sub_category_id: [""],
       stock: [""],
@@ -269,13 +281,13 @@ export class PublishComponent implements OnInit {
   }
 
   onDaymondChange(event: any): void {
-    if(event.target.value){
-      this.commissionVendeur = event.target.value*60/100;
+    if (event.target.value) {
+      this.commissionVendeur = (event.target.value * 60) / 100;
+    } else {
+      this.commissionVendeur = 0;
     }
-    else{
-      this.commissionVendeur = 0;}
-    
-    console.log(event.target.value)
+
+    console.log(event.target.value);
   }
   ngOnInit(): void {
     this.initLoad();
@@ -334,27 +346,36 @@ export class PublishComponent implements OnInit {
   }
   onColorChange(event: any): void {
     const selectedColorValue = event.target.value;
-    
+
     if (!selectedColorValue) return;
-    
-    const selectedColor = this.colors.find(color => color.value === selectedColorValue);
-    
-    if (selectedColor && !this.selectedColors.some(c => c.value === selectedColor.value)) {
+
+    const selectedColor = this.colors.find(
+      (color) => color.value === selectedColorValue
+    );
+
+    if (
+      selectedColor &&
+      !this.selectedColors.some((c) => c.value === selectedColor.value)
+    ) {
       const formattedColor = {
         name: selectedColor.name,
-        value: selectedColor.value.startsWith('#') ? selectedColor.value : `#${selectedColor.value}`
+        value: selectedColor.value.startsWith("#")
+          ? selectedColor.value
+          : `#${selectedColor.value}`,
       };
-      
+
       this.selectedColors = [...this.selectedColors, formattedColor];
-      console.log('Couleurs sélectionnées:', this.selectedColors);
+      console.log("Couleurs sélectionnées:", this.selectedColors);
     }
   }
   removeColor(colorValue: string): void {
-    this.selectedColors = this.selectedColors.filter(color => color.value !== colorValue);
-  
+    this.selectedColors = this.selectedColors.filter(
+      (color) => color.value !== colorValue
+    );
+
     // Mettez à jour le champ colors du formulaire
     this.productForm.patchValue({
-      colors: this.selectedColors.map(color => color.value),
+      colors: this.selectedColors.map((color) => color.value),
     });
   }
   onSizeChange(event: any): void {
@@ -432,78 +453,75 @@ export class PublishComponent implements OnInit {
     Object.keys(this.productForm?.controls).forEach((key) => {
       const control = this.productForm.get(key);
       if (control?.invalid) {
-        console.log(`Le champ '${key}' est invalide. Erreurs :`, control?.errors);
+        console.log(
+          `Le champ '${key}' est invalide. Erreurs :`,
+          control?.errors
+        );
         isValid = false;
       }
     });
     return isValid;
   }
   loadShops(): void {
-    this.shopService.getAll().subscribe(
-     {next : (response: any) => {
-      this.utilisService.response(response, (d:any) => {
-        console.log("Liste des Boutiques", d.data);
-        this.listShop = d.data;
-      })
-        
+    this.shopService.getAll().subscribe({
+      next: (response: any) => {
+        this.utilisService.response(response, (d: any) => {
+          console.log("Liste des Boutiques", d.data);
+          this.listShop = d.data;
+        });
       },
-     error : (error: any) => {
+      error: (error: any) => {
         console.error(
           "Erreur lors de la récupération de la liste des entreprises",
           error
         );
-      }}
-    );
+      },
+    });
   }
   loadCities(): void {
     this.globalService.getCities().subscribe({
-      next:(res: any) => {
-        this.utilisService.response(res, (d:any) => {
+      next: (res: any) => {
+        this.utilisService.response(res, (d: any) => {
           console.log("Ville :", d.data);
           if (d.data) {
             this.listCities = ensureArray(d.data);
           }
-        })
-       
+        });
       },
-     error : (error) => {
+      error: (error) => {
         console.error(error);
-      }}
-    );
+      },
+    });
   }
   loadStateProduct(): void {
-    this.globalService.getState().subscribe(
-      {next:(res: any) => {
-        this.utilisService.response(res, (d:any) => {
+    this.globalService.getState().subscribe({
+      next: (res: any) => {
+        this.utilisService.response(res, (d: any) => {
           console.log("Etat :", d.data);
           if (d.data) {
             this.listStates = ensureArray(d.data);
           }
-        })
-      
+        });
       },
-     error : (error) => {
+      error: (error) => {
         console.error(error);
-      }}
-    );
+      },
+    });
   }
   loadCategories(): void {
-    this.globalService
-      .getCat()
-      .subscribe(
-       {next : (res: any) => {
-        this.utilisService.response(res, (d:any) => {
+    this.globalService.getCat().subscribe({
+      next: (res: any) => {
+        this.utilisService.response(res, (d: any) => {
           console.log("Catégorie :", d.data);
           if (d.data) {
             this.listCategories = ensureArray(d.data);
           }
-        })
-         
-        },
-       error : (error) => {
-          console.error(error);
-        }}
-      );
+        });
+      },
+      error: (error) => {
+        console.error(error);
+      },
+    });
   }
   onCategoryChange(event: Event): void {
     const categoryId = +(event.target as HTMLSelectElement).value;
@@ -520,78 +538,77 @@ export class PublishComponent implements OnInit {
     }
   }
   loadBrand(): void {
-    this.globalService.getBrand().subscribe(
-   {  next : (res: any) => {
-    this.utilisService.response(res, (d:any) => {
-      console.log("Brands :", d.data);
-      if (res.data) {
-        this.listBrand = ensureArray(d.data);
-      }
-    })
-       
+    this.globalService.getBrand().subscribe({
+      next: (res: any) => {
+        this.utilisService.response(res, (d: any) => {
+          console.log("Brands :", d.data);
+          if (res.data) {
+            this.listBrand = ensureArray(d.data);
+          }
+        });
       },
-     error : (error) => {
+      error: (error) => {
         console.error(error);
-      }}
-    );
+      },
+    });
   }
   onSelectChange(event: any): void {
     this.selectedBoutique = event.target.value;
   }
   getProductById(productId: string): void {
     // Appel API pour récupérer le produit par son ID
-    this.produitsService.getById(`${productId}`).subscribe(
-     { next :(response: any) => {
-      this.utilisService.response(response, (d:any) => {
-        console.log("Produit récupéré avec succès", d);
-        this.product = d.data;
-        console.log("Produit :", this.product);
-        console.log("Produit AAAAA:", d.data);
+    this.produitsService.getById(`${productId}`).subscribe({
+      next: (response: any) => {
+        this.utilisService.response(response, (d: any) => {
+          console.log("Produit récupéré avec succès", d);
+          this.product = d.data;
+          console.log("Produit :", this.product);
+          console.log("Produit AAAAA:", d.data);
 
-        this.isLoading = false;
-        this.selectedColors = this.product.colors
+          this.isLoading = false;
+          this.selectedColors = this.product.colors;
 
-        // Utilisation de patchValue() pour pré-remplir le formulaire
-        this.productForm.patchValue({
-          name: this.product?.name,
-          state_id: this.product.state.id,
-          sub_title: this.product.sub_title,
-          description: this.product.description,
-          price: this.product.price.price,
-          price_partner: this.product.price?.partner ?? null,
-          price_supplier: this.product.price.supplier,
-          price_city_delivery: this.product.price_delivery.city,
-          price_no_city_delivery: this.product.price_delivery.no_city,
-          price_seller: this.product.price.seller,
-          price_max: this.product.price.max,
-          price_min: this.product.price.min,
-          price_normal: this.product.price.normal,
-          commission: this.product.price.commission,
-          product_id: this.product.code,
-          brand_id: this.product.brand,
-          category: this.product?.category?.name,
-          sub_category_id: this.product.sub_category?.name,
-          category_id: this.product.category?.id,
-          stock: this.product.stock,
-          shop_id: this.product.shop.id || "2", // Valeur par défaut si manquante
-          publish: this.product.publish,
-          colors: this.product.colors,
-          sizes: this.product?.sizes,
-          popular: this.product.popular,
-          star: this.product.star,
-          link: this.product.link,
-          images: this.product.images,
+          // Utilisation de patchValue() pour pré-remplir le formulaire
+          this.productForm.patchValue({
+            name: this.product?.name,
+            state_id: this.product.state.id,
+            sub_title: this.product.sub_title,
+            description: this.product.description,
+            price: this.product.price.price,
+            price_partner: this.product.price?.partner ?? null,
+            price_supplier: this.product.price.supplier,
+            price_city_delivery: this.product.price_delivery.city,
+            price_no_city_delivery: this.product.price_delivery.no_city,
+            price_seller: this.product.price.seller,
+            price_max: this.product.price.max,
+            price_min: this.product.price.min,
+            price_normal: this.product.price.normal,
+            commission: this.product.price.commission,
+            product_id: this.product.code,
+            brand_id: this.product.brand,
+            category: this.product?.category?.name,
+            sub_category_id: this.product.sub_category?.name,
+            category_id: this.product.category?.id,
+            stock: this.product.stock,
+            shop_id: this.product.shop.id || "2", // Valeur par défaut si manquante
+            publish: this.product.publish,
+            colors: this.product.colors,
+            sizes: this.product?.sizes,
+            popular: this.product.popular,
+            star: this.product.star,
+            link: this.product.link,
+            images: this.product.images,
+          });
+          this.commissionVendeur =
+            ((this.product.price?.partner ?? 0) * 60) / 100;
+          console.log("Form values", this.productForm.value);
         });
-        this.commissionVendeur = (this.product.price?.partner ?? 0)*60/100;
-        console.log("Form values", this.productForm.value);
-      })
-       
       },
-      error : (error: any) => {
+      error: (error: any) => {
         console.error("Erreur lors de la récupération du produit", error);
         this.isLoading = false;
-      }}
-    );
+      },
+    });
     this.isLoading = false;
   }
   publishProduct(): void {
@@ -622,30 +639,30 @@ export class PublishComponent implements OnInit {
       });
     }
 
-    let res =  this.productForm.value
-    res.colors = this.selectedColors
-    res.publish=1
-    res.sizes=this.sizes
-    res.brand_id=1
+    let res = this.productForm.value;
+    res.colors = this.selectedColors;
+    res.publish = 1;
+    res.sizes = this.sizes;
+    res.brand_id = 1;
     res.commission = this.commissionVendeur;
 
     const payload = {
       shop_id: this.productForm.get("shop_id")?.value,
       sub_category_id: this.productForm.get("sub_category_id")?.value,
-      category: 'vente', // Ajout de category
+      category: "vente", // Ajout de category
       // Ajoutez d'autres champs nécessaires ici
     };
-    res.sub_category_id = this.productForm.get("sub_category_id")?.value
-    res.category='vente'
+    res.sub_category_id = this.productForm.get("sub_category_id")?.value;
+    res.category = "vente";
 
     console.log("Payload avant publication:", payload); // Ajout de log
     console.log("Catégories disponibles:", this.listCategories); // Log des catégories
     console.log("Sous-catégories disponibles:", this.listSubCategories); // Log des sous-catégories
 
     this.produitsService
-      .publish(this.productForm.value,this.productId)
-      .subscribe(
-       {next : (response: any) => {
+      .publish(this.productForm.value, this.productId)
+      .subscribe({
+        next: (response: any) => {
           console.log("Produit publié avec succès", response);
           this.isLoading = false;
 
@@ -657,7 +674,7 @@ export class PublishComponent implements OnInit {
             this.router.navigate(["/distribution/produits"]);
           });
         },
-       error : (error: any) => {
+        error: (error: any) => {
           console.error("Erreur lors de la publication du produit", error);
           this.isLoading = false;
 
@@ -666,8 +683,8 @@ export class PublishComponent implements OnInit {
             title: "Erreur",
             text: error?.message || "Impossible de publier le produit.",
           });
-        }}
-      );
+        },
+      });
   }
   onSubmit(): void {
     this.isLoading = true;
@@ -714,39 +731,34 @@ export class PublishComponent implements OnInit {
     formData.append("images", JSON.stringify(this.selectedImages)); // Assurez-vous que les images sont ajoutées correctement
 
     // Envoi des données au serveur
-    this.produitsService
-      .create(
-        
-        formData
-      )
-      .subscribe(
-        {next : (response: any) => {
-          this.utilisService.response(response, (d:any) => {})
-          console.log("Produit ajouté avec succès", response);
-          this.isLoading = false;
-          Swal.fire({
-            position: "center",
-            icon: "success",
-            title: "Produit ajouté avec succès",
-            showConfirmButton: false,
-            timer: 2000,
-          });
-          this.router.navigate(["/products"]);
-        },
-        error :(error: any) => {
-          console.error("Erreur lors de l'ajout du produit", error);
-          this.isLoading = false;
-          const errorMessage =
-            error?.error?.message ||
-            "Une erreur s'est produite lors de l'ajout du produit.";
-          Swal.fire({
-            position: "center",
-            icon: "error",
-            title: "Erreur lors de l'ajout du produit",
-            text: errorMessage,
-            showConfirmButton: true,
-          });
-        }}
-      );
+    this.produitsService.create(formData).subscribe({
+      next: (response: any) => {
+        this.utilisService.response(response, (d: any) => {});
+        console.log("Produit ajouté avec succès", response);
+        this.isLoading = false;
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "Produit ajouté avec succès",
+          showConfirmButton: false,
+          timer: 2000,
+        });
+        this.router.navigate(["/products"]);
+      },
+      error: (error: any) => {
+        console.error("Erreur lors de l'ajout du produit", error);
+        this.isLoading = false;
+        const errorMessage =
+          error?.error?.message ||
+          "Une erreur s'est produite lors de l'ajout du produit.";
+        Swal.fire({
+          position: "center",
+          icon: "error",
+          title: "Erreur lors de l'ajout du produit",
+          text: errorMessage,
+          showConfirmButton: true,
+        });
+      },
+    });
   }
 }

@@ -1,0 +1,122 @@
+<h2 mat-dialog-title>📝 Nouvelle Notification</h2>
+
+<form
+  [formGroup]="form"
+  (ngSubmit)="onSubmit()"
+  class="form-container"
+  autocomplete="off"
+  mat-dialog-content
+>
+  <!-- Titre -->
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Titre de la notification</mat-label>
+    <input
+      matInput
+      formControlName="title"
+      placeholder="Ex : Nouvelle promo en cours"
+      required
+    />
+    <mat-error *ngIf="form.get('title')?.hasError('required')"
+      >Le titre est requis</mat-error
+    >
+  </mat-form-field>
+
+  <!-- Message -->
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Message</mat-label>
+    <textarea
+      matInput
+      formControlName="message"
+      placeholder="Détail de la notification"
+      rows="4"
+      required
+    ></textarea>
+    <mat-error *ngIf="form.get('message')?.hasError('required')"
+      >Le message est requis</mat-error
+    >
+  </mat-form-field>
+
+  <!-- Audience -->
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Audience</mat-label>
+    <mat-select formControlName="audience" required>
+      <mat-option value="sellers">Tous les vendeurs</mat-option>
+      <mat-option value="some">Certains vendeurs</mat-option>
+    </mat-select>
+    <mat-error *ngIf="form.get('audience')?.hasError('required')">
+      L’audience est requise
+    </mat-error>
+  </mat-form-field>
+
+  <!-- Liste dynamique des vendeurs à sélectionner -->
+  <div *ngIf="form.get('audience')?.value === 'some'">
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Choisir les vendeurs</mat-label>
+      <mat-select formControlName="selectedUsers" multiple>
+        <mat-option *ngFor="let seller of sellers" [value]="seller.id">
+          {{
+            (seller.first_name || "") + " " + (seller.last_name || "") ||
+              "Inconnu"
+          }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <!-- Image -->
+  <div class="form-group full-width">
+    <label for="imageUpload">Image de notification (facultative)</label>
+    <input
+      type="file"
+      id="imageUpload"
+      accept="image/*"
+      (change)="onImageSelected($event)"
+    />
+    <small class="text-muted"
+      >Formats autorisés : PNG, JPG, JPEG – max 2 Mo.</small
+    >
+
+    <div *ngIf="imagePreview" class="image-preview">
+      <img [src]="imagePreview" alt="Aperçu" />
+    </div>
+  </div>
+
+  <!-- Planification -->
+  <mat-checkbox
+    formControlName="scheduled"
+    (change)="toggleScheduled()"
+    class="mt-2"
+  >
+    Planifier l’envoi
+  </mat-checkbox>
+
+  <!-- Date d’envoi (si planifiée) -->
+  <mat-form-field
+    *ngIf="form.get('scheduled')?.value"
+    appearance="outline"
+    class="full-width"
+  >
+    <mat-label>Date d'envoi</mat-label>
+    <input matInput [matDatepicker]="picker" formControlName="send_at" />
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+    <mat-error *ngIf="form.get('send_at')?.hasError('required')"
+      >La date est requise</mat-error
+    >
+  </mat-form-field>
+
+  <!-- Boutons -->
+  <div class="button-container">
+    <button mat-button (click)="onCancel()" type="button" color="warn">
+      ❌ Annuler
+    </button>
+    <button
+      mat-raised-button
+      color="primary"
+      type="submit"
+      [disabled]="form.invalid"
+    >
+      📢 Envoyer
+    </button>
+  </div>
+</form>

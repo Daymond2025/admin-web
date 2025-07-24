@@ -1,604 +1,564 @@
-     
-
-
-    <div class="container-fluid p-3" style="background-color: white;">
-
-      <div class="row d-flex p-3 box-1" style="margin-top: 0;">
-        <div class="col-md-6 d-flex justify-content-between mb-3 mb-md-0">
-          <button
-            class="btn btn-primary btn-border btn-round w-50"
-            id="nav-home-tab" data-bs-toggle="tab"
-          
-            (click)="handleFilter('')"
-            [class.active]="filterStatus === ''"
-          >
-            Centre commande
-          </button>
-          <button
-            class="btn btn-primary btn-border btn-round w-50 me-3"
-            id="nav-profile-tab"
-            (click)="handleFilter('postpone')"
-            [class.active]="filterStatus === 'postpone'"
-          >
-            Reporté
-          </button>
-          <button
-            class="btn btn-primary btn-border btn-round w-50"
-            (click)="handleFilter('canceled')"
-            [class.active]="filterStatus === 'canceled'"
-       
-          >
-            Annulées
-          </button>
-        </div>
-        <div class="col-md-4 ms-auto d-flex justify-content-end">
-          
-          <div class="dropdown">
-            <!-- par defaut -->
-            <button
-          
-              style="
-             
-                border: none;
-                background-color: white;
-              "
-              type="button"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-            >
-            <img src="assets/img/filtre.png" alt="" width="30" height="30" />
-            </button>
-            <ul class="dropdown-menu" style="background-color: white;border-bottom-right-radius: 20px;border-bottom-left-radius: 20px;">
-              <li>
-                <p
-                  class="dropdown-item mb-1 text-center"
-
-                  >Filtrer</p
-                >
-              </li>
-              <li>
-                <a
-                  class="dropdown-item mb-1 text-center"
-                  
-                  >Commandes client</a
-                >
-              </li>
-              <li>
-                <a
-                  class="dropdown-item mb-1 text-center"
-
-                  >commandes personnel</a
-                >
-              </li>
-              
-            </ul>
-          </div>
-        </div>
-      </div>
-    
-      <div class="tab-content" id="nav-tabContent" style="height: 70vh !important; overflow-y: auto; overflow-x: hidden">
-
-        <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab" tabindex="0">
-
-           <!-- Loader -->
-            <div *ngIf="isLoading" class="loader-container">
-              <div class="spinner-border text-primary" role="status">
-                <span class="visually-hidden">Loading...</span>
-              </div>
-            </div>
-          
-    
-          <!-- Content -->
-          <ng-container >
-            <!-- on boucle ceci -->
-            <ng-container  *ngFor="let order of dataset; let i = index" >
-              <div
-             
-              
-                class="row box-2"
-                style="padding-bottom: 0;"
-              >
-                <div
-                  class="col-12 d-flex flex-wrap order-row align-items-center mb-0"
-                 
-                >
-                  <div
-                    class="order-item d-flex align-items-center order-item-large"
-                    
-                  >
-                    <img
-                    [style]="{'cursor':'pointer'}"
-                    (click)="openDialog(order)"
-                      class="product-image"
-                      [src]="order?.items[0]?.product?.images[0]"
-                      alt="Product Image"
-                     
-                    />
-                    <div class="product-info">
-                      <span class="product-name">{{order?.items[0]?.product?.name | truncate : 20}}</span>
-                      <p>
-                        <small class="">#{{order?.items[0]?.reference}}</small>
-                      </p>
-                      <small
-                        >{{order?.created_at | date}}
-                        </small
-                      >
-                    </div>
-                  </div>
-                  <div class="order-item" >
-                    <p class="label">Prix de vente</p>
-                    <p class="value">{{order?.items[0]?.product?.price.price | currency : "XOF"}}</p>
-                  </div>
-                  <div class="order-item">
-                    <p class="label">Frais de livraison</p>
-                    <p class="value">
-                      {{order?.delivery?.city?.name?.startsWith("Abidjan") ? (order?.items[0]?.product?.price_delivery.city | currency : "XOF" ) : (order?.items[0]?.product?.price_delivery.no_city | currency : "XOF") }}
-                       
-                    </p>
-                  </div>
-                  <div class="order-item">
-                    <p class="label">Total à payer</p>
-                    <p class="value mb-0 colore">{{order?.items[0]?.total | currency : "XOF"}}</p>
-                    <small>À la livraison</small>
-                  </div>
-                  <div class="order-item">
-                    <p class="label">Lieu de livraison</p>
-                    <p class="value colore">
-                      {{order?.delivery?.city?.name}}
-                    </p>
-                  </div>
-                  <div
-                    class="order-item order-item-large"
-                    style="
-                      border-left: 1px solid #ccc;
-                      padding-left: 30px;
-                      position: relative;
-                    "
-                  >
-                    <p class="m-0 text-dark">{{order?.client?.name}}</p>
-                    <!-- <small class="m-0"
-                      >Client en attente de votre appel depuis 3 min</small
-                    > -->
-                    <div class="row d-flex justify-content-center mt-3" *ngIf="order?.status === 'new'">
-                      <!-- change status -->
-                      <div class="col-6">
-                        <div 
-                          style="
-                            height: 40px;
-                            width: 40px;
-                            position: absolute;
-                            right: -1px;
-                            top: 0;
-                          "
-                        >
-                          <!-- tags new -->
-                          <img
-                            class="product-image"
-                            src="assets/img/nouveau.png"
-                            alt="Product Image"
-                          />
-                        </div>
-                        <div class="dropdown">
-                          <!-- par defaut -->
-                          <button
-                            class="btn btn-ligth"
-                            style="
-                              border: 1px solid #c4c4c4;
-                              color: white;
-                              border-radius: 7px;
-                              justify-content: space-between;
-                              display: flex;
-                              align-items: center;
-                            "
-                            type="button"
-                            data-bs-toggle="dropdown"
-                            aria-expanded="false"
-                          >
-                            <span style="color: black; margin-right: 10px">MARQUER</span>
-    
-                            <img
-                              class="product-image"
-                              src="assets/img/eject-line.png"
-                              alt="Product Image"
-                            />
-                          </button>
-                          <ul class="dropdown-menu">
-                            <li>
-                              <a
-                                class="dropdown-item btn btn-primary text-white mb-1"
-                                (click)="changeOrderStatus(order.id, 'confirm')"
-                                >En cours de traitement</a
-                              >
-                            </li>
-                            <li>
-                              <a
-                                class="dropdown-item btn btn-warning text-white mb-1"
-                                (click)="
-                                  changeOrderStatus(order.id, 'dont_pick_up')
-                                "
-                                >Décroche pas</a
-                              >
-                            </li>
-                            <li>
-                              <a
-                                class="dropdown-item btn btn-success text-white mb-1"
-                                (click)="changeOrderStatus(order.id, 'postpone')"
-                                >Reporter</a
-                              >
-                            </li>
-                            <li>
-                              <a
-                                class="dropdown-item btn btn-danger text-white mb-1"
-                                data-bs-toggle="modal"
-                                (click)="selectOrderForCancellation(order)"
-                                data-bs-target="#exampModal"
-                                >Annuler</a
-                              >
-                            </li>
-                          </ul>
-                        </div>
-                      </div>
-                      <!-- appeller -->
-                      <div class="col-6" style="padding-left: 0">
-                        <button
-                          class="btn btn-border-custom w-auto"
-                          style="border-radius: 7px"
-                        >
-                          APPELER
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </ng-container>
-    
-           
-          </ng-container>
-    
-         
-        </div>
-
-        
-
-        <div class="tab-pane fade " id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" tabindex="0">
-          
-    
-          <!-- Content -->
-          <ng-container >
-            <!-- on boucle ceci -->
-            <ng-container >
-              <div
-                
-                class="row box-2"
-                style="padding-bottom: 0;"
-              >
-                <div
-                  class="col-12 d-flex flex-wrap order-row align-items-center mb-0"
-                 
-                >
-                  <div
-                    class="order-item d-flex align-items-center order-item-large"
-                    
-                  >
-                    <img
-                      class="product-image"
-                      src="assets/img/lp1.png"
-                      alt="Product Image"
-                     
-                    />
-                    <div class="product-info">
-                      <span class="product-name">Abobo …</span>
-                      <p>
-                        <small class="">#Abobo …</small>
-                      </p>
-                      <small
-                        >Aujourd'hui, à
-                        </small
-                      >
-                    </div>
-                  </div>
-                  <div class="order-item" >
-                    <p class="label">Prix de vente</p>
-                    <p class="value">10 000 FCFA</p>
-                  </div>
-                  <div class="order-item">
-                    <p class="label">Frais de livraison</p>
-                    <p class="value">2 000 FCFA</p>
-                  </div>
-                  <div class="order-item">
-                    <p class="label">Total à payer</p>
-                    <p class="value mb-0 colore">12 000 FCFA</p>
-                    <small>À la livraison</small>
-                  </div>
-                  <div class="order-item">
-                    <p class="label">Lieu de livraison</p>
-                    <p class="value colore">
-                      Abobo …
-                    </p>
-                  </div>
-                  <div
-                    class="order-item order-item-large"
-                    style="
-                      border-left: 1px solid #ccc;
-                      padding-left: 30px;
-                      position: relative;
-                    "
-                  >
-                    <p class="m-0 text-dark">Lamine, Laetitia & Cissé</p>
-                    <small class="m-0"
-                      >Client en attente de votre appel depuis 3 min</small
-                    >
-                    <div class="row d-flex justify-content-center mt-3">
-                      <!-- change status -->
-                      <div class="col-6">
-                        <div
-                          style="
-                            height: 40px;
-                            width: 40px;
-                            position: absolute;
-                            right: -1px;
-                            top: 0;
-                          "
-                        >
-                          <!-- tags new -->
-                          <img
-                          (click)="test()"
-                            class="product-image"
-                            src="assets/img/nouveau.png"
-                            alt="Product Image"
-                          />
-                        </div>
-                        <div class="dropdown">
-                          <!-- par defaut -->
-                          <button
-                            class="btn btn-ligth"
-                            style="
-                              border: 1px solid #c4c4c4;
-                              color: white;
-                              border-radius: 7px;
-                              justify-content: space-between;
-                              display: flex;
-                              align-items: center;
-                            "
-                            type="button"
-                            data-bs-toggle="dropdown"
-                            aria-expanded="false"
-                          >
-                            <span style="color: black; margin-right: 10px">MARQUERA</span>
-    
-                            <img
-                              class="product-image"
-                              src="assets/img/eject-line.png"
-                              alt="Product Image"
-                            />
-                          </button>
-                          <ul class="dropdown-menu">
-                            <li>
-                              <a
-                                class="dropdown-item btn btn-primary text-white mb-1"
-                                (click)="changeOrderStatus(dataset.id, 'confirm')"
-                                >En cours de traitement</a
-                              >
-                            </li>
-                            <li>
-                              <a
-                                class="dropdown-item btn btn-warning text-white mb-1"
-                                (click)="changeOrderStatus(dataset.id, 'dont_pick_up')"
-                                >Décroche pas</a
-                              >
-                            </li>
-                            <li>
-                              <a
-                                class="dropdown-item btn btn-success text-white mb-1"
-                                (click)="changeOrderStatus(dataset.id, 'postpone')"
-                                >Reporter</a
-                              >
-                            </li>
-                            <li>
-                              <a
-                                class="dropdown-item btn btn-danger text-white mb-1"
-                                data-bs-toggle="modal"
-                                (click)="selectOrderForCancellation(dataset)"
-                                data-bs-target="#exampModal"
-                                >Annuler</a
-                              >
-                            </li>
-                          </ul>
-                        </div>
-                      </div>
-                      <!-- appeller -->
-                      <div class="col-6" style="padding-left: 0">
-                        <button
-                          class="btn btn-border-custom w-auto"
-                          style="border-radius: 7px"
-                        >
-                          APPELER
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </ng-container>
-    
-           
-          </ng-container>
-    
-         
-        </div>
-
-
-        <div class="tab-pane fade " id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab" tabindex="0">
-          
-          
-          <!-- Content -->
-          <ng-container >
-            <!-- on boucle ceci -->
-            <ng-container >
-              <div
-                
-                class="row box-2"
-                style="padding-bottom: 0;"
-              >
-                <div
-                  class="col-12 d-flex flex-wrap order-row align-items-center mb-0"
-                 
-                >
-                  <div
-                    class="order-item d-flex align-items-center order-item-large"
-                    
-                  >
-                    <img
-                      class="product-image"
-                      src="assets/img/lp1.png"
-                      alt="Product Image"
-                     
-                    />
-                    <div class="product-info">
-                      <span class="product-name">Abobo 2…</span>
-                      <p>
-                        <small class="">#Abobo …</small>
-                      </p>
-                      <small
-                        >Aujourd'hui, à
-                        </small
-                      >
-                    </div>
-                  </div>
-                  <div class="order-item" >
-                    <p class="label">Prix de vente</p>
-                    <p class="value">10 000 FCFA</p>
-                  </div>
-                  <div class="order-item">
-                    <p class="label">Frais de livraison</p>
-                    <p class="value">2 000 FCFA</p>
-                  </div>
-                  <div class="order-item">
-                    <p class="label">Total à payer</p>
-                    <p class="value mb-0 colore">12 000 FCFA</p>
-                    <small>À la livraison</small>
-                  </div>
-                  <div class="order-item">
-                    <p class="label">Lieu de livraison</p>
-                    <p class="value colore">
-                      Abobo …
-                    </p>
-                  </div>
-                  <div
-                    class="order-item order-item-large"
-                    style="
-                      border-left: 1px solid #ccc;
-                      padding-left: 30px;
-                      position: relative;
-                    "
-                  >
-                    <p class="m-0 text-dark">Lamine, Laetitia & Cissé</p>
-                    <small class="m-0"
-                      >Client en attente de votre appel depuis 3 min</small
-                    >
-                    <div class="row d-flex justify-content-center mt-3">
-                      <!-- change status -->
-                      <div class="col-6">
-                        <div
-                          style="
-                            height: 40px;
-                            width: 40px;
-                            position: absolute;
-                            right: -1px;
-                            top: 0;
-                          "
-                        >
-                          <!-- tags new -->
-                          <img
-                            class="product-image"
-                            src="assets/img/nouveau.png"
-                            alt="Product Image"
-                          />
-                        </div>
-                        <div class="dropdown">
-                          <!-- par defaut -->
-                          <button
-                            class="btn btn-ligth"
-                            style="
-                              border: 1px solid #c4c4c4;
-                              color: white;
-                              border-radius: 7px;
-                              justify-content: space-between;
-                              display: flex;
-                              align-items: center;
-                            "
-                            type="button"
-                            data-bs-toggle="dropdown"
-                            aria-expanded="false"
-                          >
-                            <span style="color: black; margin-right: 10px">MARQUER</span>
-    
-                            <img
-                              class="product-image"
-                              src="assets/img/eject-line.png"
-                              alt="Product Image"
-                            />
-                          </button>
-                          <ul class="dropdown-menu">
-                            <li>
-                              <a
-                                class="dropdown-item btn btn-primary text-white mb-1"
-
-                                >En cours de traitement</a
-                              >
-                            </li>
-                            <li>
-                              <a
-                                class="dropdown-item btn btn-warning text-white mb-1"
-                                
-                                >Décroche pas</a
-                              >
-                            </li>
-                            <li>
-                              <a
-                                class="dropdown-item btn btn-success text-white mb-1"
-
-                                >Reporter</a
-                              >
-                            </li>
-                            <li>
-                              <a
-                                class="dropdown-item btn btn-danger text-white mb-1"
-                                data-bs-toggle="modal"
-
-                                data-bs-target="#exampModal"
-                                >Annuler</a
-                              >
-                            </li>
-                          </ul>
-                        </div>
-                      </div>
-                      <!-- appeller -->
-                      <div class="col-6" style="padding-left: 0">
-                        <button
-                          class="btn btn-border-custom w-auto"
-                          style="border-radius: 7px"
-                        >
-                          APPELER
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </ng-container>
-    
-           
-          </ng-container>
-    
-         
-        </div>
-
-
+<div class="container-fluid p-3" style="background-color: white">
+  <div class="row d-flex p-3 box-1" style="margin-top: 0">
+    <div class="col-md-6 d-flex justify-content-between mb-3 mb-md-0">
+      <button
+        class="btn btn-primary btn-border btn-round w-50"
+        id="nav-home-tab"
+        data-bs-toggle="tab"
+        (click)="handleFilter('')"
+        [class.active]="filterStatus === ''"
+      >
+        Centre commande
+      </button>
+      <button
+        class="btn btn-primary btn-border btn-round w-50 me-3"
+        id="nav-profile-tab"
+        (click)="handleFilter('postpone')"
+        [class.active]="filterStatus === 'postpone'"
+      >
+        Reporté
+      </button>
+      <button
+        class="btn btn-primary btn-border btn-round w-50"
+        (click)="handleFilter('canceled')"
+        [class.active]="filterStatus === 'canceled'"
+      >
+        Annulées
+      </button>
+    </div>
+    <div class="col-md-4 ms-auto d-flex justify-content-end">
+      <div class="dropdown">
+        <!-- par defaut -->
+        <button
+          style="border: none; background-color: white"
+          type="button"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
+        >
+          <img src="assets/img/filtre.png" alt="" width="30" height="30" />
+        </button>
+        <ul
+          class="dropdown-menu"
+          style="
+            background-color: white;
+            border-bottom-right-radius: 20px;
+            border-bottom-left-radius: 20px;
+          "
+        >
+          <li>
+            <p class="dropdown-item mb-1 text-center">Filtrer</p>
+          </li>
+          <li>
+            <a class="dropdown-item mb-1 text-center">Commandes client</a>
+          </li>
+          <li>
+            <a class="dropdown-item mb-1 text-center">commandes personnel</a>
+          </li>
+        </ul>
       </div>
     </div>
-    
-   
-    
+  </div>
 
+  <div
+    class="tab-content"
+    id="nav-tabContent"
+    style="height: 70vh !important; overflow-y: auto; overflow-x: hidden"
+  >
+    <div
+      class="tab-pane fade show active"
+      id="nav-home"
+      role="tabpanel"
+      aria-labelledby="nav-home-tab"
+      tabindex="0"
+    >
+      <!-- Loader -->
+      <div *ngIf="isLoading" class="loader-container">
+        <div class="spinner-border text-primary" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+      </div>
+
+      <!-- Content -->
+      <ng-container>
+        <!-- on boucle ceci -->
+        <ng-container *ngFor="let order of dataset; let i = index">
+          <div class="row box-2" style="padding-bottom: 0">
+            <div
+              class="col-12 d-flex flex-wrap order-row align-items-center mb-0"
+            >
+              <div
+                class="order-item d-flex align-items-center order-item-large"
+              >
+                <img
+                  [style]="{ cursor: 'pointer' }"
+                  (click)="openDialog(order)"
+                  class="product-image"
+                  [src]="order?.items[0]?.product?.images[0]"
+                  alt="Product Image"
+                />
+                <div class="product-info">
+                  <span class="product-name">{{
+                    order?.items[0]?.product?.name | truncate : 20
+                  }}</span>
+                  <p>
+                    <small class="">#{{ order?.items[0]?.reference }}</small>
+                  </p>
+                  <small>{{ order?.created_at | date }} </small>
+                </div>
+              </div>
+              <div class="order-item">
+                <p class="label">Prix de vente</p>
+                <p class="value">
+                  {{ order?.items[0]?.product?.price.price | currency : "XOF" }}
+                </p>
+              </div>
+              <div class="order-item">
+                <p class="label">Frais de livraison</p>
+                <p class="value">
+                  {{
+                    order?.delivery?.city?.name?.startsWith("Abidjan")
+                      ? (order?.items[0]?.product?.price_delivery.city
+                        | currency : "XOF")
+                      : (order?.items[0]?.product?.price_delivery.no_city
+                        | currency : "XOF")
+                  }}
+                </p>
+              </div>
+              <div class="order-item">
+                <p class="label">Total à payer</p>
+                <p class="value mb-0 colore">
+                  {{ order?.items[0]?.total | currency : "XOF" }}
+                </p>
+                <small>À la livraison</small>
+              </div>
+              <div class="order-item">
+                <p class="label">Lieu de livraison</p>
+                <p class="value colore">
+                  {{ order?.delivery?.city?.name }}
+                </p>
+              </div>
+              <div
+                class="order-item order-item-large"
+                style="
+                  border-left: 1px solid #ccc;
+                  padding-left: 30px;
+                  position: relative;
+                "
+              >
+                <p class="m-0 text-dark">{{ order?.client?.name }}</p>
+                <!-- <small class="m-0"
+                      >Client en attente de votre appel depuis 3 min</small
+                    > -->
+                <div
+                  class="row d-flex justify-content-center mt-3"
+                  *ngIf="order?.status === 'new'"
+                >
+                  <!-- change status -->
+                  <div class="col-6">
+                    <div
+                      style="
+                        height: 40px;
+                        width: 40px;
+                        position: absolute;
+                        right: -1px;
+                        top: 0;
+                      "
+                    >
+                      <!-- tags new -->
+                      <img
+                        class="product-image"
+                        src="assets/img/nouveau.png"
+                        alt="Product Image"
+                      />
+                    </div>
+                    <div class="dropdown">
+                      <!-- par defaut -->
+                      <button
+                        class="btn btn-ligth"
+                        style="
+                          border: 1px solid #c4c4c4;
+                          color: white;
+                          border-radius: 7px;
+                          justify-content: space-between;
+                          display: flex;
+                          align-items: center;
+                        "
+                        type="button"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false"
+                      >
+                        <span style="color: black; margin-right: 10px"
+                          >MARQUER</span
+                        >
+
+                        <img
+                          class="product-image"
+                          src="assets/img/eject-line.png"
+                          alt="Product Image"
+                        />
+                      </button>
+                      <ul class="dropdown-menu">
+                        <li>
+                          <a
+                            class="dropdown-item btn btn-primary text-white mb-1"
+                            (click)="changeOrderStatus(order.id, 'confirm')"
+                            >En cours de traitement</a
+                          >
+                        </li>
+                        <li>
+                          <a
+                            class="dropdown-item btn btn-warning text-white mb-1"
+                            (click)="
+                              changeOrderStatus(order.id, 'dont_pick_up')
+                            "
+                            >Décroche pas</a
+                          >
+                        </li>
+                        <li>
+                          <a
+                            class="dropdown-item btn btn-success text-white mb-1"
+                            (click)="changeOrderStatus(order.id, 'postpone')"
+                            >Reporter</a
+                          >
+                        </li>
+                        <li>
+                          <a
+                            class="dropdown-item btn btn-danger text-white mb-1"
+                            data-bs-toggle="modal"
+                            (click)="selectOrderForCancellation(order)"
+                            data-bs-target="#exampModal"
+                            >Annuler</a
+                          >
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                  <!-- appeller -->
+                  <div class="col-6" style="padding-left: 0">
+                    <button
+                      class="btn btn-border-custom w-auto"
+                      style="border-radius: 7px"
+                    >
+                      APPELER
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+      </ng-container>
+    </div>
+
+    <div
+      class="tab-pane fade"
+      id="nav-profile"
+      role="tabpanel"
+      aria-labelledby="nav-profile-tab"
+      tabindex="0"
+    >
+      <!-- Content -->
+      <ng-container>
+        <!-- on boucle ceci -->
+        <ng-container>
+          <div class="row box-2" style="padding-bottom: 0">
+            <div
+              class="col-12 d-flex flex-wrap order-row align-items-center mb-0"
+            >
+              <div
+                class="order-item d-flex align-items-center order-item-large"
+              >
+                <img
+                  class="product-image"
+                  src="assets/img/lp1.png"
+                  alt="Product Image"
+                />
+                <div class="product-info">
+                  <span class="product-name">Abobo …</span>
+                  <p>
+                    <small class="">#Abobo …</small>
+                  </p>
+                  <small>Aujourd'hui, à </small>
+                </div>
+              </div>
+              <div class="order-item">
+                <p class="label">Prix de vente</p>
+                <p class="value">10 000 FCFA</p>
+              </div>
+              <div class="order-item">
+                <p class="label">Frais de livraison</p>
+                <p class="value">2 000 FCFA</p>
+              </div>
+              <div class="order-item">
+                <p class="label">Total à payer</p>
+                <p class="value mb-0 colore">12 000 FCFA</p>
+                <small>À la livraison</small>
+              </div>
+              <div class="order-item">
+                <p class="label">Lieu de livraison</p>
+                <p class="value colore">Abobo …</p>
+              </div>
+              <div
+                class="order-item order-item-large"
+                style="
+                  border-left: 1px solid #ccc;
+                  padding-left: 30px;
+                  position: relative;
+                "
+              >
+                <p class="m-0 text-dark">Lamine, Laetitia & Cissé</p>
+                <small class="m-0"
+                  >Client en attente de votre appel depuis 3 min</small
+                >
+                <div class="row d-flex justify-content-center mt-3">
+                  <!-- change status -->
+                  <div class="col-6">
+                    <div
+                      style="
+                        height: 40px;
+                        width: 40px;
+                        position: absolute;
+                        right: -1px;
+                        top: 0;
+                      "
+                    >
+                      <!-- tags new -->
+                      <img
+                        (click)="test()"
+                        class="product-image"
+                        src="assets/img/nouveau.png"
+                        alt="Product Image"
+                      />
+                    </div>
+                    <div class="dropdown">
+                      <!-- par defaut -->
+                      <button
+                        class="btn btn-ligth"
+                        style="
+                          border: 1px solid #c4c4c4;
+                          color: white;
+                          border-radius: 7px;
+                          justify-content: space-between;
+                          display: flex;
+                          align-items: center;
+                        "
+                        type="button"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false"
+                      >
+                        <span style="color: black; margin-right: 10px"
+                          >MARQUERA</span
+                        >
+
+                        <img
+                          class="product-image"
+                          src="assets/img/eject-line.png"
+                          alt="Product Image"
+                        />
+                      </button>
+                      <ul class="dropdown-menu">
+                        <li>
+                          <a
+                            class="dropdown-item btn btn-primary text-white mb-1"
+                            (click)="changeOrderStatus(dataset.id, 'confirm')"
+                            >En cours de traitement</a
+                          >
+                        </li>
+                        <li>
+                          <a
+                            class="dropdown-item btn btn-warning text-white mb-1"
+                            (click)="
+                              changeOrderStatus(dataset.id, 'dont_pick_up')
+                            "
+                            >Décroche pas</a
+                          >
+                        </li>
+                        <li>
+                          <a
+                            class="dropdown-item btn btn-success text-white mb-1"
+                            (click)="changeOrderStatus(dataset.id, 'postpone')"
+                            >Reporter</a
+                          >
+                        </li>
+                        <li>
+                          <a
+                            class="dropdown-item btn btn-danger text-white mb-1"
+                            data-bs-toggle="modal"
+                            (click)="selectOrderForCancellation(dataset)"
+                            data-bs-target="#exampModal"
+                            >Annuler</a
+                          >
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                  <!-- appeller -->
+                  <div class="col-6" style="padding-left: 0">
+                    <button
+                      class="btn btn-border-custom w-auto"
+                      style="border-radius: 7px"
+                    >
+                      APPELER
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+      </ng-container>
+    </div>
+
+    <div
+      class="tab-pane fade"
+      id="nav-contact"
+      role="tabpanel"
+      aria-labelledby="nav-contact-tab"
+      tabindex="0"
+    >
+      <!-- Content -->
+      <ng-container>
+        <!-- on boucle ceci -->
+        <ng-container>
+          <div class="row box-2" style="padding-bottom: 0">
+            <div
+              class="col-12 d-flex flex-wrap order-row align-items-center mb-0"
+            >
+              <div
+                class="order-item d-flex align-items-center order-item-large"
+              >
+                <img
+                  class="product-image"
+                  src="assets/img/lp1.png"
+                  alt="Product Image"
+                />
+                <div class="product-info">
+                  <span class="product-name">Abobo 2…</span>
+                  <p>
+                    <small class="">#Abobo …</small>
+                  </p>
+                  <small>Aujourd'hui, à </small>
+                </div>
+              </div>
+              <div class="order-item">
+                <p class="label">Prix de vente</p>
+                <p class="value">10 000 FCFA</p>
+              </div>
+              <div class="order-item">
+                <p class="label">Frais de livraison</p>
+                <p class="value">2 000 FCFA</p>
+              </div>
+              <div class="order-item">
+                <p class="label">Total à payer</p>
+                <p class="value mb-0 colore">12 000 FCFA</p>
+                <small>À la livraison</small>
+              </div>
+              <div class="order-item">
+                <p class="label">Lieu de livraison</p>
+                <p class="value colore">Abobo …</p>
+              </div>
+              <div
+                class="order-item order-item-large"
+                style="
+                  border-left: 1px solid #ccc;
+                  padding-left: 30px;
+                  position: relative;
+                "
+              >
+                <p class="m-0 text-dark">Lamine, Laetitia & Cissé</p>
+                <small class="m-0"
+                  >Client en attente de votre appel depuis 3 min</small
+                >
+                <div class="row d-flex justify-content-center mt-3">
+                  <!-- change status -->
+                  <div class="col-6">
+                    <div
+                      style="
+                        height: 40px;
+                        width: 40px;
+                        position: absolute;
+                        right: -1px;
+                        top: 0;
+                      "
+                    >
+                      <!-- tags new -->
+                      <img
+                        class="product-image"
+                        src="assets/img/nouveau.png"
+                        alt="Product Image"
+                      />
+                    </div>
+                    <div class="dropdown">
+                      <!-- par defaut -->
+                      <button
+                        class="btn btn-ligth"
+                        style="
+                          border: 1px solid #c4c4c4;
+                          color: white;
+                          border-radius: 7px;
+                          justify-content: space-between;
+                          display: flex;
+                          align-items: center;
+                        "
+                        type="button"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false"
+                      >
+                        <span style="color: black; margin-right: 10px"
+                          >MARQUER</span
+                        >
+
+                        <img
+                          class="product-image"
+                          src="assets/img/eject-line.png"
+                          alt="Product Image"
+                        />
+                      </button>
+                      <ul class="dropdown-menu">
+                        <li>
+                          <a
+                            class="dropdown-item btn btn-primary text-white mb-1"
+                            >En cours de traitement</a
+                          >
+                        </li>
+                        <li>
+                          <a
+                            class="dropdown-item btn btn-warning text-white mb-1"
+                            >Décroche pas</a
+                          >
+                        </li>
+                        <li>
+                          <a
+                            class="dropdown-item btn btn-success text-white mb-1"
+                            >Reporter</a
+                          >
+                        </li>
+                        <li>
+                          <a
+                            class="dropdown-item btn btn-danger text-white mb-1"
+                            data-bs-toggle="modal"
+                            data-bs-target="#exampModal"
+                            >Annuler</a
+                          >
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                  <!-- appeller -->
+                  <div class="col-6" style="padding-left: 0">
+                    <button
+                      class="btn btn-border-custom w-auto"
+                      style="border-radius: 7px"
+                    >
+                      APPELER
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+      </ng-container>
+    </div>
+  </div>
+</div>

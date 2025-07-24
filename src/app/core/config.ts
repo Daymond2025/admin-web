@@ -1,7 +1,7 @@
-import { Injectable } from '@angular/core';
-import ApiUrls from '../../assets/config/developpement.json';
+import { Injectable } from "@angular/core";
+import ApiUrls from "../../assets/config/developpement.json";
 @Injectable({
-  providedIn: 'root',
+  providedIn: "root",
 })
 export class Configurable {
   private readonly API_ENDPOINT: any;
@@ -15,15 +15,12 @@ export class Configurable {
   }
 
   getApi(key: string): string {
-    let a = ApiUrls['API_ENDPOINTS']
-    return `${ApiUrls['HOST:API']}${a[key as keyof typeof a]}`;
+    let a = ApiUrls["API_ENDPOINTS"];
+    return `${ApiUrls["HOST:API"]}${a[key as keyof typeof a]}`;
   }
 
   // getApiTest(key: string): string {
   //   let a = ApiUrls['API_ENDPOINTS']
   //   return `${ApiUrls['HOST_API-TEST']}${a[key as keyof typeof a]}`;
   // }
-
-
-  
 }

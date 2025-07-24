@@ -107,6 +107,12 @@ export const menu : navItem[] = [
                 routerLink:"/distribution/fournisseurs",
             },
             {
+                label:"Notifications",
+                iconActive:"assets/img/notification.png",
+                routerLink:"/distribution/notifications",
+                visible: true
+            },
+            {
                 label:"Statistiques",
                 iconActive:"assets/img/pm7.png",
             },

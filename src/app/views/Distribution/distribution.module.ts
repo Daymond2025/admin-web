@@ -6,6 +6,7 @@ import { ProductsComponent } from "./products_prev/products.component";
 import { PaymentComponent } from "./payment/payment.component";
 import { SettingsComponent } from "./settings/settings.component";
 
+
 const routes: Routes = [
     {
         path:"",
@@ -56,6 +57,10 @@ const routes: Routes = [
     {
       path: 'couleurs',
       loadChildren: () => import('./color-management/color-management.module').then(m => m.ColorManagementModule),
+    },
+    {
+      path: 'notifications',
+      loadChildren: () => import('./notifications/notifications.module').then(m => m.NotificationsModule),
     },
 ];
 

@@ -7,7 +7,7 @@ import { ensureArray } from "src/app/core/utils/verif-data.utils";
 // import { ApiService } from "src/app/core/services/api.service";
 // import { environment } from "src/environments/environment";
 import Swal from "sweetalert2";
-import { Router } from '@angular/router'; 
+import { Router } from "@angular/router";
 import { ProduitsService } from "src/app/shared/services/Produits.service";
 import { CommonModule } from "@angular/common";
 import { TruncatePipe } from "src/app/shared/pipes/truncate.pipe";
@@ -19,7 +19,14 @@ import { BackButtonComponent } from "src/app/back-button/back-button.component";
   templateUrl: "./detail.component.html",
   styleUrls: ["./detail.component.css"],
   standalone: true, // Standalone component
-  imports:[CommonModule , TruncatePipe , RouterModule , FormsModule , ReactiveFormsModule , BackButtonComponent]
+  imports: [
+    CommonModule,
+    TruncatePipe,
+    RouterModule,
+    FormsModule,
+    ReactiveFormsModule,
+    BackButtonComponent,
+  ],
 })
 export class DetailComponent implements OnInit {
   product!: any;
@@ -29,7 +36,7 @@ export class DetailComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private produitsService: ProduitsService,
-    private router: Router,  // Ajoutez cette ligne,
+    private router: Router, // Ajoutez cette ligne,
     public utilisService: UtilisService
   ) {}
 
@@ -49,7 +56,7 @@ export class DetailComponent implements OnInit {
   //     },
   //     error: (error) => {
   //       this.utilisService.response(error,(d:any)=>{
-    
+
   //       })
   //     },
   //   });
@@ -59,21 +66,22 @@ export class DetailComponent implements OnInit {
     const productId = this.route.snapshot?.paramMap.get("id");
     if (productId) {
       this.produitsService.getById(`${productId}`).subscribe({
-       next: (data) => {
-        this.utilisService.response(data, (d:any) => 
-          {if (d.data) {
-            this.product = ensureArray(d.data)[0];
-            this.isLoading = false;
-            console.log(this.product);
-          } else {
-            console.error("No content found in response");
-          }})
+        next: (data) => {
+          this.utilisService.response(data, (d: any) => {
+            if (d.data) {
+              this.product = ensureArray(d.data)[0];
+              this.isLoading = false;
+              console.log(this.product);
+            } else {
+              console.error("No content found in response");
+            }
+          });
         },
-        error : (error) => {
+        error: (error) => {
           console.error(error);
           this.isLoading = false;
-        }
-     } );
+        },
+      });
     } else {
       console.error("Product ID is missing");
       this.isLoading = false;
@@ -123,32 +131,27 @@ export class DetailComponent implements OnInit {
     formData.append("reason_disapproved", reason);
     formData.append("publish", "false");
 
-    this.produitsService
-      .createOrNo(
-        
-        formData
-      )
-      .subscribe({
-       next : (response) => {
-          Swal.fire({
-            title: "Succès",
-            text: `Le statut a été mis à jour avec succès!`,
-            icon: "success",
-            confirmButtonText: "OK",
-          });
-        },
-       error : (error) => {
-          Swal.fire({
-            title: "Erreur",
-            text: `Une erreur est survenue: ${
-              error.message || "Veuillez réessayer."
-            }`,
-            icon: "error",
-            confirmButtonText: "OK",
-          });
-          console.error("Error updating status", error);
-        }
-      });
+    this.produitsService.createOrNo(formData).subscribe({
+      next: (response) => {
+        Swal.fire({
+          title: "Succès",
+          text: `Le statut a été mis à jour avec succès!`,
+          icon: "success",
+          confirmButtonText: "OK",
+        });
+      },
+      error: (error) => {
+        Swal.fire({
+          title: "Erreur",
+          text: `Une erreur est survenue: ${
+            error.message || "Veuillez réessayer."
+          }`,
+          icon: "error",
+          confirmButtonText: "OK",
+        });
+        console.error("Error updating status", error);
+      },
+    });
   }
   // deleteProduct(): void {
   //   Swal.fire({
@@ -186,38 +189,40 @@ export class DetailComponent implements OnInit {
   // }
   deleteProduct(): void {
     Swal.fire({
-      title: 'Confirmation',
-      text: 'Voulez-vous vraiment supprimer ce produit ?',
-      icon: 'warning',
+      title: "Confirmation",
+      text: "Voulez-vous vraiment supprimer ce produit ?",
+      icon: "warning",
       showCancelButton: true,
-      confirmButtonText: 'Oui, supprimer',
-      cancelButtonText: 'Annuler'
+      confirmButtonText: "Oui, supprimer",
+      cancelButtonText: "Annuler",
     }).then((result) => {
       if (result.isConfirmed) {
         const productId = this.product.id.toString();
-        this.produitsService.delete(`${productId}`).subscribe(
-        {  next :(response) => {
+        this.produitsService.delete(`${productId}`).subscribe({
+          next: (response) => {
             Swal.fire({
-              title: 'Succès',
-              text: 'Le produit a été supprimé avec succès',
-              icon: 'success',
-              confirmButtonText: 'OK'
+              title: "Succès",
+              text: "Le produit a été supprimé avec succès",
+              icon: "success",
+              confirmButtonText: "OK",
             }).then(() => {
               // Redirection après que l'utilisateur a cliqué sur OK
-              this.router.navigate(['distribution/produits']);  // Redirection vers la page d'accueil
+              this.router.navigate(["distribution/produits"]); // Redirection vers la page d'accueil
             });
           },
-          error:(error) => {
+          error: (error) => {
             Swal.fire({
-              title: 'Erreur',
-              text: `Erreur lors de la suppression: ${error.message || 'Veuillez réessayer.'}`,
-              icon: 'error',
-              confirmButtonText: 'OK'
+              title: "Erreur",
+              text: `Erreur lors de la suppression: ${
+                error.message || "Veuillez réessayer."
+              }`,
+              icon: "error",
+              confirmButtonText: "OK",
             });
-            console.error('Erreur suppression', error);
-          }}
-        );
+            console.error("Erreur suppression", error);
+          },
+        });
       }
     });
-}
+  }
 }

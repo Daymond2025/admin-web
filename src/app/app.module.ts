@@ -10,6 +10,7 @@ import { JwtHelperService, JwtInterceptor, JWT_OPTIONS } from '@auth0/angular-jw
 // import { TokenInterceptor } from './core/interceptors/token.interceptor';
 // import { ErrorInterceptor } from './core/interceptors/error.interceptor';
 import { TokenInterceptorService } from './shared/interceptors/auth.interceptor';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import localeFr from '@angular/common/locales/fr';
 // AJOUT MARC_DEV
 import {environment} from 'src/environements/environement';
@@ -26,7 +27,8 @@ registerLocaleData(localeFr);
   imports: [
     BrowserModule,
     AppRoutingModule,
-    SharedModule
+    SharedModule,
+    BrowserAnimationsModule
   ],
   providers: [
     JwtHelperService,

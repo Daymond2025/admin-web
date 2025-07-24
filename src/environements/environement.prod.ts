@@ -1,4 +1,4 @@
 export const environment = {
     production: true,
-    apiUrl: 'http://localhost:3000',
+    apiUrl: 'https://v2.daymondboutique.com/api/v2/',
 };
