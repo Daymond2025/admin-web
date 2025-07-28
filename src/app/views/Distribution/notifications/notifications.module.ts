@@ -14,6 +14,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSelectModule } from '@angular/material/select';
+import { MatChipsModule } from '@angular/material/chips';
 
 // Ton formulaire de notification
 import { NotificationFormComponent } from 'src/app/views/Distribution/notifications/form/notification-form/notification-form.component';
@@ -41,7 +42,8 @@ import { NotificationFormComponent } from 'src/app/views/Distribution/notificati
     MatButtonModule,
     MatDialogModule,
     MatTooltipModule,
-    MatSelectModule
+    MatSelectModule,
+    MatChipsModule
   ],
   exports: [NotificationsComponent]
 })

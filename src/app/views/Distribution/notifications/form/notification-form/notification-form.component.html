@@ -104,6 +104,15 @@
       >La date est requise</mat-error
     >
   </mat-form-field>
+  <!-- Heure d’envoi -->
+  <mat-form-field
+    *ngIf="form.get('scheduled')?.value"
+    appearance="outline"
+    class="full-width"
+  >
+    <mat-label>Heure d'envoi</mat-label>
+    <input matInput type="time" formControlName="send_at_time" />
+  </mat-form-field>
 
   <!-- Boutons -->
   <div class="button-container">

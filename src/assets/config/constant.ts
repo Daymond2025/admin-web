@@ -85,6 +85,12 @@ export const menu : navItem[] = [
                 routerLink:"/distribution/annonces",
             },
             {
+                label:"Notifications",
+                iconActive:"assets/img/notification.png",
+                routerLink:"/distribution/notifications",
+                visible: true
+            },
+            {
                 label:"Utilisateurs",
                 iconActive:"assets/img/pm1.png",
                 routerLink:"/distribution/utilisateurs",
@@ -105,12 +111,6 @@ export const menu : navItem[] = [
                 label:"Fournisseurs",
                 iconActive:"assets/img/pm5.png",
                 routerLink:"/distribution/fournisseurs",
-            },
-            {
-                label:"Notifications",
-                iconActive:"assets/img/notification.png",
-                routerLink:"/distribution/notifications",
-                visible: true
             },
             {
                 label:"Statistiques",

@@ -81,6 +81,7 @@ export class NotificationFormComponent implements OnInit {
         selectedUsers: [[]],
         scheduled: [false],
         send_at: [null],
+        send_at_time: ["12:00"], // Heure par défaut (midi ?)
       },
       { validators: [this.selectedUsersValidator()] }
     );
@@ -191,12 +192,29 @@ export class NotificationFormComponent implements OnInit {
     formData.append("body", raw.message.trim());
     formData.append("audience", raw.audience);
 
-    if (raw.scheduled && raw.send_at) {
-      const sendAt = new Date(raw.send_at);
-      const formatted = sendAt.toISOString().slice(0, 19).replace("T", " ");
-      formData.append("send_at", formatted);
+    // 💡 Traitement de la planification avec date + heure
+    if (raw.scheduled && raw.send_at && raw.send_at_time) {
+      try {
+        const [hours, minutes] = raw.send_at_time.split(":").map(Number);
+
+        const fullDate = new Date(raw.send_at);
+        fullDate.setHours(hours);
+        fullDate.setMinutes(minutes);
+        fullDate.setSeconds(0);
+        fullDate.setMilliseconds(0);
+
+        const formatted = fullDate.toISOString().slice(0, 19).replace("T", " ");
+        formData.append("send_at", formatted);
+
+        console.log("🗓️ Date et heure combinées :", formatted);
+      } catch (err) {
+        console.error("⛔ Erreur de combinaison date/heure :", err);
+        this.isSubmitting = false;
+        return;
+      }
     }
 
+    // 🎯 Cibler certains utilisateurs si audience = "some"
     if (raw.audience === "some" && raw.selectedUsers?.length) {
       raw.selectedUsers.forEach((userId: number) => {
         formData.append("selectedUsers[]", userId.toString());
@@ -216,26 +234,51 @@ export class NotificationFormComponent implements OnInit {
         console.log("🧾 Réponse complète du backend :", res);
         console.log("🆔 ID de la notification :", notifId);
 
-        if (notifId) {
+        if (!notifId) {
+          console.error(
+            "❌ Aucun ID de notification trouvé, arrêt du processus."
+          );
+          return;
+        }
+
+        // ✅ Envoi immédiat uniquement si non programmé
+        if (!raw.scheduled) {
           console.log("🚀 Envoi immédiat de la notification...");
+
           this.notificationService.sendNow(notifId).subscribe({
             next: (response) => {
               console.log("📣 Notification envoyée avec succès !");
-              console.log("📦 Réponse de l’envoi :", response);
+              console.log("📦 Réponse brute de l’envoi :", response);
 
-              // 👀 Ajoute ces logs pour voir ce qui sort du backend
-              if (response?.tokens_debug?.length === 0) {
-                console.warn(
-                  "⚠️ Aucun token n’a été récupéré pour cette audience !"
-                );
-                console.log(
-                  "🎯 Utilisateurs ciblés :",
-                  response?.user_ids_debug || []
-                );
-              } else {
-                console.log("📬 Tokens ciblés :", response?.tokens_debug);
+              const tokens = response?.tokens_debug || [];
+              const users = response?.user_ids_debug || [];
+              const fcmResponse = response?.fcm_response;
+
+              if (!Array.isArray(tokens)) {
+                console.warn("❗ 'tokens_debug' n’est pas un tableau !");
               }
 
+              if (tokens.length === 0) {
+                console.warn("⚠️ Aucun token récupéré pour cette audience !");
+                console.log("👥 Utilisateurs ciblés :", users);
+              } else {
+                console.log(
+                  `📬 ${tokens.length} token(s) récupéré(s) :`,
+                  tokens
+                );
+              }
+
+              if (fcmResponse) {
+                console.log("📨 Réponse brute FCM :", fcmResponse);
+              } else {
+                console.warn("🕳️ Aucune réponse FCM dans la réponse API.");
+              }
+
+              if (response?.fcm_errors?.length) {
+                console.warn("🚫 Erreurs FCM détectées :", response.fcm_errors);
+              }
+
+              // UI feedback
               if (this.dialogRef) {
                 console.log("🔙 Fermeture du dialogue.");
                 this.dialogRef.close(true);
@@ -246,20 +289,45 @@ export class NotificationFormComponent implements OnInit {
             },
             error: (err) => {
               console.error("❌ Envoi de la notification échoué !");
-              console.error("🪵 Erreur d’envoi :", err);
+              console.error("🪵 Erreur complète :", err);
+
+              if (err?.error?.message)
+                console.error("📩 Message du backend :", err.error.message);
+
+              if (err?.error?.errors)
+                console.error("📋 Erreurs de validation :", err.error.errors);
+
+              if (err?.status) {
+                console.warn("🔢 Code d’erreur HTTP :", err.status);
+              }
             },
           });
         } else {
-          console.error("❌ Aucun ID récupéré après création.");
+          // ⏳ Notification planifiée, pas d’envoi immédiat
+          console.log(
+            "⏳ Notification planifiée pour plus tard, envoi différé."
+          );
+
+          if (this.dialogRef) {
+            this.dialogRef.close(true);
+          } else {
+            this.router.navigate(["/admin/notifications"]);
+          }
         }
       },
       error: (err) => {
-        console.error("❌ Échec de la création !");
-        console.error("🪵 Détails :", err);
+        console.error("❌ Échec de la création de la notification !");
+        console.error("🪵 Détails de l’erreur :", err);
+
         if (err?.error?.message)
           console.error("📩 Message du backend :", err.error.message);
+
         if (err?.error?.errors)
           console.error("📋 Erreurs de validation :", err.error.errors);
+
+        if (err?.status) {
+          console.warn("🔢 Code d’erreur HTTP :", err.status);
+        }
       },
     });
   }

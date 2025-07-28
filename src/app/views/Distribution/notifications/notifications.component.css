@@ -3,19 +3,19 @@
   display: flex;
   flex-direction: column;
   gap: 24px;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   color: #333;
 }
 
-.notifications-container .header {
+.header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
-  margin-bottom: 1rem;
+  gap: 12px;
 }
 
-.notifications-container .header-title {
+.header-title {
   display: flex;
   align-items: center;
   font-size: 24px;
@@ -24,16 +24,50 @@
   color: #3f51b5;
 }
 
-.notifications-container .header mat-icon {
+mat-icon.header-icon {
   font-size: 28px;
-  vertical-align: middle;
 }
 
-.notifications-container button {
+.stats-cards {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.stat-card {
+  flex: 1 1 200px;
+  text-align: center;
+  padding: 16px;
+  color: white;
+}
+
+.stat-card mat-icon {
+  font-size: 32px;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.stat-card.sent {
+  background-color: #4caf50;
+}
+
+.stat-card.scheduled {
+  background-color: #ff9800;
+}
+
+.stat-card h3 {
+  margin: 0;
+  font-size: 16px;
   font-weight: 600;
 }
 
-.notifications-container mat-card {
+.stat-card p {
+  margin: 8px 0 0;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+mat-card {
   padding: 0;
   overflow-x: auto;
   border-radius: 8px;
@@ -41,83 +75,61 @@
   background-color: white;
 }
 
-.notifications-container mat-table {
+.table-wrapper {
+  overflow-x: auto;
+}
+
+mat-table {
   width: 100%;
   min-width: 700px;
   border-collapse: collapse;
 }
 
-.notifications-container .mat-header-cell,
-.notifications-container .mat-cell {
+.mat-header-cell,
+.mat-cell {
   padding: 12px 16px;
   font-size: 14px;
   word-wrap: break-word;
   text-align: left;
 }
 
-.notifications-container .mat-header-cell {
+.mat-header-cell {
   font-weight: bold;
   background-color: #f5f5f5;
   color: #3f3f3f;
   text-transform: uppercase;
 }
 
-.notifications-container .mat-row:nth-child(even) {
+.mat-row:nth-child(even) {
   background-color: #fafafa;
 }
 
-.notifications-container .action-buttons {
+.action-buttons {
   display: flex;
   gap: 8px;
 }
 
-.notifications-container .action-buttons button {
+.action-buttons button {
   transition: transform 0.2s ease-in-out;
 }
 
-.notifications-container .action-buttons button:hover {
+.action-buttons button:hover {
   transform: scale(1.1);
-}
-
-.notifications-container .status-chip {
-  padding: 4px 8px;
-  border-radius: 12px;
-  font-size: 12px;
-  font-weight: bold;
-  text-transform: capitalize;
-  display: inline-block;
-  color: white;
-}
-
-.notifications-container .status-chip.sent {
-  background-color: #4caf50;
-}
-
-.notifications-container .status-chip.scheduled {
-  background-color: #ff9800;
-}
-::ng-deep .custom-dialog-container .mat-dialog-container {
-  border-radius: 12px;
-  padding: 0;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
-  overflow: hidden;
-  background: #f9f9f9;
 }
 
 /* Responsive */
 @media (max-width: 768px) {
-  .notifications-container .header {
+  .header {
     flex-direction: column;
     align-items: flex-start;
-    gap: 12px;
   }
 
-  .notifications-container mat-table {
+  mat-table {
     min-width: 100%;
   }
 
-  .notifications-container .mat-header-cell,
-  .notifications-container .mat-cell {
+  .mat-header-cell,
+  .mat-cell {
     font-size: 13px;
     padding: 10px 12px;
   }
