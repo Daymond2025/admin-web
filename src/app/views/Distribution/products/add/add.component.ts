@@ -1,5 +1,11 @@
 import { Component, OnInit, TemplateRef, ViewChild } from "@angular/core";
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from "@angular/forms";
+import {
+  FormBuilder,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
+} from "@angular/forms";
 import { MatDialog } from "@angular/material/dialog";
 import { ActivatedRoute, Router, RouterModule } from "@angular/router";
 // import { UrlConstant } from "src/app/core/constants/url_constants";
@@ -13,7 +19,7 @@ import { ensureArray } from "src/app/core/utils/verif-data.utils";
 import { ImageDialogComponent } from "src/app/shared/components/image-dialog/image-dialog.component";
 // import { environment } from "src/environments/environment";
 import Swal from "sweetalert2";
-import { FormArray } from '@angular/forms';
+import { FormArray } from "@angular/forms";
 import { GlobalService } from "src/app/shared/services/Global.service";
 import { ShopService } from "src/app/shared/services/Shop.service";
 import { ProduitsService } from "src/app/shared/services/Produits.service";
@@ -27,7 +33,14 @@ import { BackButtonComponent } from "src/app/back-button/back-button.component";
   templateUrl: "./add.component.html",
   styleUrls: ["./add.component.css"],
   standalone: true, // Standalone component
-  imports:[CommonModule , TruncatePipe , RouterModule , FormsModule , ReactiveFormsModule , BackButtonComponent]
+  imports: [
+    CommonModule,
+    TruncatePipe,
+    RouterModule,
+    FormsModule,
+    ReactiveFormsModule,
+    BackButtonComponent,
+  ],
 })
 export class AddComponent implements OnInit {
   productForm!: FormGroup;
@@ -51,9 +64,8 @@ export class AddComponent implements OnInit {
   listBusiness: any[] = [];
   listShop: any[] = [];
   selectedShop: any;
-  commissionDaymond:any=0;
-  commissionVendeur:any=0;
-
+  commissionDaymond: any = 0;
+  commissionVendeur: any = 0;
 
   // Listes de tailles et dimensions
   sizes: string[] = [
@@ -85,7 +97,7 @@ export class AddComponent implements OnInit {
     "19 pouces",
   ];
 
-colors: { name: string; value: string }[] = [
+  colors: { name: string; value: string }[] = [
     { name: "Noir", value: "#000000" },
     { name: "Bleu", value: "#0000FF" },
     { name: "Rouge", value: "#FF0000" },
@@ -185,21 +197,19 @@ colors: { name: string; value: string }[] = [
     { name: "Violet-foncé", value: "#6c5ce7" },
     { name: "Violet-pâle", value: "#C39BD3" },
     { name: "Violet-rose", value: "#E6DAC3" },
-];
+  ];
 
   // Liste des tailles et couleurs sélectionnées
   selectedSizes: string[] = [];
-  selectedColors: Array<{name: string, value: string}> = [];
-
-
+  selectedColors: Array<{ name: string; value: string }> = [];
 
   constructor(
     private readonly fb: FormBuilder,
     private readonly route: ActivatedRoute,
     private readonly router: Router,
     private readonly globalService: GlobalService,
-    private readonly shopService : ShopService,
-    private readonly produitsService : ProduitsService,
+    private readonly shopService: ShopService,
+    private readonly produitsService: ProduitsService,
     private dialog: MatDialog,
     public utilisService: UtilisService
   ) {
@@ -262,13 +272,13 @@ colors: { name: string; value: string }[] = [
   // }
 
   onDaymondChange(event: any): void {
-    if(event.target.value){
-      this.commissionVendeur = event.target.value*60/100;
+    if (event.target.value) {
+      this.commissionVendeur = (event.target.value * 60) / 100;
+    } else {
+      this.commissionVendeur = 0;
     }
-    else{
-      this.commissionVendeur = 0;}
-    
-    console.log(event.target.value)
+
+    console.log(event.target.value);
   }
 
   onShopChange(event: any): void {
@@ -321,34 +331,42 @@ colors: { name: string; value: string }[] = [
 
   onColorChange(event: any): void {
     const selectedColorValue = event.target.value;
-    
+
     if (!selectedColorValue) return;
-    
-    const selectedColor = this.colors.find(color => color.value === selectedColorValue);
-    
-    if (selectedColor && !this.selectedColors.some(c => c.value === selectedColor.value)) {
+
+    const selectedColor = this.colors.find(
+      (color) => color.value === selectedColorValue
+    );
+
+    if (
+      selectedColor &&
+      !this.selectedColors.some((c) => c.value === selectedColor.value)
+    ) {
       const formattedColor = {
         name: selectedColor.name,
-        value: selectedColor.value.startsWith('#') ? selectedColor.value : `#${selectedColor.value}`
+        value: selectedColor.value.startsWith("#")
+          ? selectedColor.value
+          : `#${selectedColor.value}`,
       };
-      
+
       this.selectedColors = [...this.selectedColors, formattedColor];
-      console.log('Couleurs sélectionnées:', this.selectedColors);
+      console.log("Couleurs sélectionnées:", this.selectedColors);
     }
   }
-  
+
   // Dans Angular, avant l'envoi
 
-
   removeColor(colorValue: string): void {
-    this.selectedColors = this.selectedColors.filter(color => color.value !== colorValue);
-  
+    this.selectedColors = this.selectedColors.filter(
+      (color) => color.value !== colorValue
+    );
+
     // Mettez à jour le champ colors du formulaire
     this.productForm.patchValue({
-      colors: this.selectedColors.map(color => color.value),
+      colors: this.selectedColors.map((color) => color.value),
     });
   }
-  
+
   // Méthode appelée lors du changement de taille
   onSizeChange(event: any): void {
     const selectedSize = event.target.value;
@@ -365,6 +383,38 @@ colors: { name: string; value: string }[] = [
     this.loadStateProduct();
     this.loadCategories();
     this.loadBrand();
+
+    this.productForm = this.fb.group({
+      name: ["", Validators.required],
+      description: ["", Validators.required],
+      state_id: ["", Validators.required],
+      sub_title: [""],
+      price: ["", Validators.required],
+      price_partner: ["", Validators.required],
+      // price_supplier: ["", Validators.required],
+      price_city_delivery: ["", Validators.required],
+      price_no_city_delivery: ["", Validators.required],
+      price_seller: ["", Validators.required],
+      // price_max: ["", Validators.required],
+      // price_min: ["", Validators.required],
+      price_normal: ["", Validators.required],
+      commission: ["", Validators.required],
+      brand_id: [""],
+      link: [""],
+      category: ["vente", Validators.required],
+      sub_category_id: ["", Validators.required],
+      sizes: [""],
+      colors: [""],
+      stock: ["", Validators.required],
+      shop_id: ["", Validators.required],
+      city: [""],
+      popular: [false],
+      publish: [true],
+      favorite: [false],
+      category_id: ["", Validators.required],
+      is_winning_product: [false], // par défaut désactivé
+      winning_bonus_amount: [{ value: 25, disabled: true }], // fixe à 25
+    });
   }
 
   onFileSelected(event: Event): void {
@@ -428,14 +478,15 @@ colors: { name: string; value: string }[] = [
     Object.keys(this.productForm.controls).forEach((key) => {
       const control = this.productForm.get(key);
       if (control?.invalid) {
-        console.log(`Le champ '${key}' est invalide. Erreurs :`, control.errors);
+        console.log(
+          `Le champ '${key}' est invalide. Erreurs :`,
+          control.errors
+        );
         isValid = false;
       }
     });
     return isValid;
   }
-
-
 
   onSubmit(): void {
     console.log("Vérification du formulaire...");
@@ -445,8 +496,10 @@ colors: { name: string; value: string }[] = [
       Object.keys(this.productForm.controls).forEach((key) => {
         const control = this.productForm.get(key);
         if (control?.invalid) {
-          console.log(`Le champ '${key}' est invalide. Erreurs :`, control.errors);
-        
+          console.log(
+            `Le champ '${key}' est invalide. Erreurs :`,
+            control.errors
+          );
         }
       });
       console.log("Formulaire invalide");
@@ -454,14 +507,17 @@ colors: { name: string; value: string }[] = [
       return;
     }
 
-
     const formDataFinal = new FormData();
     const formData = this.productForm.value;
     formData.commission = this.commissionVendeur;
 
     // Ajout des autres champs du formulaire
-    Object.keys(formData).forEach(key => {
-      if (formData[key] !== null && formData[key] !== undefined && key !== 'colors') {
+    Object.keys(formData).forEach((key) => {
+      if (
+        formData[key] !== null &&
+        formData[key] !== undefined &&
+        key !== "colors"
+      ) {
         formDataFinal.append(key, formData[key]);
       }
     });
@@ -475,9 +531,12 @@ colors: { name: string; value: string }[] = [
     if (this.selectedColors && this.selectedColors.length > 0) {
       this.selectedColors.forEach((color, index) => {
         formDataFinal.append(`colors[${index}][name]`, color.name);
-        formDataFinal.append(`colors[${index}][value]`, color.value.startsWith('#') ? color.value : `#${color.value}`);
+        formDataFinal.append(
+          `colors[${index}][value]`,
+          color.value.startsWith("#") ? color.value : `#${color.value}`
+        );
       });
-      
+
       // Log pour debug
       console.log("Colors being sent:", this.selectedColors);
     } else {
@@ -490,113 +549,110 @@ colors: { name: string; value: string }[] = [
       console.log(`${key}:`, value);
     });
 
+    // Récupération du statut "produit gagnant" depuis ton formulaire
+    const isWinning = this.productForm.get("isWinning")?.value;
+
+    // Ajout des infos dans formDataFinal
+    if (isWinning) {
+      formDataFinal.append("is_winning_product", "1");
+      formDataFinal.append("winning_bonus_amount", "25");
+    } else {
+      formDataFinal.append("is_winning_product", "0");
+    }
+
     // Envoi des données
-    this.produitsService
-      .create(
-       
-        formDataFinal
-      )
-      .subscribe({
-        next: (response: any) => {
-          this.isLoading = false;
-          Swal.fire({
-            position: "center",
-            icon: "success",
-            title: "Produit ajouté avec succès",
-            showConfirmButton: false,
-            timer: 2000,
-          });
-          this.router.navigate(["/distribution/produits"]);
-        },
-        error: (error: any) => {
-          this.isLoading = false;
-          console.log('Réponse complète de l\'API :', error);
-          const errorMessage = error?.error?.message || "Une erreur s'est produite lors de l'ajout du produit.";
-          Swal.fire({
-            position: "center",
-            icon: "error",
-            title: "Erreur lors de l'ajout du produit",
-            text: errorMessage,
-            showConfirmButton: true,
-          });
-        }
-      });
+    this.produitsService.create(formDataFinal).subscribe({
+      next: (response: any) => {
+        this.isLoading = false;
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "Produit ajouté avec succès",
+          showConfirmButton: false,
+          timer: 2000,
+        });
+        this.router.navigate(["/distribution/produits"]);
+      },
+      error: (error: any) => {
+        this.isLoading = false;
+        console.log("Réponse complète de l'API :", error);
+        const errorMessage =
+          error?.error?.message ||
+          "Une erreur s'est produite lors de l'ajout du produit.";
+        Swal.fire({
+          position: "center",
+          icon: "error",
+          title: "Erreur lors de l'ajout du produit",
+          text: errorMessage,
+          showConfirmButton: true,
+        });
+      },
+    });
   }
 
- 
-  
   loadShops(): void {
-    this.shopService.getAll().subscribe(
-     { next :(response: any) => {
-      this.utilisService.response(response, (d:any) => {
-        console.log("Liste des Boutiques", d.data);
-        this.listShop = d.data;
-      })
-       
+    this.shopService.getAll().subscribe({
+      next: (response: any) => {
+        this.utilisService.response(response, (d: any) => {
+          console.log("Liste des Boutiques", d.data);
+          this.listShop = d.data;
+        });
       },
-      error:(error: any) => {
+      error: (error: any) => {
         console.error(
           "Erreur lors de la récupération de la liste des entreprises",
           error
         );
-      }}
-    );
+      },
+    });
   }
 
   loadCities(): void {
-    this.globalService.getCities().subscribe(
-    { next : (res: any) => {
-      this.utilisService.response(res, (d:any) => {
-        console.log("Ville :", d.data);
-        if (d.data) {
-          this.listCities = ensureArray(d.data);
-        }
-      })
-
-       
+    this.globalService.getCities().subscribe({
+      next: (res: any) => {
+        this.utilisService.response(res, (d: any) => {
+          console.log("Ville :", d.data);
+          if (d.data) {
+            this.listCities = ensureArray(d.data);
+          }
+        });
       },
-     error: (error) => {
+      error: (error) => {
         console.error(error);
-      }}
-    );
+      },
+    });
   }
 
   loadStateProduct(): void {
-    this.globalService.getState().subscribe(
-    { next: (res:any) => {
-      this.utilisService.response(res, (d:any) => {
-        console.log("Etat :", d.data);
-        if (d.data) {
-          this.listStates = ensureArray(d.data);
-        }
-      })
-
-        
+    this.globalService.getState().subscribe({
+      next: (res: any) => {
+        this.utilisService.response(res, (d: any) => {
+          console.log("Etat :", d.data);
+          if (d.data) {
+            this.listStates = ensureArray(d.data);
+          }
+        });
       },
-      error:(error) => {
+      error: (error) => {
         console.error(error);
-      }}
-    );
+      },
+    });
   }
 
   loadCategories(): void {
-    this.globalService
-      .getCat()
-      .subscribe(
-      { next: (res: any) => {
-        this.utilisService.response(res, (d:any) => {
+    this.globalService.getCat().subscribe({
+      next: (res: any) => {
+        this.utilisService.response(res, (d: any) => {
           console.log("Catégorie :", d.data);
           if (d.data) {
             this.listCategories = ensureArray(d.data);
           }
-        })
-
-          
-        },
-       error: (error) => {
-          console.error(error);
-        }}
-      );
+        });
+      },
+      error: (error) => {
+        console.error(error);
+      },
+    });
   }
 
   onCategoryChange(event: Event): void {
@@ -616,23 +672,37 @@ colors: { name: string; value: string }[] = [
 
   loadBrand(): void {
     this.globalService.getBrand().subscribe({
-     next: (res: any) => {
-      this.utilisService.response(res, (d:any) => {
-        
-        console.log("Brands :", d.data);
-        if (res.data) {
-          this.listBrand = ensureArray(d.data);
-        }
-      })
-
+      next: (res: any) => {
+        this.utilisService.response(res, (d: any) => {
+          console.log("Brands :", d.data);
+          if (res.data) {
+            this.listBrand = ensureArray(d.data);
+          }
+        });
       },
-     error: (error) => {
+      error: (error) => {
         console.error(error);
-      }}
-    );
+      },
+    });
   }
-    // Méthode déclenchée lorsqu'une boutique est sélectionnée
+  // Méthode déclenchée lorsqu'une boutique est sélectionnée
   onSelectChange(event: any): void {
     this.selectedBoutique = event.target.value;
+  }
+
+  // Pour gérer l'affichage bonus si activé
+  onWinningProductChange() {
+    const isWinning = this.productForm.get("is_winning_product")?.value;
+    if (isWinning) {
+      this.productForm.get("winning_bonus_amount")?.enable();
+    } else {
+      this.productForm.get("winning_bonus_amount")?.disable();
+    }
+  }
+
+  // Récupérer les valeurs pour envoyer au backend
+  submitProduct() {
+    const payload = this.productForm.getRawValue(); // récupère winning_bonus_amount même s'il est disabled
+    // appel API POST/PUT
   }
 }

@@ -14,6 +14,13 @@ import { TruncatePipe } from "src/app/shared/pipes/truncate.pipe";
 import { UtilisService } from "src/app/shared/services/Utilis.service";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { BackButtonComponent } from "src/app/back-button/back-button.component";
+import { MatInputModule } from "@angular/material/input";
+import { Clipboard } from "@angular/cdk/clipboard";
+import { MatSnackBar } from "@angular/material/snack-bar";
+import { MatFormFieldModule } from "@angular/material/form-field";
+import { MatButtonModule } from "@angular/material/button";
+import { HttpClient } from "@angular/common/http";
+
 @Component({
   selector: "app-detail",
   templateUrl: "./detail.component.html",
@@ -26,6 +33,9 @@ import { BackButtonComponent } from "src/app/back-button/back-button.component";
     FormsModule,
     ReactiveFormsModule,
     BackButtonComponent,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
   ],
 })
 export class DetailComponent implements OnInit {
@@ -37,7 +47,10 @@ export class DetailComponent implements OnInit {
     private route: ActivatedRoute,
     private produitsService: ProduitsService,
     private router: Router, // Ajoutez cette ligne,
-    public utilisService: UtilisService
+    public utilisService: UtilisService,
+    private clipboard: Clipboard,
+    private snackBar: MatSnackBar,
+    private http: HttpClient
   ) {}
 
   ngOnInit(): void {
@@ -153,6 +166,49 @@ export class DetailComponent implements OnInit {
       },
     });
   }
+
+  //generatedLink: string | null = null;
+
+  //generateAndHandleLink(productId: number) {
+  //console.log(
+  //"🔍 Lancement de la génération de lien pour le produit :",
+  //productId
+  //);
+
+  //this.produitsService.generateProductLink(productId).subscribe({
+  //next: (res: any) => {
+  //console.log("✅ Réponse reçue du backend :", res);
+
+  // selon si tu fais observe: 'response' ou pas
+  //const link = res?.body?.link || res?.link;
+  //if (link) {
+  //this.generatedLink = link;
+  //console.log("📎 Lien généré :", this.generatedLink);
+  //this.snackBar.open("Lien généré avec succès !", "Fermer", {
+  //duration: 3000,
+  //});
+  //} else {
+  //console.warn("⚠️ Aucun lien trouvé dans la réponse :", res);
+  //this.snackBar.open("Réponse sans lien", "Fermer", { duration: 3000 });
+  //}
+  //},
+  //error: (err: any) => {
+  //console.error("❌ Erreur lors de la génération du lien :", err);
+  //this.snackBar.open("Erreur lors de la génération du lien", "Fermer", {
+  //duration: 3000,
+  //});
+  //},
+  //});
+  //}
+
+  //copyLinkToClipboard() {
+  //if (this.generatedLink) {
+  //navigator.clipboard.writeText(this.generatedLink).then(() => {
+  //console.log("📋 Lien copié !");
+  //});
+  //}
+  //}
+
   // deleteProduct(): void {
   //   Swal.fire({
   //     title: 'Confirmation',
@@ -187,6 +243,27 @@ export class DetailComponent implements OnInit {
   //     }
   //   });
   // }
+
+  toggleWinningProduct(event: Event, product: any) {
+    const isChecked = (event.target as HTMLInputElement).checked;
+
+    // Appel HTTP pour mettre à jour le produit
+    this.http
+      .put(`/api/v2/products/${product.id}`, {
+        is_winning_product: isChecked,
+        winning_bonus_amount: 25,
+      })
+      .subscribe({
+        next: (res: any) => {
+          product.is_winning_product = isChecked;
+          console.log("Produit gagnant mis à jour avec succès");
+        },
+        error: (err: any) => {
+          console.error("Erreur lors de la mise à jour du produit", err);
+        },
+      });
+  }
+
   deleteProduct(): void {
     Swal.fire({
       title: "Confirmation",

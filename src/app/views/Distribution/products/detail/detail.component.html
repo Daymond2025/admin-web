@@ -420,6 +420,30 @@
               </div>
             </div>
           </div>
+          <!--<div *ngIf="generatedLink" style="margin-top: 1rem">
+            <mat-form-field appearance="outline" style="width: 100%">
+              <input matInput [value]="generatedLink" readonly />
+            </mat-form-field>
+
+            <button
+              mat-raised-button
+              color="primary"
+              (click)="copyLinkToClipboard()"
+            >
+              🔗 Copier le lien
+            </button>
+          </div>
+
+          <button
+            mat-raised-button
+            color="warn"
+            style="border: 2px solid red"
+            *ngIf="product"
+            (click)="generateAndHandleLink(product.id)"
+          >
+            🎯 Générer lien marketing
+          </button>-->
+
           <div class="forue2">
             <!-- Default dropup button -->
             <div class="btn-group dropup">
@@ -453,6 +477,24 @@
                 />
                 Marquer
               </button>
+              <!-- Toggle Produit gagnant -->
+              <label
+                style="
+                  display: flex;
+                  align-items: center;
+                  gap: 5px;
+                  margin-left: 10px;
+                  cursor: pointer;
+                "
+                title="Gain par clic : 25 FCFA"
+              >
+                <input
+                  type="checkbox"
+                  [checked]="product?.is_winning_product"
+                  (change)="toggleWinningProduct($event, product)"
+                />
+                <span style="font-size: 0.8rem">Produit gagnant</span>
+              </label>
               <ul
                 class="dropdown-menu"
                 style="padding-left: 5px; padding-right: 5px"

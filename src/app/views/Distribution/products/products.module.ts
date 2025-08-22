@@ -6,6 +6,10 @@ import { DetailComponent } from './detail/detail.component';
 import { AddComponent } from './add/add.component';
 import { PublishComponent } from './publish/publish.component';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { ClipboardModule } from '@angular/cdk/clipboard';
 
 const routes: Routes = [
   {
@@ -42,6 +46,10 @@ const routes: Routes = [
     CommonModule,
     SharedModule,
     RouterModule.forChild(routes),
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    ClipboardModule
 
   ]
 })

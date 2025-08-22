@@ -1,0 +1,45 @@
+<div class="winning-products-container">
+  <h3>Produits Gagnants (clics 25 FCFA)</h3>
+
+  <div *ngIf="loading" class="loading-spinner">
+    Chargement des produits...
+  </div>
+
+  <table *ngIf="!loading && winningProducts.length > 0" class="table table-striped">
+    <thead>
+      <tr>
+        <th>Nom du produit</th>
+        <th>Catégorie</th>
+        <th>Magasin</th>
+        <th>Prix</th>
+        <th>Stock</th>
+        <th>Bonus par clic</th>
+        <th>Image</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let product of winningProducts">
+        <td>{{ product.name }}</td>
+        <td>{{ product.sub_category?.name || product.category }}</td>
+        <td>{{ product.shop?.business?.name }}</td>
+        <td>{{ product.price | number:'1.0-0' }} FCFA</td>
+        <td>{{ product.stock }}</td>
+        <td>{{ product.winning_bonus_amount }} FCFA</td>
+        <td>
+          <img *ngIf="product.images?.length" [src]="product.images[0]" alt="{{ product.name }}" width="60">
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div *ngIf="!loading && winningProducts.length === 0">
+    Aucun produit gagnant pour le moment.
+  </div>
+
+  <!-- Pagination basique -->
+  <div class="pagination-controls" *ngIf="totalItems > perPage">
+    <button (click)="onPageChange(currentPage - 1)" [disabled]="currentPage === 1">Précédent</button>
+    <span>Page {{ currentPage }}</span>
+    <button (click)="onPageChange(currentPage + 1)" [disabled]="currentPage * perPage >= totalItems">Suivant</button>
+  </div>
+</div>

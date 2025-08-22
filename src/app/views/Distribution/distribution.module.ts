@@ -23,6 +23,11 @@ const routes: Routes = [
 
     },
     {
+      path: 'produits Clics gagnants 25 FCFA',
+      loadChildren: () => import('./products/products.module').then(m => m.ProductsModule),
+
+    },
+    {
       path: 'paiements',
       component: PaymentComponent,
     },

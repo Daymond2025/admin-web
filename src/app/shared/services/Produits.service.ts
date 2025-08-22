@@ -21,6 +21,15 @@ export class ProduitsService {
     });
   }
 
+  //public generateProductLink(productId: number): Observable<any> {
+  //const baseUrl = this.configService
+  //.getApi("ALL_PRODUITS")
+  //.replace(/\/$/, ""); // Enlève le / final s’il y en a
+  //return this.http.get(`${baseUrl}/${productId}/generate-link`, {
+  //observe: "response",
+  //});
+  //}
+
   public getById(data?: any) {
     return this.http.get(
       this.configService.getApi("ALL_PRODUITS") + "/" + data,
@@ -37,7 +46,15 @@ export class ProduitsService {
   //     });
   //   }
 
-  public create(form: FormData) {
+  public create(form: FormData, isWinning: boolean = false) {
+    // Si produit gagnant, on ajoute les champs bonus
+    if (isWinning) {
+      form.append("is_winning_product", "1");
+      form.append("winning_bonus_amount", "25");
+    } else {
+      form.append("is_winning_product", "0");
+    }
+
     return this.http.post(this.configService.getApi("ALL_PRODUITS"), form, {
       observe: "response",
     });
@@ -83,12 +100,42 @@ export class ProduitsService {
   //     });
   //   }
 
+
+  // 
+  public update(id: number, form: FormData, isWinning: boolean = false) {
+    if (isWinning) {
+      form.append("is_winning_product", "1");
+      form.append("winning_bonus_amount", "25");
+    } else {
+      form.append("is_winning_product", "0");
+    }
+
+    return this.http.put(
+      this.configService.getApi("ALL_PRODUITS") + "/" + id,
+      form,
+      {
+        observe: "response",
+      }
+    );
+  }
+
   public delete(lePost: any) {
     return this.http.delete(
       this.configService.getApi("ALL_PRODUITS") + "/" + lePost + "/delete",
       {
         observe: "response",
         params: lePost,
+      }
+    );
+  }
+
+  // Appel API pour récupérer les produits gagnants
+  public getWinningProducts(params?: any) {
+    return this.http.get(
+      this.configService.getApi("ALL_PRODUITS") + "/winning-products",
+      {
+        observe: "response",
+        params: params || {},
       }
     );
   }
