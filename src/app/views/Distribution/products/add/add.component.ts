@@ -239,6 +239,8 @@ export class AddComponent implements OnInit {
       publish: [true],
       link: [""],
       category_id: ["", Validators.required],
+      is_winning_product: [false], // par défaut désactivé
+      winning_bonus_amount: [{ value: 25, disabled: true }], // fixe à 25
       // colors: [[], Validators.required], // Ajouté
       colors: this.fb.array([]), // Ajout du champ colors avec validation
     });
@@ -386,34 +388,30 @@ export class AddComponent implements OnInit {
 
     this.productForm = this.fb.group({
       name: ["", Validators.required],
-      description: ["", Validators.required],
       state_id: ["", Validators.required],
       sub_title: [""],
-      price: ["", Validators.required],
-      price_partner: ["", Validators.required],
-      // price_supplier: ["", Validators.required],
-      price_city_delivery: ["", Validators.required],
-      price_no_city_delivery: ["", Validators.required],
-      price_seller: ["", Validators.required],
-      // price_max: ["", Validators.required],
-      // price_min: ["", Validators.required],
-      price_normal: ["", Validators.required],
-      commission: ["", Validators.required],
+      description: ["", Validators.required],
+      price: ["", [Validators.required, Validators.min(0)]],
+      //price_supplier: ["", [Validators.required, Validators.min(0)]],
+      price_city_delivery: ["", [Validators.required, Validators.min(0)]],
+      price_no_city_delivery: ["", [Validators.required, Validators.min(0)]],
+      price_partner: ["", Validators.min(0)],
+      // price_max: ["", Validators.min(0)],
+      // price_min: ["", Validators.min(0)],
+      price_normal: ["", Validators.min(0)],
+      commission: [""],
       brand_id: [""],
-      link: [""],
       category: ["vente", Validators.required],
       sub_category_id: ["", Validators.required],
-      sizes: [""],
-      colors: [""],
       stock: ["", Validators.required],
-      shop_id: ["", Validators.required],
-      city: [""],
+      shop_id: ["", Validators.nullValidator],
       popular: [false],
       publish: [true],
-      favorite: [false],
+      link: [""],
       category_id: ["", Validators.required],
       is_winning_product: [false], // par défaut désactivé
       winning_bonus_amount: [{ value: 25, disabled: true }], // fixe à 25
+      colors: this.fb.array([]), // Ajout du champ colors avec validation
     });
   }
 
