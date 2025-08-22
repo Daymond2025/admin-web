@@ -386,33 +386,9 @@ export class AddComponent implements OnInit {
     this.loadCategories();
     this.loadBrand();
 
-    this.productForm = this.fb.group({
-      name: ["", Validators.required],
-      state_id: ["", Validators.required],
-      sub_title: [""],
-      description: ["", Validators.required],
-      price: ["", [Validators.required, Validators.min(0)]],
-      //price_supplier: ["", [Validators.required, Validators.min(0)]],
-      price_city_delivery: ["", [Validators.required, Validators.min(0)]],
-      price_no_city_delivery: ["", [Validators.required, Validators.min(0)]],
-      price_partner: ["", Validators.min(0)],
-      // price_max: ["", Validators.min(0)],
-      // price_min: ["", Validators.min(0)],
-      price_normal: ["", Validators.min(0)],
-      commission: [""],
-      brand_id: [""],
-      category: ["vente", Validators.required],
-      sub_category_id: ["", Validators.required],
-      stock: ["", Validators.required],
-      shop_id: ["", Validators.nullValidator],
-      popular: [false],
-      publish: [true],
-      link: [""],
-      category_id: ["", Validators.required],
-      is_winning_product: [false], // par défaut désactivé
-      winning_bonus_amount: [{ value: 25, disabled: true }], // fixe à 25
-      colors: this.fb.array([]), // Ajout du champ colors avec validation
-    });
+    // ✅ un seul point de vérité
+    this.initializeForm();
+
   }
 
   onFileSelected(event: Event): void {
