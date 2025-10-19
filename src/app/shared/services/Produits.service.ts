@@ -46,15 +46,9 @@ export class ProduitsService {
   //     });
   //   }
 
-  public create(form: FormData, isWinning: boolean = false) {
-    // Si produit gagnant, on ajoute les champs bonus
-    if (isWinning) {
-      form.append("is_winning_product", "1");
-      form.append("winning_bonus_amount", "25");
-    } else {
-      form.append("is_winning_product", "0");
-    }
-
+  // service.ts
+  // Retirez l'argument isWinning et toute la logique conditionnelle
+  public create(form: FormData) {
     return this.http.post(this.configService.getApi("ALL_PRODUITS"), form, {
       observe: "response",
     });
@@ -100,8 +94,7 @@ export class ProduitsService {
   //     });
   //   }
 
-
-  // 
+  //
   public update(id: number, form: FormData, isWinning: boolean = false) {
     if (isWinning) {
       form.append("is_winning_product", "1");

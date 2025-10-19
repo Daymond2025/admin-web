@@ -388,7 +388,6 @@ export class AddComponent implements OnInit {
 
     // ✅ un seul point de vérité
     this.initializeForm();
-
   }
 
   onFileSelected(event: Event): void {
@@ -524,9 +523,9 @@ export class AddComponent implements OnInit {
     });
 
     // Récupération du statut "produit gagnant" depuis ton formulaire
-    const isWinning = this.productForm.get("isWinning")?.value;
+    const isWinning = this.productForm.get("is_winning_product")?.value; // ✅ C'est le nom de votre formControlName !
 
-    // Ajout des infos dans formDataFinal
+    // Ajout des infos dans formDataFinal (le reste du bloc peut rester tel quel SI vous gardez cette approche manuelle)
     if (isWinning) {
       formDataFinal.append("is_winning_product", "1");
       formDataFinal.append("winning_bonus_amount", "25");
@@ -675,8 +674,25 @@ export class AddComponent implements OnInit {
   }
 
   // Récupérer les valeurs pour envoyer au backend
+  // add.component.ts
   submitProduct() {
-    const payload = this.productForm.getRawValue(); // récupère winning_bonus_amount même s'il est disabled
-    // appel API POST/PUT
+    // 1. Récupère toutes les valeurs (grâce à getRawValue(), y compris 'winning_bonus_amount': 25)
+    const payload = this.productForm.getRawValue();
+
+    const formData = new FormData();
+    for (const key in payload) {
+      if (payload.hasOwnProperty(key)) {
+        if (key === "is_winning_product") {
+          // 2. Convertit explicitement le boolean (true/false) en '1' ou '0'
+          formData.append(key, payload[key] ? "1" : "0");
+        } else {
+          // 3. Ajoute les autres champs, y compris 'winning_bonus_amount' (25)
+          formData.append(key, payload[key]);
+        }
+      }
+    }
+
+    // 4. Appel au service
+    this.produitsService.create(formData).subscribe(/* ... */);
   }
 }

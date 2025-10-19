@@ -52,6 +52,8 @@ export class OrderService {
     );
   }
 
+
+  // AJOUT POUR CALL CENTER
   public updateCall(lePost: any) {
     // let data = {label: lePost.label}
     let id = lePost.id;
