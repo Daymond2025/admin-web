@@ -112,6 +112,19 @@ export class ProduitsService {
     );
   }
 
+  // ✅ Nouvelle méthode pour utiliser la route de mise à jour existante
+  public updateExistingRoute(id: number, payload: any) {
+    // La route Laravel est Route::post('product/{id}/publish ', [AdminProduct::class, 'update']);
+    // On utilise POST et on adapte l'URL.
+    return this.http.post(
+      this.configService.getApi("ALL_PRODUITS") + "/" + id + "/publish",
+      payload, // Envoi de l'objet JSON contenant is_winning_product et bonus
+      {
+        observe: "response",
+      }
+    );
+  }
+
   public delete(lePost: any) {
     return this.http.delete(
       this.configService.getApi("ALL_PRODUITS") + "/" + lePost + "/delete",

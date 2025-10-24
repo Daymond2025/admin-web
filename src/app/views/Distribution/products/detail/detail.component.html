@@ -490,7 +490,7 @@
               >
                 <input
                   type="checkbox"
-                  [checked]="product?.is_winning_product"
+                  [checked]="!!product?.is_winning_product"
                   (change)="toggleWinningProduct($event, product)"
                 />
                 <span style="font-size: 0.8rem">Produit gagnant</span>

@@ -244,24 +244,48 @@ export class DetailComponent implements OnInit {
   //   });
   // }
 
+  // detail.component.ts (ou le nom de votre fichier de détail)
+
+  // detail.component.ts
+
+  // ... (Injection: Assurez-vous que ProduitsService est injecté dans le constructeur)
+
+  // detail.component.ts
+
   toggleWinningProduct(event: Event, product: any) {
     const isChecked = (event.target as HTMLInputElement).checked;
 
-    // Appel HTTP pour mettre à jour le produit
-    this.http
-      .put(`/api/v2/products/${product.id}`, {
-        is_winning_product: isChecked,
-        winning_bonus_amount: 25,
-      })
-      .subscribe({
-        next: (res: any) => {
-          product.is_winning_product = isChecked;
-          console.log("Produit gagnant mis à jour avec succès");
-        },
-        error: (err: any) => {
-          console.error("Erreur lors de la mise à jour du produit", err);
-        },
-      });
+    // ✅ CORRECTION 422 : Utilisez product.shop.id, car 'shop' est un objet imbriqué
+    const shopId = product.shop?.id;
+
+    if (!shopId) {
+      console.error(
+        "Erreur: L'ID de la boutique est introuvable sur l'objet produit."
+      );
+      // Revenir à l'état précédent en cas d'erreur critique
+      (event.target as HTMLInputElement).checked = !isChecked;
+      return;
+    }
+
+    const payload: any = {
+      shop_id: product.shop?.id, // ✅ Ceci devrait résoudre l'erreur 422
+      is_winning_product: isChecked ? 1 : 0,
+      winning_bonus_amount: isChecked ? 25 : 0,
+    };
+
+    // 2. Utilisation du service
+    this.produitsService.updateExistingRoute(product.id, payload).subscribe({
+      next: (res: any) => {
+        // ... (Le reste du code reste inchangé)
+        product.is_winning_product = isChecked ? 1 : 0;
+        console.log("Produit gagnant mis à jour avec succès");
+      },
+      error: (err: any) => {
+        console.error("Erreur lors de la mise à jour du produit", err);
+        // ...
+        (event.target as HTMLInputElement).checked = !isChecked;
+      },
+    });
   }
 
   deleteProduct(): void {
